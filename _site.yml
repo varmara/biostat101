@@ -1,0 +1,14 @@
+name: "Основы биостатистики"
+output_dir: '.'
+navbar:
+  title: "Основы биостатистики"
+  left:
+    - text: "О курсе"
+      icon: fa-info
+      href: index.html
+    - text: "Презентации и данные"
+      icon: fa-book-open
+      href: presentations.html
+    - text: "Ресурсы"
+      icon: fa-bookmark
+      href: resources.html

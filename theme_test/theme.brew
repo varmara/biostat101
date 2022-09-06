@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Code highlight themes in knitr: <% theme %></title>
+  </head>
+  <body>
+
+  <p>Code highlight themes in knitr: "<a href="#" target="_blank" title="View in a new frame"><strong><% theme %></strong></a>"</p>
+<!--begin.rcode include=FALSE
+knit_theme$set('<% theme %>')
+end.rcode-->
+
+<!--begin.rcode eval=FALSE
+## credit: https://gist.github.com/2155443
+s=embed(rt(5,1),2);plot(t(replicate(1e4,s[4,]<<-(s[4,]+s[sample(3,1),])/2)),cex=.1)
+end.rcode-->
+
+<!--begin.rcode
+1+1
+x=sqrt(-1)  # warning
+message('knitr says hello to HTML!') # message
+1+'a'  # error
+end.rcode-->
+
+  <p>Let's ask R what is the value of &pi;? Of course it is <!--rinline pi -->.</p>
+</body>
+</html>

@@ -1,0 +1,79 @@
+---
+title: "Ресурсы"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+    theme: lumen
+    highlight: haddock
+    include:
+      after_body: _footer.html
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no
+---
+
+## Программы для работы
+
+1. С сайта Comprehensive R Archive Network [cran.r-project.org](https://cran.r-project.org/) нужно скачать
+  - __R__ — интерпретатор языка R, программа, которая позволяет вам выполнять скрипты, написанные на языке R.
+  - __RTools__ — только для пользователей Windows. Это набор утилит для компиляции пакетов R из исходного кода. У пользователей других операционных систем обычно есть все необходимое или его можно легко доставить.
+
+2. __RStudio__ — среда разработки для R (в октябре RStudio станет Posit). [rstudio.com](https://rstudio.com)  
+  Если возникнут какие-либо проблемы при установке, то в качестве замены можно воспользоваться __RStudio Cloud__— это облачная версия RStudio (25 часов в месяц на бесплатном тарифе). [rstudio.cloud](https://rstudio.cloud)
+  
+## Планирование научных исследований
+
+Может быть это и детская книга, но уж очень хороша:
+
+- Нинбург, Е. А. (2006). Технология научного исследования. Методические рекомендации (Vol. 1). Всемирный фонд дикой природы (WWF) - Россия.
+
+Специализированные книги про планирование экспериментов:
+
+- Barnard, C. J., Gilbert, F. S., & MacGregor, P. K. (2007). Asking questions in biology: A guide to hypothesis testing, experimental design and presentation in practical work and research projects. Pearson Education.
+- Glass, D. J. (2007). Experimental design for biologists. Cold Spring Harbor Laboratory Press.
+- Ruxton, G. D., & Colegrave, N. (2006). Experimental design for the life sciences. Oxford University Press Oxford.
+
+## Статистика
+
+Эта книга — очень хороший учебник статистики начального уровня для биологов. Сжатое, но доходчивое изложение, прекрасные иллюстрации, много задач. Кажется, вышло уже даже и третье издание.
+
+- **Whitlock, M., & Schluter, D. (2015). The analysis of biological data (Second edition)**. Roberts and Company Publishers.
+
+
+Другие книги по статистике, не такие увлекательные, хотя и среди них есть чудесные:
+
+- Гланц, С., 1998. Медико-биологическая статистика. М., Практика.
+- **Quinn, G.G.P., Keough, M.J., 2002. Experimental design and data analysis for biologists. Cambridge University Press.**
+- Sokal, R.R., Rohlf, F.J., 1995. Biometry (3rd edn). WH Freman and company: New York.
+- Zar, J.H., 2010. Biostatistical Analysis. Prentice Hall: New York.
+- **Zuur, A., Ieno, E.N. and Smith, G.M., 2007. Analyzing ecological data.** Springer Science & Business Media.
+
+
+## R --- базовые знания
+
+- [Cheat-sheet по RStudio](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf) от [RStudio](https://www.rstudio.com)
+- Очень краткая шпаргалка по R [Cheat-sheet по базовому R](http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf) от [Mhairi McNeill](http://mhairihmcneill.com/)
+- Более подробная шпаргалка [R reference card](https://cran.r-project.org/doc/contrib/Short-refcard.pdf) от Tom Short
+- [Data import cheat-sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf)
+
+
+## R-графика
+
+- [Cookbook for R](http://www.cookbook-r.com/) --- сайт [книги Winston Chang](http://www.amazon.com/gp/product/0596809158/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0596809158&linkCode=as2&tag=cooforr09-20)
+- [Руководство по ggplot2](http://ggplot2.tidyverse.org/reference/)
+- [Cheat-sheet по ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+ от [RStudio](https://www.rstudio.com)
+- [ggplot2 Quick Reference: colour and fill](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- [ggplot2 Quick reference: shape](http://sape.inf.usi.ch/quick-reference/ggplot2/shape)
+
+
+## Статистика на R
+
+- **Кабаков Р.И. R в действии. Анализ и визуализация данных на языке R.** М.: ДМК Пресс, 2014
+- **Diez, D.M., Barr, C.D. and Çetinkaya-Rundel, M., 2015. [OpenIntro Statistics](https://www.openintro.org/stat/textbook.php?stat_book=os) OpenIntro.**
+- Logan, M., 2011. Biostatistical design and analysis using R: a practical guide. Wiley
+- Maindonald, J., Braun, J., 2006. Data Analysis and Graphies Using R: An Example-based Approach (Cambridge Series in Statistical and Probabilistic Mathematics). Cambridge University Press.
+- Teetor, P., 2011. R cookbook. O’Reilly.
+- **Zuur, A., Ieno, E.N. and Smith, G.M., 2007. Analyzing ecological data.** Springer Science & Business Media.

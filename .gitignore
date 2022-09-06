@@ -1,0 +1,6 @@
+*_cache
+.RData
+.Rhistory
+.Rdata
+video
+.Rproj.user

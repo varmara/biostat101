@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>1. Биостатистика, обзор</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# 1. Биостатистика, обзор
+]
+.subtitle[
+## Основы биостатистики, осень 2022
+]
+.author[
+### Марина Варфоломеева
+]
+
+---
+
+
+
+
+
+
+- Организационные моменты
+- Что такое статистика и чем она занимается
+- Выборочный метод
+- Случайная выборка
+- Проблемы при отборе проб
+- Типы данных и переменных
+- Частоты и вероятности
+- Типы исследований
+
+---
+
+class: middle, center, inverse
+
+# Организационные моменты
+
+???
+
+- расписание
+- теория и практика
++ сайт курса
++ чат в telegram
+- оценки
+- зачет
++ установка R
+
+---
+
+## Ресурсы курса в сети
+
+.center[![:scale 15%](img/biostat101.png)]
+
+.pull-left[
+.center[
+Вебсайт (презентации и код)  
+[varmara.github.io/biostat101](https://varmara.github.io/biostat101)  
+![:scale 90%](img/biostat101-web.png)  
+]
+]
+
+.pull-right[
+.center[
+Чат для вопросов  
+https://t.me/+dnpejPBFBPdjOGQy  
+![:scale 90%](img/biostat101_invite.png)  
+]
+]
+
+---
+
+## Программы для работы
+
+.pull-left-55[
+
+1. С сайта Comprehensive R Archive Network [cran.r-project.org](https://cran.r-project.org/) нужно скачать
+  - __R__
+  - __RTools__ — только для пользователей Windows. Это набор утилит для компиляции пакетов R из исходного кода.  
+
+2. __RStudio__ — среда разработки для R (в октябре RStudio станет Posit).  
+[rstudio.com](https://rstudio.com)
+
+  Если что, можно воспользоваться __RStudio Cloud__— это облачная версия RStudio (25 часов в месяц на бесплатном тарифе).  
+  [rstudio.cloud](https://rstudio.cloud)
+]
+.pull-right-45[
+
+![:scale 90%](img/Rlogo.jpeg)
+
+![:scale 100%](img/logo-rstudio-posit.png)
+
+![:scale 100%](img/logo-rstudio-cloud.png)
+]
+
+---
+
+class: middle, center, inverse
+
+# Что такое статистика и чем она занимается
+
+---
+
+![](img/statistics-stages-of-research.png)
+
+---
+
+## Типы исследований
+
+![](img/statistics-types-of-research.png)
+
+---
+
+## Индивидуальная изменчивость
+
+![](img/expdes-variation.png)
+
+---
+
+## Индивидуальная изменчивость
+
+![](img/expdes-variation-2.png)
+
+---
+
+## Генеральная совокупность и выборка
+
+![](img/expdes-population-sample.png)
+
+
+---
+
+## Генеральная совокупность и выборка
+
+![](img/expdes-population-sample-2.png)
+
+---
+
+## Статистика
+
+изучает методы описания и измерения чего-либо с использованием выборок
+
+&lt;!-- ![](img/data-unsplash.png) --&gt;
+
+&lt;!-- .tiny[Claudio Schwarz at Unsplash.com] --&gt;
+
+![:scale 60%](img/statistics-2694341-freeimages.jpg)
+
+---
+
+background-image: url("img/statistics-estimation-question-doubt-problem-3385451-pixabay.png")
+background-position: center
+background-size: cover
+
+## Оценивание
+
+оценка значений свойств генеральной совокупности  
+по данным выборки
+
+- доля бракованных деталей в партии
+- изменчивость размера раковины с возрастом улитки
+- уровень экспрессии белка
+
+
+---
+
+## Неопределенность оценок
+
+Вследствие работы с выборками выборочные оценки параметров генеральной совокупности неточны. 
+
+Есть статистические методы оценки этой степени неопределенности.
+
+.pull-down[
+![:scale 70%](img/statistics-uncertainty-confused-hands-up-unsure-perplexed-2681507-pixabay.png)
+
+]
+
+???
+
+Поскольку в выборке представлены не все объекты, возникает некоторая неопределенность в оценках. Задача статистики описать эту неопределенность, и оценить, насколько оценки отступают от истинных значений.
+
+---
+
+## Параметры и статистики
+
+.pull-left[
+
+__Параметры__ (_parameters_) описывают генеральную совокупность.  
+&lt;br/&gt;
+
+Обозначаются греческими буквами:  
+
+- `\(\mu\)` — среднее, 
+- `\(\sigma\)` — стандартное отклонение
+
+![](img/statistics-population.jpg)
+]
+
+--
+
+.pull-right[
+
+__Статистики__ (_statistics_) описывают выборку и являются оценками параметров.
+
+Обозначаются латинскими буквами:  
+
+- `\(\bar x\)` — среднее, 
+- `\(s\)` — стандартное отклонение
+
+![](img/statistics-sampe.jpg)
+]
+
+
+---
+
+## Исследование отношений между группами и между переменными
+
+- Связь между размером самки мечехвоста и числом самцов, следующих за ней
+- Энергетическая ценность икры в зависимости от возраста рыбы
+- Скорость реакции у хорошо и плохо спавших людей
+
+![](img/statistics-relationships.png)
+
+---
+
+## Тестирование гипотез
+
+Статистическая гипотеза — это какое-либо утверждение о значении параметра в генеральной совокупности
+
+- Средняя продолжительность жизни крыс увеличивается при использовании лекарства A больше, чем лекарства Б
+- Размер лепестков двух видов ирисов различаются
+
+![:scale 60%](img/statistics-hypothesis-testing.png)
+
+
+---
+
+
+class: middle, center, inverse
+
+# Выборочный метод
+
+---
+
+## Выборочный метод
+
+![](img/expdes-cats-1.png)
+
+---
+
+## Выборочный метод
+
+![](img/expdes-cats-2.png)
+
+---
+
+## Выборочный метод
+
+![](img/expdes-cats-3.png)
+
+---
+
+## Выборочный метод
+
+![](img/expdes-cats-4.png)
+
+---
+
+## Что такое "хорошая выборка"?
+
+![](img/expdes-representative-sample-1.png)
+
+---
+
+## Что такое "хорошая выборка"?
+
+![](img/expdes-representative-sample-2.png)
+
+---
+
+## Что такое "хорошая выборка"?
+
+![](img/expdes-representative-sample-3.png)
+
+---
+
+## Что такое "хорошая выборка"?
+
+![](img/expdes-representative-sample-4.png)
+
+---
+
+## Точность = правильность + воспроизводимость
+
+- правильность (accuracy) — отсутствие погрешности (bias)
+- воспроизводимость (precision) — маленький разброс значений
+
+![](biostat101-01-overview_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+---
+
+class: middle, center, inverse
+
+# Случайная выборка
+
+---
+
+## Случайная выборка
+
+Требование многих статистических методов.
+
+Критерии:
+
+- __Вероятность попадания в выборку должна быть одинакова__ для всех объектов генеральной совокупности.
+- Выбор объектов должен быть независим, т.е. попадание одного объекта в выборку не должно влиять на попадание других. Т.е. __наблюдения должны быть независимы друг от друга__.
+
+???
+
+- нарушение случайности: отбор по размеру, отказ отвечать на вопросы, встречаемость на определенной удаленной территории.
+- нарушение независимости: опрос всех жителей квартиры по поводу предпочтений.
+
+
+---
+
+## Повторности и псевдоповторности
+
+![:scale 100%](img/expdes-pseudo-1.png)
+
+---
+
+## Повторности и псевдоповторности
+
+![](img/expdes-pseudo-2.png)
+
+---
+
+## Повторности и псевдоповторности
+
+![](img/expdes-pseudo-3.png)
+
+---
+
+## Повторности и псевдоповторности
+
+![](img/expdes-pseudo-4.png)
+
+---
+
+## Повторности и псевдоповторности
+
+![](img/expdes-pseudo-5.png)
+
+---
+
+## Как взять случайную выборку?
+
+Нет универсальной процедуры
+
+.pull-left[
+
+Если можно пронумеровать все объекты, можно выбрать, воспользовавшись генератором случайных чисел.
+
+]
+.pull-right[
+
+Иногда проще выбрать случайные группы объектов (случайная выборка групп ≠ случайная выборка объектов).
+
+]
+
+![](img/ws-random-sample-1.png)
+
+---
+
+class: middle, center, inverse
+
+# Проблемы при отборе выборок
+
+---
+
+## "Удобная выборка" (the sample of convenience)
+
+Когда в выборку попадают только объекты, легко доступные исследователю.
+
+Например, ближайшие, за которыми не нужно гоняться.
+
+![:scale 80%](img/sample-of-convenience-egor-myznik-unsplash.png)
+
+.tiny[Egor Myznik at unsplash.com]
+
+
+---
+
+![](img/expdes-sampling-leek-et-al-2010-fig1cd.png)
+.tiny[Leek et al. 2010 Fig.1 c, d]
+
+Данные об экспрессии генов в мочевом пузыре у здоровых пациентов (из исследования рака мочевого пузыря Dyrskjot et al. 2004).
+
+--
+
+### Пакетный эффект (batch effect)
+
+Если объекты расположены не случайно в пространстве и / или во времени, это порождает "пакетный эффекты" (batch effect).
+
+???
+
+Данные об экспрессии генов в мочевом пузыре у здоровых пациентов (из исследования рака мочевого пузыря Dyrskjot et al. 2004). Не смотря на нормализацию данных, все еще заметен батч-эффект. Цвет — дата анализа
+
+
+---
+
+## Погрешности выбора (selection bias)
+
+- Cамоотбор (self-selection)
+- Эффект волонтера (volunteer-effect)
+
+.pull-down[
+![](img/expdes-sampling-selection-bias.png)
+.tiny[publicdomainpictures.net / Karen Arnold]
+]
+
+
+---
+
+## Плацебо эффект
+
+ожидания человека заставляют его уверится в том, что есть эффект (положительный или отрицательный).
+
+&lt;!-- ![:scale 80%](img/placebo-effect-alexander-grey-unsplash.png) --&gt;
+![:scale 80%](img/placebo-effect-pawel-czerwinski-unsplash.png)
+
+.tiny[Alexander Grey at Usplash]
+
+---
+
+## Эффект наблюдателя/экспериментатора (observer/experimenter effect)
+
+- __Самосбывающееся пророчество__ (self-fulfilling prophecy) — подопытный ведет себя так, как подсознательно подсказывает ему экспериментатор.
+- __Погрешность экспериментатора__ (experimenter bias) — экспериментатор регистрирует паттерн, который подсознательно желает увидеть.
+
+.center[
+![:scale 75%](img/expdes-sampling-observer-effect.png)
+]
+
+.tiny[Максим Кукушкин / publicdomainpictures.net]
+
+???
+
+Либо экспериментатор сам подсознательно подсказывает, как себя вести. Либо экспериментатор регистрирует паттерн, который подсознательно желает увидеть.
+
+---
+
+background-image: url("img/plan-arrow-hello-im-nick-unsplash.png")
+background-position: center
+background-size: cover
+
+## Как бороться с проблемами при отборе проб?
+
+.pull-right[
+
+- Рандомизация
+- Стратификация
+- Слепые процедуры
+- Двойные слепые процедуры
+- Статистическое моделирование и коррекция батч-эффектов
+- Стандартизация всех процедур
+]
+
+.pull-down[
+.tiny[Hello I'm Nick at Unsplash.com]
+]
+
+???
+
+Другие проблемы
+- ожидания экспериментатора и "запросы", вернее их понимание участниками (социология)
+- искусственная среда не воспроизводит полностью реальность
+- нестандартизованные процедуры (как инструментальные, так и обращение с экспериментальными объектами) - источники "шума" в данных
+
+
+---
+
+class: middle, center, inverse
+
+# Типы данных и переменных
+
+---
+
+## Типы данных
+
+Переменная (variable) — любое свойство или измерение.
+
+Переменные могут относиться к разным типам данных.
+
+![:scale 100%](img/variables-excalidraw-0.png)
+
+---
+
+## Качественные / категориальные переменные
+
+qualitative / categorical variables (иногда discrete, но см. след. слайд)
+
+.center[
+![](img/variables-excalidraw-qual.png)
+]
+
+.pull-left[
+.center[Номинальные  
+(nominal)]
+- цвет глаз (карие, зеленые, голубые)
+- состояние (живой, мертвый)
+]
+.pull-right[
+.center[Порядковые / ранговые  
+(ordinal / rank)]
+- рост (низкий, средний, высокий)
+- состояние здоровья (плохое, удовлетворительное, хорошее, прекрасное)
+- стадия жизненного цикла (яйцо, личинка, ювениль, взрослая особь)
+]
+
+---
+
+## Количественные / числовые переменные
+
+(quantitative / numerical variables)
+
+.center[
+![](img/variables-excalidraw-quant.png)
+]
+
+.pull-left[
+.center[Дискретные  
+(discrete)]
+- состояние (1 - живой, 0 - мертвый)
+- возраст (число полных лет)
+- число щетинок на каком-то сегменте (шт.)
+]
+
+.pull-right[
+.center[Непрерывные  
+(continuous)]
+- рост (см)
+- возраст (например, число дней)
+- цвет (длина волны)
+]
+
+Часто непрерывные данные округляются, так что становятся похожи на дискретные.
+
+---
+
+## Предикторы и отклики
+
+При исследовании зависимостей принято делить переменные на предикторы и отклики в зависимости от их роли.
+
+![](img/regression-excalidraw.png)
+
+- Энергетическая ценность икры (отклик) в зависимости от возраста рыбы (предиктор)
+- Длина ушей (отклик) поссумов из разных популяций (предиктор).
+
+---
+
+## Наличие связи между переменными &lt;br/&gt;не означает причинно-следственных отношений
+
+&gt; Correlation does not imply causation
+
+--
+
+![](images/correlation-cheese-bedsheet-deaths.png)
+.tiny[https://www.tylervigen.com/spurious-correlations]
+
+---
+
+## Деление на предикторы и отклики условно
+
+![:scale 100%](img/correlation-cell-phones-xkcd.png)
+
+.tiny[https://xkcd.com/925]
+
+--
+
+Не всегда очевидно, что предиктор, а что отклик.  
+В таких случаях требуется эксперимент.
+
+---
+
+class: middle, center, inverse
+
+# Частоты и вероятности
+
+
+
+---
+
+## Вариационный ряд
+
+Размеры мальков пятнистой галаксии (_Galaxis maculatus_), выловленных в августе 2015 г. в районе Веллингтона, Новая Зеландия. 
+
+
+.pull-left[
+
+![](img/fish-galaxis-maculatus-wiki.png)
+
+.tiny[Lycaon.cl, CC BY-SA 3.0, via Wikimedia Commons]
+
+]
+
+.pull-right[
+
+44.7, 47.1, 44.6, 47.3, 45.3, ...
+
+И т.д.
+
+Всего 163 __наблюдения__ или 163 __варианты__.
+
+.tiny[Данные из пакета `fishdata`]
+
+]
+
+---
+
+## Частотное распределение
+
+__Частоты__ наблюдений можно получить, подсчитав, сколько значений вариант попадает в каждый из равных интервалов.
+
+
+.pull-left[
+
+![](img/fish-galaxis-maculatus-wiki.png)
+
+.tiny[Lycaon.cl, CC BY-SA 3.0, via Wikimedia Commons]
+
+]
+
+.pull-right[
+
+![](biostat101-01-overview_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+.tiny[Данные из пакета `fishdata`]
+
+]
+
+
+---
+
+## Распределение вероятностей
+
+Распределение значений потенциально-возможных значений переменной называется __распределение вероятностей__.
+
+Ниже — график распределения вероятностей _для выборки_ пятнистой галаксии. Это называется __эмпирическое распределение вероятностей__
+
+.pull-left[
+
+![](img/fish-galaxis-maculatus-wiki.png)
+
+.tiny[Lycaon.cl, CC BY-SA 3.0, via Wikimedia Commons]
+
+]
+
+.pull-right[
+
+![](biostat101-01-overview_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+.tiny[Данные из пакета `fishdata`]
+
+]
+
+
+---
+
+## Теоретическое распределение вероятностей
+
+Распределение вероятностей в генеральной совокупности практически никогда не известно.
+
+__Теоретические распределения вероятностей__ можно использовать для описания реальных распределений.
+
+.pull-left[
+
+![](img/fish-galaxis-maculatus-wiki.png)
+
+.tiny[Lycaon.cl, CC BY-SA 3.0, via Wikimedia Commons]
+
+]
+
+.pull-right[
+
+![](biostat101-01-overview_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+.tiny[Данные из пакета `fishdata`]
+
+]
+
+Например, здесь можно использовать __нормальное распределение__.
+
+---
+
+## Примеры распределений вероятностей
+
+Нормальное распределение, распределение Пуассона, отрицательное биномиальное распределение — за этими распределениями стоят конкретные явления.
+
+t-, F-, `\(\chi^2\)`-распределения статистик, которые используются для тестирования гипотез
+
+
+![](biostat101-01-overview_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+
+---
+
+
+class: middle, center, inverse
+
+# Summary
+
+---
+
+## Что почитать
+
+- Нинбург, Е. А. (2006). Технология научного исследования. Методические рекомендации (Vol. 1). Всемирный фонд дикой природы (WWF) - Россия.
+- Barnard, C. J., Gilbert, F. S., &amp; MacGregor, P. K. (2007). Asking questions in biology: A guide to hypothesis testing, experimental design and presentation in practical work and research projects. Pearson Education.
+- Glass, D. J. (2007). Experimental design for biologists. Cold Spring Harbor Laboratory Press.
+- Ruxton, G. D., &amp; Colegrave, N. (2006). Experimental design for the life sciences. Oxford University Press Oxford.
+- Whitlock, M., &amp; Schluter, D. (2015). The analysis of biological data (Second edition). Roberts and Company Publishers.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

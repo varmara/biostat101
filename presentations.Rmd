@@ -1,0 +1,17 @@
+---
+title: "Презентации и данные"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+    theme: lumen
+    highlight: haddock
+    include:
+      after_body: _footer.html
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no
+---
+
+Страница в разработке

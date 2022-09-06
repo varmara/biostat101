@@ -1,0 +1,90 @@
+---
+date_file_created: 2022-08-03_11:09:40
+date_file_modified: 2022-08-09_08:55:18
+title: Test title slide with a very long title<br/>Тестовый слайд с длинным названием
+aliases:
+  - Test
+linter-yaml-title-alias: Test
+subtitle: "Основы биостатистики, осень 2022"
+author: 
+  - Марина Варфоломеева
+company: 'Каф. Зоологии беспозвоночных, СПбГУ'
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    lib_dir: libs
+    css: [ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css"]
+    df_print: default
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [middle, left, inverse]
+      beforeInit: "assets/macros.js"
+    includes:
+      in_header: "assets/xaringan_in_header.html"
+      after_body: "assets/xaringan_after_body.html"
+---
+
+
+![:scale 100%](img/sq.png)
+
+```{r setup, include = FALSE, cache = FALSE, purl = FALSE}
+source("assets/setup.R")
+```
+
+test
+
+---
+
+class: middle, center, inverse
+
+# Test
+
+## Test test
+
+---
+
+## Алая вспышка осветила силуэт зазубренного крыла
+
+### Алая вспышка осветила силуэт зазубренного крыла
+
+```{r plot1, echo=TRUE, opts.label='fig.medium'}
+# Test code appearance
+ggplot(diamonds) +
+  aes(cut, fill = cut) +
+  geom_bar(show.legend = FALSE) +
+  labs(x = "Cut", y = "Count", title = "A Fancy diamonds Plot") # можно еще символов 6
+```
+
+Этот текст .red[красный], .green[зеленый], .blue[синий], и может быть раскрашен в разные цвета .white.bg-purple[demo].
+
+---
+
+## Алая вспышка осветила силуэт зазубренного крыла
+
+```{r echo=FALSE, opts.label='fig.large'}
+# Test code appearance
+ggplot(diamonds) +
+  aes(cut, fill = cut) +
+  geom_bar(show.legend = FALSE) +
+  labs(x = "Cut", y = "Count", title = "A Fancy diamonds Plot") # можно еще символов 6
+```
+
+---
+
+```{r echo=FALSE, opts.label='fig.full'}
+# Test code appearance
+ggplot(diamonds) +
+  aes(cut, fill = cut) +
+  geom_bar(show.legend = FALSE) +
+  labs(x = "Cut", y = "Count", title = "A Fancy diamonds Plot") # можно еще символов 6
+```
+
+---
+
+# Краткие итоги
+
+---
+
+# Что почитать

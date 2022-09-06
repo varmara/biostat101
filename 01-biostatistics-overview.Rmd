@@ -1,0 +1,104 @@
+---
+title: "01. Биостатистика"
+subtitle: "Основы биостатистики, осень 2022"
+author: 
+  - Марина Варфоломеева
+company: 'Каф. Зоологии беспозвоночных, СПбГУ'
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    lib_dir: libs
+    css: [ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css"]
+    df_print: default
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [middle, left, inverse]
+    includes:
+      in_header: "assets/xaringan_in_header.html"
+      after_body: "assets/xaringan_after_body.html"
+---
+
+
+
+```{r setup, include = FALSE, cache = FALSE, purl = FALSE}
+# output options
+options(width = 70, scipen = 6, digits = 3)
+
+library(knitr)
+knitr::opts_template$set(
+  fig.full = list(fig.width = 12, fig.height = 9),
+  fig.large = list(fig.width = 12, fig.height = 8),
+  fig.wide = list(fig.width = 12, fig.height = 4.5),
+  fig.medium = list(fig.width = 6, fig.height = 4.5),
+  fig.small = list(fig.width = 6, fig.height = 4)
+)
+# chunk default options
+opts_chunk$set(message = FALSE, tidy = FALSE, warning = FALSE, echo = FALSE, comment = "", opts.label='fig.medium')
+
+library("xaringanthemer")
+style_duo_accent(
+  #base_color = "#2B5E6D",
+  primary_color = "#2B5E6D",
+  secondary_color = "#3b528b",
+  # title_slide_text_color = "#2B5E6D",
+  # title_slide_background_color = "#CBCED2", 
+  # inverse_background_color = "#CBCED2",
+  base_font_size = "24px",
+  text_font_size = "1rem",
+  header_h1_font_size = "2.2rem",
+  header_h2_font_size = "1.7rem",
+  header_h3_font_size = "1.5rem",
+  header_font_google = google_font("Arsenal", languages = c("latin", "cyrillic")),
+  header_font_family_fallback = "Georgia, serif",
+  text_font_google   = google_font("Nunito", "400", "400i", languages = c("latin", "cyrillic")),
+  text_font_family_fallback = "Calibri, sans-serif",
+  code_font_google   = google_font("Ubuntu Mono", languages = c("latin", "cyrillic")),
+  code_font_family_fallback = "Courier New, monospace",
+  outfile = "assets/xaringan-themer.css"
+)
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_scribble()
+xaringanExtra::use_search(show_icon = FALSE)
+xaringanExtra::use_progress_bar(color = "#6d2b5e", location = "bottom", height = "5px")
+xaringanExtra::use_freezeframe()
+# xaringanExtra::use_webcam()
+# xaringanExtra::use_panelset()
+# xaringanExtra::use_extra_styles(hover_code_line = TRUE)
+  
+# http://tachyons.io/docs/
+# https://roperzh.github.io/tachyons-cheatsheet/
+xaringanExtra::use_tachyons()
+
+library("kableExtra")
+
+library("ggplot2")
+th <- theme_xaringan(background_color = "#FFFFFF", title_font_size = 22, text_font_size = 22)
+# Для теоретических презентаций
+theme_set(theme_bw(base_size = 22))
+```
+
+
+---
+
+class: middle, center, inverse
+
+# Test
+
+## Test test
+
+---
+
+
+---
+
+# Краткие итоги
+
+- 
+
+---
+
+# Что почитать
+

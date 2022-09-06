@@ -1,0 +1,37 @@
+---
+title: Связь между категориальными переменными
+subtitle: "Основы биостатистики, осень 2022"
+author: 
+  - Марина Варфоломеева
+company: 'Каф. Зоологии беспозвоночных, СПбГУ'
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    lib_dir: libs
+    css: [ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css"]
+    df_print: default
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [middle, left, inverse]
+      beforeInit: "assets/macros.js"
+    includes:
+      in_header: "assets/xaringan_in_header.html"
+      after_body: "assets/xaringan_after_body.html"
+---
+
+```{r setup, include = FALSE, cache = FALSE, purl = FALSE, fig.showtext = TRUE}
+source("assets/setup.R")
+```
+
+- [ ] Связь категориальных переменных
+- [ ] Шансы
+- [ ] Относительный риск
+- [ ] тест сопряженности хи-квадрат
+- [ ] Ожидаемые частоты при условии независимости
+- [ ] Хи-квадрат статистика для таблиц 2х2
+- [ ] Условия применимости теста хи-квадрат
+- [ ] Коррекция на непрерывность
+- [ ] Точный тест Фишера
+
