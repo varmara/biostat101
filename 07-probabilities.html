@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Вероятности и распределения</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <script src="libs/header-attrs-2.15/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Вероятности и распределения
+]
+.subtitle[
+## Основы биостатистики, осень 2022
+]
+.author[
+### Марина Варфоломеева
+]
+
+---
+
+
+
+
+
+
+
+- Вероятность
+- Распределения вероятностей
+- Действия с вероятностями
+- Деревья вероятностей
+- Зависимые события
+- Условная вероятность
+- Теорема Байеса
+- Парадокс Монти Холла
+- Колоколообразные кривые. Нормальное распределение
+
+---
+
+class: middle, center, inverse
+
+# Вероятность
+
+![](img/meme-statistics-means-never-having-to-say-you-re-certain.png)
+
+???
+
+Начинаем разговор о неопределенности оценок. Действительно, статистика позволяет (или заставляет) говорить, что ты не уверен, и в какой именно степени не уверен в своих оценках.
+
+Вероятности чертовски важны в биологии, т.к. мы практически всегда (в 99% случаев) работаем с выборками. Свойства этих выборок во многом определяются случайностями в процессе сбора данных.
+
+
+---
+
+## Вероятность
+
+Представьте, что вы едете утром в лифте в 15 этажном доме, но нажали на случайную кнопку. 
+
+- Какова вероятность, что вы приедете на нужный вам этаж с первой попытки? 
+- Какова вероятность того, что вы сначала попадете на неправильный этаж?
+
+---
+
+__Случайное испытание__ 
+
+В результате случайного испытания происходит случайное __событие__
+
+???
+
+TODO: Примеры случайных испытаний и событий:
+
+- бросаем кубик - выпало три
+- монетка - выпал орел
+
+---
+
+## Вероятность
+
+Вероятность события — это доля случаев, когда происходит это событие в ряду испытаний.
+
+`$$0 \le P \le 1$$`
+
+--
+
+`\(P(A)\)` — вероятность того, что произошло событие `\(A\)`:
+
+- `\(P(\text{выпало 3})\)`
+- `\(P(\text{выпало нечетное число})\)`
+- `\(P(\text{в семье из 3 детей все девочки})\)`
+- `\(P(\text{в последовательности из 10 нуклеотидов только G})\)`
+- в случайной выборке людей оцениваем пропорцию рыжеволосых
+- в случайной выборке новорожденных считаем долю детей с синдромом Дауна
+
+???
+
+TODO: Проверить фриквентистское определение вероятности
+
+---
+
+## Диаграмма Венна
+
+.pull-left[
+
+![](img/venn-diag-dice.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.5.2-1-2]
+
+]
+
+--
+
+.pull-right[
+
+![](img/venn-diag-dice-2.png)
+
+]
+
+
+--
+
+Вероятность события легко оценить, посчитав долю элементарных исходов, благоприятствующих этому событию.
+
+
+
+---
+
+## Совместные и несовместные события
+
+События A и B называются несовместными, если
+`\(Pr(A and B) = 0\)`
+
+- Выпало 4 и выпало 2 — несовместные события (mutually exclusive events).
+- Выпало 4 и выпало четное число — совместные события.
+
+---
+
+class: middle, center, inverse
+
+# Распределения вероятностей
+
+---
+
+## Распределение вероятностей
+
+Все возможные исходы и их вероятности.
+
+Дискретные и непрерывные распределения вероятностей
+
+---
+
+## Дикретные распределения вероятностей
+
+.pull-left[
+
+Для кубика вероятность каждого исхода 1/6.
+
+![](07-probabilities_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+]
+.pull-right[
+
+Для честной монетки вероятность каждого исхода 1/2
+
+![](07-probabilities_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+## Непрерывные распределения вероятностей
+
+.pull-left[
+
+![](07-probabilities_files/figure-html/g-norm-1.png)&lt;!-- --&gt;
+
+]
+.pull-right[
+
+Нормальное распределение — это пример такого распределения. 
+
+- Симметричное
+- Унимодальное
+- Непрерывное
+
+]
+
+--
+
+Нормальное распределение часто получается из мерных данных.
+
+Многие распределения других типов тоже могут приближаться к нормальному.
+
+???
+
+Непрерывные переменные могут принимать любое значение в пределах диапазона. Т.е. между любыми двумя возможными значениями — бесконечное число других возможных значений.
+
+---
+
+## Относительная частота и плотность вероятности
+
+
+.pull-left[
+
+![](07-probabilities_files/figure-html/gg-norm-hist-curve-1.png)&lt;!-- --&gt;
+
+]
+
+.pull-right[
+
+На "сырых" данных мы можем посчитать число наблюдений с разными значениями `\(x\)`. Это называется __частота__.
+
+Теоретическое распределение описывает вероятность получить разные значения `\(x\)`. Для непрерывных величин это называется __плотность вероятности__.
+
+]
+
+__Плотность вероятности__ `\(f(x)\)` — это способ задания вероятности непрерывной случайной величины `\(x\)` на любом диапазоне значений.
+
+`\(-\infty &lt; x &lt; +\infty\)`.
+
+---
+
+## Вероятности --- это площади под кривой распределения
+
+.pull-left[
+
+![](07-probabilities_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+]
+.pull-right[
+
+Площадь под всей кривой `\(= 1\)`.
+
+]
+
+Действительно, ведь это вероятность того, что величина примет хоть какое-нибудь значение.
+
+---
+
+## Вероятности — площади под кривой распределения
+
+.pull-left[
+
+![](07-probabilities_files/figure-html/g-norm-interval-1.png)&lt;!-- --&gt;
+
+]
+.pull-right[
+
+Вероятность встречи значений `\(x\)` из определенного промежутка можно узнать, проинтегрировав функцию распределения `\(f(x)\)`.
+
+]
+
+
+---
+
+## Вероятность конкретного значения нельзя определить
+
+.pull-left[
+
+![](07-probabilities_files/figure-html/gg-x3-1.png)&lt;!-- --&gt;
+
+]
+.pull-right[
+
+Конкретное значение --- это точка, а под точкой нет площади.
+
+]
+
+---
+
+class: middle, center, inverse
+
+# Действия с вероятностями
+
+---
+
+## Группы крови
+
+
+В среднеевропейской популяции частота встречаемости групп крови по системе AB0 представлена в таблице.
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа крови &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.tiny[[http://www.almazovcentre.ru/](http://www.almazovcentre.ru/?page_id=4595), 18.08.2022]
+
+]
+
+.pull-right[
+![](07-probabilities_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+]
+
+
+Нельзя иметь одновременно две группы крови по системе AB0, поэтому это несовместные события.
+
+Рассмотрим на их примере действия с вероятностями.
+
+---
+
+## Сложение вероятностей
+
+Если события A и B несовместны, то вероятность того, что произойдет одно или другое — это сумма их вероятностей.
+
+`\(P(A~or~B) = P(A) + P(B)\)`
+
+--
+
+&lt;br/&gt;
+
+Какова вероятность, что у человека кровь одной из трех групп: (A, B или AB)?
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа крови &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.tiny[[http://www.almazovcentre.ru/](http://www.almazovcentre.ru/?page_id=4595), 18.08.2022]
+]
+
+--
+
+.pull-right[
+![](07-probabilities_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+`\(P(A~or~B~or~AB) = P(A) + P(B) + P(AB) = 0.57\)`
+
+---
+
+## Пространство всех событий
+
+Сумма вероятностей всех возможных несовместных событий равна 1
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа крови &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.tiny[[http://www.almazovcentre.ru/](http://www.almazovcentre.ru/?page_id=4595), 18.08.2022]
+]
+
+.pull-right[
+
+![](07-probabilities_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+`\(P(0) + P(A) + P(B) + P(AB) = 1\)`
+
+---
+
+## Отрицание
+
+Вероятность того, что событие не произойдет равна 1 минус вероятность того, что оно произойдет.
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа крови &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.tiny[[http://www.almazovcentre.ru/](http://www.almazovcentre.ru/?page_id=4595), 18.08.2022]
+
+]
+.pull-right[
+
+![](07-probabilities_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+`\(P(not A) = 1 - P(A) = 0.58\)`
+
+
+---
+
+## Независимые события
+
+События независимы, если то, что произошло одно из них, никак не влияет на то, что произойдет второе.
+
+&lt;br/&gt;
+
+
+Помимо групп крови по системе AB0 есть еще резус фактор Rh + или -.  
+Эти признаки взаимно независимы. 
+
+.pull-left[
+
+В европейской популяции частота Rh+ 0.85.
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа крови &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+.pull-right[
+
+]
+
+
+---
+
+## Произведение независимых событий
+
+Если события A и B независимы, то вероятность того, что произошли оба события одновременно равна произведению их вероятностей. (Это справедливо для любого числа независимых событий).
+
+`\(P(A~and~B) = P(A) \times P(B)\)`
+
+&lt;br/&gt;
+
+.pull-left[
+
+В европейской популяции частота Rh+ 0.85. 
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа крови &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+Каковы вероятности групп крови AB0 с учетом Rh (если предположить, что они независимы)?
+
+]
+
+--
+
+.pull-right[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; AB0 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Rh &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.366 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.064 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.357 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.063 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.094 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.016 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.034 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.006 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+## Независимые события и их произведение
+
+В европейской популяции частота Rh+ 0.85. Каковы вероятности групп крови AB0 с учетом Rh (если предположить, что они независимы)?
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; AB0 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Rh &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Вероятность &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.366 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.064 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.357 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.063 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.094 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.016 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; + &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.034 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AB &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; – &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.006 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+.pull-right[
+
+Поскольку Rh и AB0 независимы, то соотношение Rh+ и  Rh- будет одинаково в каждой группе AB0.
+
+![](07-probabilities_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+]
+
+???
+
+Множество независимых событий: Мендель и бобы, желтые (рецессивный признак) и зеленые (доминантный признак). Можно идентифицировать гетерозигот по потомству. 3/4 потомков должны быть зеленые. Какова вероятность того, что 10 потомков гетерозиготы будут зелеными? (3/4)^10 = 0.056. Пример из Whitlock, Schluter, 2015
+
+---
+
+class: middle, center, inverse
+
+# Деревья вероятностей
+
+---
+
+## Деревья вероятностей (probability trees)
+
+Дерево вероятностей — это способ изобразить вероятности сочетаний нескольких случайных событий.
+
+&lt;br/&gt;
+
+В европейской популяции частота Rh+ 0.85. 
+
+Какова вероятность, 
+
+- что у случайно выбранного человека будет Rh-?
+- что у двух случайных людей будет Rh-?
+- что у двух случайных людей будет одинаковый резус-фактор?
+
+---
+
+## Нарисуем дерево вероятностей
+
+![](img/tree-prob-rh-1.png)
+Если речь идет об одном случайно выбранном человеке — все просто.
+
+---
+
+## Нарисуем дерево вероятностей
+
+![](img/tree-prob-rh-2.png)
+Резус фактор второго случайно выбранного человека не зависит от первого.
+
+Поэтому вероятность сочетаний ресус-факторов этих двух случайно выбранных людей можно посчитать, перемножив вероятности.
+
+
+
+---
+
+## Теперь можно ответить на вопросы
+
+![:scale 80%](img/tree-prob-rh-2.png)
+
+.pull-left-60[
+Какова вероятность, что
+- у случайно выбранного человека Rh-?
+- у двух случайных людей Rh-?
+- у двух случайных людей одинаковый резус-фактор?
+]
+
+--
+
+.pull-right-40[
+&lt;br/&gt;
+- 0.15
+- 0.0225
+- 0.7225 + 0.0225 = 0.745
+]
+
+---
+
+class: middle, center, inverse
+
+# Зависимые события
+
+---
+
+## Зависимые события (dependent events)
+
+События __зависимы__, если от появления одного из них зависит вероятность появления другого.
+
+По результатам мета-анализа исследований влияния курения на возникновение рака легких видно, что для курящих вероятность появления рака легких выше, чем для некурящих. Это зависимые события.
+
+.pull-left[
+
+&lt;br/&gt;
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Lung_cancer &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Yes &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; No &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Total &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; Yes &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17393 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 433 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 17826 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; No &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2043 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8527 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 10570 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;font-weight: bold;"&gt; Total &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 19436 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 8960 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;font-weight: bold;"&gt; 28396 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.tiny[Данные Barukčić, 2019, table 7; DOI: [10.22270/jddt.v9i1-s.2273](https://doi.org/10.22270/jddt.v9i1-s.2273)]
+
+]
+
+.pull-right[
+![](07-probabilities_files/figure-html/gg-lung-mosaic-1.png)&lt;!-- --&gt;
+]
+
+???
+
+Barukčić, I. (2019). Smoking of tobacco is the cause of human lung cancer. Journal of Drug Delivery and Therapeutics, 9(1-s), 148-160. DOI: [10.22270/jddt.v9i1-s.2273](https://doi.org/10.22270/jddt.v9i1-s.2273)
+
+
+---
+
+## Дерево вероятностей для этих данных
+
+
+.pull-left-60[
+
+![](img/tree-prob-lung-1.png)
+
+]
+.pull-right-40[
+
+![](07-probabilities_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+Поскольку события "курение" и "рак легких" - зависимые, то не выполняется правило умножения.
+
+--
+
+`\(P(курение~и~рак) \ne P(курение) \times P(рак)\)`
+
+На самом деле `\(P(курение~и~рак) = 0.613\)`, 
+
+а если бы мы считали по формуле для независимых событий, 
+
+`\(P(курение) \times P(рак) = 0.613 \times (0.613 + 0.015) = 0.385\)`,
+
+что не верно.
+
+---
+
+class: middle, center, inverse
+
+# Условная вероятность
+
+---
+
+## Условная вероятность (conditional probability)
+
+__Условная вероятность__ — вероятность события, при каком-то условии (например, при условии, что произошло какое-то другое событие или события).
+
+--
+
+.pull-left-60[
+
+![](img/tree-prob-lung-1.png)
+
+]
+.pull-right-40[
+![](07-probabilities_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+--
+
+`\(P(рак = да|курит = да) = 0.613\)` — вероятность рака легких при условии, что человек курит
+
+`\(P(рак = да |курит = нет) = 0.015\)` — вероятность рака легких при условии, что человек НЕ курит
+
+---
+
+## Формула полной вероятности (law of the total probability)
+
+Вероятность события `\(A\)` можно вычислить исходя из его вероятностей при условии каждого из несовместных событий `\(B_i\)`.
+
+`$$P(A) = \sum_{i = 1}^{n} P(A|B_i) P(B_i)$$`
+
+--
+
+.pull-left-55[
+
+![](img/tree-prob-lung-1.png)
+
+]
+.pull-right-45[
+![](07-probabilities_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+И действительно, вероятность того, что у случайно выбранного человека рак, будет складываться из площадей красных прямоугольников.
+ 
+???
+
+Т.е. как будто у нас получается взвешенное среднее вероятности A при всех несовместных событиях.
+
+Иначе можно сказать, что априорная вероятность события равна среднему его апостериорной вероятности.
+
+---
+
+## The general multiplication rule
+
+Вероятность того, что произошли оба события, даже если они зависимы
+
+`$$P(A~and~B) = P(A) \cdot P(B|A) = \\ = P(B) \cdot P(A|B)$$`
+--
+
+.pull-left-55[
+
+![](img/tree-prob-lung-1.png)
+
+]
+.pull-right-45[
+![](07-probabilities_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+
+---
+
+class: middle, center, inverse
+
+# Теорема Байеса
+
+
+---
+
+## Теорема Байеса
+
+`$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$`
+
+--
+
+Доказательство следует из общего правила умножения:
+
+`\(P(A~and~B) = P(A) \cdot P(B|A)\)`  
+`\(P(A~and~B) = P(B) \cdot P(A|B)\)`  
+`\(P(A) \cdot P(B|A) = P(B) \cdot P(A|B)\)`
+
+делим обе части на `\(P(B)\)`  
+
+`\(P(A|B) = \frac{P(B|A)P(A)}{P(B)}\)`
+
+???
+
+На самом деле теорему придумал не Байес, а Лаплас. И на портретах не Байес, поскольку его одежда не соответствует сану. См. [Queen's Lecture 2017 Zoubin Ghahramani](https://www.youtube.com/watch?v=QsEjL1kVuUE). 37:36
+
+---
+
+## Пример использования теоремы Байеса: &lt;br/&gt;экспресс-тест на ковид
+
+`$$P(D+|T+) = \frac{P(T+|D+)P(D+)}{P(T+)}$$`
+
+|  | Болезнь есть (D+) | Болезни нет (D–) | |
+| --- | --- | --- | --- |
+| Тест положительный (T+) | `\(P(T+\rvert D+)\)`  &lt;br/&gt; чувствительность | `\(P(T+\rvert D-)\)` &lt;br/&gt;   1–специфичность | `\(\sum(T+)\)` |
+| Тест отрицательный (T-) | `\(P(T-\rvert D+)\)` &lt;br/&gt; 1–чувствительность | `\(P(T-\rvert D)\)`  &lt;br/&gt;специфичность | `\(\sum(T-)\)` |
+| | `\(\sum(D+)\)` | `\(\sum(D-)\)` | `\(\sum\)` |
+
+
+---
+
+## Пример использования теоремы Байеса: &lt;br/&gt;экспресс-тест на ковид
+
+.pull-left[
+
+Чувствительность (sensitivity) — способность выявлять истинно-положительный результат.
+
+Пусть чувствительность теста `\(P(+|covid) = 0.8\)` или 80% 
+
+|       | covid-19 |
+| ----- | -------- |
+| тест+ | 80       |
+| тест- | 20       |
+
+]
+.pull-right[
+
+Специфичность (specificity) — способность выявлять истинно-отрицательный результат.
+
+Пусть специфичность 100%
+
+|       | здоровые|
+| ----- | ------- | 
+| тест+ |         |
+| тест- | 100     |
+
+]
+
+
+
+
+???
+
+Можно еще риск синдрома Дауна. Данные из Newberger 2000. Пример из Whitlock, Schluter, 2015.
+
+---
+
+class: middle, center, inverse
+
+# Парадокс Монти Холла
+
+---
+
+## Парадокс Монти Холла
+
+.pull-left-60[
+
+Представьте, что вы участвуете в телешоу. Перед вами три двери. За одной — автомобиль, за двумя другими — коза.  
+
+Вы выбираете дверь. Ведущий открывает еще одну, за которой коза, и предлагает вам изменить свой выбор.
+
+&lt;br/&gt;
+
+__Что выгоднее, менять или сохранять первоначальный выбор?__
+
+![:scale 80%](img/monty-hall-1.png)  
+.tiny[Cepheus, Public domain, via Wikimedia Commons]
+
+]
+
+.pull-right-40[
+
+![monty hall](img/monty+hall_611e31zP6VZDy.gif)
+
+.tiny[[Источник](http://www.singsnap.com/karaoke/member/kandie), accessed янв 29, 2015]
+
+]
+
+--
+
+Что за чушь! Должно быть без разницы, ведь вероятность того, что за какой-либо дверью машина — 1/3!
+
+--
+
+Но не все так просто...
+
+
+---
+
+## Возможные начальные конфигурации
+
+.pull-left-60[
+
+![](img/monty-hall-solution-0.png)
+
+.tiny[Cepheus, Public domain, via Wikimedia Commons]
+
+]
+
+--
+
+.pull-right-40[
+
+В двух случаях из трех возможных игрок выигрывает, изменив свой первоначальный выбор. 
+
+Т.е. если вы __меняете свой выбор__, то вероятность выигрыша 2/3 (66%).
+
+А если вы __не меняете свой выбор__, то вероятность выигрыша 1/3 (33%).
+
+]
+
+---
+
+## Если после открытия двери с козой вы заново случайным образом выбираете из двух дверей
+
+.pull-left-60[
+
+![](img/monty-hall-solution-1.png)
+
+.tiny[Cepheus, Public domain, via Wikimedia Commons]
+
+]
+
+--
+
+.pull-right-40[
+
+Т.е. если вы делаете __новый выбор из двух возможностей__, вероятность выигрыша при любом раскладе будет 50%.
+
+]
+
+
+---
+
+## На самом деле, с вероятностями не происходит ничего странного
+
+.pull-left-45[
+
+![:scale 65%](img/monty-hall-solution-2.png) 
+
+.tiny[Cepheus, Public domain, via Wikimedia Commons]
+
+&lt;br/&gt;
+
+До того, как ведущий открыл дверь, вероятности, что выигрыш
+
+- за выбранной дверью 1/3
+- за двумя другими 2/3
+
+]
+
+--
+
+.pull-right-55[
+
+![:scale 58%](img/monty-hall-solution-3.png)  
+
+После того, как ведущий открыл дверь с козой, вероятности, что выигрыш
+
+- за выбранной дверью 1/3
+- за двумя другими 2/3 (но только за закрытой дверью, т.к. за отрытой дверью — уже точно 0)
+
+]
+
+---
+
+## Дерево возможных событий, если выбрана дверь 1
+
+
+.pull-left-40[
+
+(можно построить аналогичные при другом выборе)
+
+Посчитаем условную вероятность "в лоб", сверяясь с картинкой.
+&lt;br/&gt;&lt;br/&gt;
+
+]
+
+--
+
+.pull-right-60[
+
+![](img/monty-hall-solution-4.png)
+
+.tiny[Rick Block, Public domain, via Wikimedia Commons]
+
+]
+
+--
+
+Пусть вы вначале выбрали дверь 1, а ведущий открыл дверь 3 и вы изменили свое решение, выбрав дверь 2. 
+
+&lt;br/&gt;
+
+Тогда условная вероятность выигрыша будет равна вероятности того, что ведущий открыл дверь 3 и машина за дверью 2, деленной на вероятность того, что ведущий открыл дверь 3.
+`\(P(M = 2|X = 3) = \frac{1/3}{1/3 + 1/6} = 2/3\)`
+
+
+---
+
+## Более формальное решение
+
+.pull-left-55[
+
+![:scale 100%](img/monty-hall-solution-4.png)
+
+.tiny[Rick Block, Public domain, via Wikimedia Commons]
+
+]
+
+--
+
+.pull-right-45[
+
+Пусть игрок выбрал дверь 1
+
+`\(M = 1, 2, 3\)` — за какой дверью машина?
+
+`\(X = 1, 2, 3\)` — какую дверь открывает Монти Холл? (предположим, 3)
+
+`\(P(X = 3|M = 1) = 1/2\)`  
+`\(P(X = 3|M = 2) = 1\)`  
+`\(P(X = 3|M = 3) = 0\)`
+
+&lt;br/&gt;
+
+]
+
+--
+
+Мы хотим узнать и сравнить две вероятности
+
+`\(P(M = 1|X = 3)\)`  — т.е. игрок не меняет свой выбор
+
+`\(P(M = 2|X = 3)\)` — т.е. игрок изменяет выбор
+
+---
+
+## Применим теорему Байеса (1)
+
+.pull-left-55[
+
+![](img/monty-hall-solution-4.png)
+
+.tiny[Rick Block, Public domain, via Wikimedia Commons]
+
+]
+
+.pull-right-45[
+
+Пусть игрок выбрал дверь 1
+
+`\(M = 1, 2, 3\)` — за какой дверью машина?
+
+`\(X = 1, 2, 3\)` — какую дверь открывает Монти Холл? (предположим, 3)
+
+`\(\color{blue}{P(X = 3|M = 1)} = 1/2\)`  
+`\(\color{red}{P(X = 3|M = 2)} = 1\)`  
+`\(\color{purple}{P(X = 3|M = 3)} = 0\)`
+
+`\(\color{green}{P(M = 1, 2, 3)} = 1/3\)`
+
+]
+
+--
+
+Если игрок __не меняет__ свой выбор
+
+.large[
+`\(P(M = 1|X = 3) = \frac{\color{blue}{P(X=3,M=1)}}{P(X=3)}=\)`
+]
+
+--
+
+.large[
+`\(= \frac{\color{blue}{P(X=3|M=1)}\color{green}{P(M=1)}}{\sum^{3}_{i = 1} P(X=3|M=i)\color{green}{P(M=i)}} =\)`
+]
+
+--
+
+.large[
+`\(= \frac{\color{blue}{P(X=3|M=1)}\color{green}{P(M=1)}}{\color{blue}{P(X=3|M=1)}\color{green}{P(M=1)}\;+\;\color{red}{P(X=3|M=2)}\color{green}{P(M=2)}\;+\;\color{purple}{P(X=3|M=3)}\color{green}{P(M=3)}} =\)`
+]
+
+--
+
+.large[
+`\(=\frac{\color{blue}{1/2} \cdot \color{green}{1/3}}{\color{blue}{1/2} \cdot \color{green}{1/3} + \color{red}{1} \cdot \color{green}{1/3} + \color{purple}{0} \cdot \color{green}{1/3}} = \frac{1/6}{1/2} = 1/3\)`
+]
+
+---
+
+## Применим теорему Байеса (2)
+
+.pull-left-55[
+
+![](img/monty-hall-solution-4.png)
+
+.tiny[Rick Block, Public domain, via Wikimedia Commons]
+
+]
+
+.pull-right-45[
+
+Пусть игрок выбрал дверь 1
+
+M = 1, 2, 3 — за какой дверью машина?
+
+X = 1, 2, 3 — какую дверь открывает Монти Холл? (предположим, 3)
+
+`\(\color{blue}{P(X = 3|M = 1)} = 1/2\)`  
+`\(\color{red}{P(X = 3|M = 2)} = 1\)`  
+`\(\color{purple}{P(X = 3|M = 3)} = 0\)`
+
+`\(\color{green}{P(M = 1, 2, 3)} = 1/3\)`
+
+]
+
+--
+
+Если игрок __изменяет__ свой выбор
+
+`\(P(M = 2|X = 3) = \frac{\color{red}{P(X=3,M=2)}}{P(X=3)}=\)`
+
+--
+
+`\(= \frac{\color{red}{P(X=3|M=2)}\color{green}{P(M=1)}}{\sum^{3}_{i = 1} P(X=3|M=i)\color{green}{P(M=i)}} =\)`
+
+--
+
+`\(= \frac{\color{red}{P(X=3|M=2)}\color{green}{P(M=1)}}{\color{blue}{P(X=3|M=1)}\color{green}{P(M=1)}\;+\;\color{red}{P(X=3|M=2)}\color{green}{P(M=2)}\;+\;\color{purple}{P(X=3|M=3)}\color{green}{P(M=3)}} =\)`
+
+--
+
+`\(=\frac{\color{red}{1} \cdot \color{green}{1/3}}{\color{blue}{1/2} \cdot \color{green}{1/3} + \color{red}{1} \cdot \color{green}{1/3} + \color{purple}{0} \cdot \color{green}{1/3}} = \frac{1/3}{1/2} = 2/3\)`
+
+???
+
+Геометрическая интерпретация теоремы Байеса https://www.youtube.com/watch?v=HZGCoVF3YvM
+
+Там же чудесная история из Канемана про Стива фермера/библиотекаря, которую, при случае, можно было бы рассказать во время практики.
+
+---
+
+class: middle, center, inverse
+
+# Колоколообразные кривые. Нормальное распределение
+
+---
+
+##
+
+
+
+
+![](img/meme-normal-paranormal-distribution.png)
+
+---
+
+## Нормальное распределение
+
+
+---
+
+## Формула нормального распределения
+
+
+---
+
+## Свойства нормального распределения
+
+
+---
+
+class: middle, center, inverse
+
+# Summary
+
+---
+
+## Что почитать
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

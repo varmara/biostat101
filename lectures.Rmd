@@ -1,0 +1,85 @@
+---
+title: "Презентации и данные"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+    theme: lumen
+    highlight: haddock
+    include:
+      after_body: _footer.html
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no
+---
+
+## 1. Биостатистика, обзор
+
+<!-- - Презентация [html](01-overview.html) -->
+
+## 2. Знакомство с R
+
+<!-- - [Код](02-r-intro.R) -->
+
+## 3. Описательная статистика
+
+<!-- - Презентация [html](03-descriptive-statistics.html) -->
+
+## 4. Работа с данными, описательная статистика в R
+
+<!-- - [Код](04-data-in-r.R) -->
+
+## 5. Визуализация данных
+
+<!-- - Презентация [html](05-data-visualisation.html) -->
+
+## 6. Графики в пакете ggplot2
+
+<!-- - [Код](06-ggplot2.R) -->
+
+## 7-8. Вероятности и распределения
+
+<!-- - Презентация [html](07-probabilities.html) -->
+<!-- - [Код](08-probabilities-in-r.R) -->
+
+## 9-10. Доверительные интервалы
+
+<!-- - Презентация [html](09-confidence-intervals.html) -->
+<!-- - [Код](10-confidence-intervals-in-r.R) -->
+
+## 11-12. Тестирование гипотез, сравнение двух групп
+
+<!-- - Презентация [html](11-hypothesis-testing.html) -->
+<!-- - [Код](12-hypothesis-testing-in-r.R) -->
+
+## 13-14. Ограничения статистических методов. Непараметрические методы
+
+<!-- - Презентация [html](13-assumptions-and-nonparametrics.html) -->
+<!-- - [Код](14-assumptions-and-nonparametrics-in-r.R) -->
+
+## 15-16. Пропорции и частоты
+
+<!-- - Презентация [html](15-proportions-and-frequencies.html) -->
+<!-- - [Код](16-proportions-and-frequencies-in-r.R) -->
+
+## 17-18. Случайность в пространстве или времени
+
+<!-- - Презентация [html](17-randomness-in-space-and-time.html) -->
+<!-- - [Код](18-randomness-in-space-and-time-in-r.R) -->
+
+## 19-20. Связь между категориальными переменными
+
+<!-- - Презентация [html](19-assotiation-between-categorical-data.html) -->
+<!-- - [Код](20-assotiation-between-categorical-data-in-r.R) -->
+
+## 21-22. Дисперсионный анализ
+
+<!-- - Презентация [html](21-anova.html) -->
+<!-- - [Код](22-anova-in-r.R) -->
+
+## 23-24. Корреляция и регрессия
+
+<!-- - Презентация [html](23-correlation-and-regression.html) -->
+<!-- - [Код](24-correlation-and-regression-in-r.R) -->
+

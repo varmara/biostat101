@@ -8,7 +8,7 @@ navbar:
       href: index.html
     - text: "Презентации и данные"
       icon: fa-book-open
-      href: presentations.html
+      href: lectures.html
     - text: "Ресурсы"
       icon: fa-bookmark
       href: resources.html
