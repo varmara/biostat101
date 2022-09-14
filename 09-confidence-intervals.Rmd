@@ -1,0 +1,591 @@
+---
+title: Доверительные интервалы
+subtitle: "Основы биостатистики, осень 2022"
+author: 
+  - Марина Варфоломеева
+company: 'Каф. Зоологии беспозвоночных, СПбГУ'
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    lib_dir: libs
+    css: [ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css"]
+    df_print: default
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [middle, left, inverse]
+      beforeInit: "assets/macros.js"
+    includes:
+      in_header: "assets/xaringan_in_header.html"
+      after_body: "assets/xaringan_after_body.html"
+---
+
+```{r setup, include = FALSE, cache = FALSE, purl = FALSE, fig.showtext = TRUE}
+source("assets/setup.R")
+```
+
+## Доверительные интервалы
+
+- [ ] Выборочное распределение
+- [ ] Распределение выборочных средних
+- [ ] Центральная предельная теорема (ЦПТ)
+- [ ] Стандартная ошибка среднего
+- [ ] Стандартизация (Нормированное отклонение)
+- [ ] Стандартное нормальное распределение
+- [ ] Доверительный интервал для среднего из нормального распределения
+- [ ] t-распределение
+- [ ] Степени свободы
+- [ ] Доверительный интервал для среднего из t-распределения
+
+---
+
+# Выборочная оценка среднего
+
+???
+
+Что мы можем сказать о среднем значении в генеральной совокупности, если у нас есть всего одна выборка? Центральная предельная теорема говорит, что если мы возьмем достаточно большую выборку из генеральной совокупности, то среднее значение будет нормально распределено. Особенно важно, что это правда даже если признак в совокупности имеет другое распределение. Повторные выборки. Зависимость точности оценки от объема выборки. Ошибка среднего SE (это иллюстрация теоремы центрального предела)
+
+---
+
+## Как можно судить о свойствах генеральной совокупности по выборке?
+
+__Центральная предельная теорема__ (ЦПТ) говорит, что если мы возьмем достаточно большую выборку из генеральной совокупности, то среднее значение будет нормально распределено с параметрами $\mu_{\bar x}$ и $\sigma _{\bar{x}}$:
+
+$$\bar X \sim N (\mu_{\bar x}, \sigma_{\bar x})$$
+
+При чем $\sigma_{\bar x} = \sigma/\sqrt{n}$.
+
+<br/>
+
+Но самое важное, что при больших объемах выборки ($N > 30$, или даже $N > 100$) это так, даже если $x$ в генеральной совокупности не подчиняется нормальному распределению.
+
+???
+
+Давайте проверим на опыте, так ли это.
+
+---
+
+## Цена алмазов
+
+Представим, что данные об алмазах из датасета `diamonds` (пакет `gplot2`) --- это генеральная совокупность.
+
+Перед вами распределение цены алмазов. Давайте будем брать из этого распределения выборки и оценивать по ним среднее значение.
+
+.pull-left[
+```{r echo=FALSE, purl=FALSE, fig.width=5}
+library(ggplot2)
+data("diamonds")
+
+X <- na.omit(diamonds$price)
+sig <- sd(X)
+mu <- mean(X)
+
+lab <- paste('bar(x) ==', format(mu, nsmall = 0, digits = 0), '~~~sd ==', format(sig, nsmall = 0, digits = 0))
+
+gg_population <- ggplot(data = data.frame(x = X), aes(x = x)) + 
+  geom_histogram(fill = 'lightskyblue1', colour = 'black') + 
+  geom_vline(xintercept = mu, colour = 'red', size = 2) +
+  annotate('text', x = Inf, y = Inf, hjust = 1.1, vjust = 1.5, 
+             label = lab, parse = T, size = 3.5) +
+  labs(x = 'price')
+gg_population
+```
+]
+.pull-right[
+![](images/Diamond-age-bySteve-Jurvetson-on-Flickr.jpg)
+
+.tiny[Diamond Age by Steve Jurvetson on Flickr]
+]
+
+<!-- https://flic.kr/p/eRNcR -->
+
+---
+
+## Средние в выборках
+
+.pull-left[
+```{r gg-sample, echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=5.5}
+set.seed(83314197)
+gg_sample_hist <- function(x, size) {
+  id <- sample(x = length(x), size = size)
+  my_mean <- mean(x[id])
+  ggplot(data = data.frame(x = x[id]), aes(x = x)) + 
+    geom_histogram(binwidth = 50, fill = 'grey40', colour = 'grey40') + 
+    geom_vline(xintercept = mu, colour = 'red', size = 2) +
+    geom_vline(xintercept = my_mean, colour = 'yellow3', size = 2) + 
+    annotate('text', x = Inf, y = Inf, hjust = 3.1, vjust = 1.5, 
+             label = paste('n ==', size), 
+             parse = T, size = 3.5) +
+        annotate('text', x = Inf, y = Inf, hjust = 1.1, vjust = 1.5, 
+             label = paste('bar(x) ==', format(my_mean, nsmall = 2, digits = 2)), 
+             parse = T, size = 3.5)
+}
+
+gg_void <- ggplot() + theme_void()
+
+n <- 20
+# gg_sample_hist(X, n, xlim = c(30, 70))
+plot_grid(gg_population + coord_cartesian(xlim = c(-1, max(X))) + theme(axis.title.x = element_blank()),
+          gg_sample_hist(X, n) + coord_cartesian(xlim = c(-1, max(X))) + theme(axis.title.x = element_blank()), 
+          gg_sample_hist(X, n) + coord_cartesian(xlim = c(-1, max(X))) + theme(axis.title.x = element_blank()), 
+          gg_sample_hist(X, n) + coord_cartesian(xlim = c(-1, max(X))) + theme(axis.title.x = element_blank()), 
+          gg_sample_hist(X, n) + coord_cartesian(xlim = c(-1, max(X))) + theme(axis.title.x = element_blank()), 
+          gg_sample_hist(X, n) + coord_cartesian(xlim = c(-1, max(X))) + labs(x = 'price'), 
+          ncol = 1, align = 'v')
+```
+
+
+]
+.pull-right[
+Средние в выборках отличаются от среднего в генеральной совокупности.
+
+Если взять много выборок определенного размера, можно построить распределение выборочных средних.
+
+<br/>
+
+Давайте посмотрим, как меняется форма распределения выборочных средних при изменении объема выборки.
+
+]
+
+---
+
+## Распределение выборочных средних
+
+.pull-left[
+```{r gg-many-sampling-distr, echo=FALSE, purl=FALSE, fig.width=5, fig.height=5.5}
+# Функция, которая берет выборку объемом sample_size из вектора x и возвращает ее среднее значение
+sample_mean <- function(x, size){
+  id <- sample(x = length(x), size)
+  my_mean <- mean(x[id])
+  return(my_mean)
+}
+
+gg_sample_means <- function(x, n_samples, size){
+  # Считаем средние значения для большого числа выборок
+  my_means <- replicate(n = n_samples, expr = sample_mean(x, size))
+  mean_of_means <- mean(my_means)
+  sd_of_means <- sd(my_means)
+  ggplot(data = data.frame(means = my_means), aes(x = means)) + 
+    geom_histogram(binwidth = 4, fill = 'yellow3', alpha = 0.3, color = 'black') + 
+    geom_vline(xintercept = mu, colour = 'red', size = 3) +
+    geom_vline(xintercept = mean_of_means, colour = 'gold1', size = 1.5) + 
+    annotate('text', x = -Inf, y = Inf, hjust = -0.1, vjust = 1.5, 
+             label = paste('n ==', size), 
+             parse = T, size = 3.5) +
+        annotate('text', x = Inf, y = Inf, hjust = 1.1, vjust = 1.5, 
+             label = paste('bar(x) ==', format(mean_of_means, nsmall = 2, digits = 2), '~~~sd ==', format(sd_of_means, nsmall = 2, digits = 2)), 
+             parse = T, size = 3.5)
+}
+n_samples <- 500
+plot_grid(gg_population + coord_cartesian(xlim = c(0, 20000)), 
+          gg_sample_means(x = X, n_samples = n_samples, size = 2) + 
+            coord_cartesian(xlim = c(0, 20000)) + theme(axis.title.x = element_blank()), 
+          gg_sample_means(x = X, n_samples = n_samples, size = 4) + 
+            coord_cartesian(xlim = c(0, 20000)) + theme(axis.title.x = element_blank()), 
+          gg_sample_means(x = X, n_samples = n_samples, size = 10) + 
+            coord_cartesian(xlim = c(0, 20000)) + theme(axis.title.x = element_blank()), 
+          gg_sample_means(x = X, n_samples = n_samples, size = 30) + 
+            coord_cartesian(xlim = c(0, 20000)) + labs(x = 'sample mean'), 
+          ncol = 1, align = 'v')
+```
+
+]
+.pull-right[
+$$\bar X \sim N (\mu_{\bar x}, \sigma_{\bar x})$$
+
+$\mu_{\bar x} = \mu$ --- среднее значение выборочных средних стремится к среднему в генеральной совокупности.
+
+$\sigma_{\bar x} =  \sigma / \sqrt{n}$ --- стандартное отклонение в $\sqrt{n}$ раз меньше стандартного отклонения в генеральной совокупности.
+
+$\sigma_{\bar x}$ называют стандартной ошибкой среднего и обозначают $SE _{\bar{x}}$.
+
+]
+
+
+## Центральная предельная теорема очень важна в статистике
+
+.pull-left[
+
+
+```{r echo=FALSE, purl=FALSE, fig.width=4, fig.height=3.38}
+gg_sample_means(x = X, n_samples = n_samples, size = 100) + labs(x = 'sample means')
+```
+
+]
+.pull-right[
+
+$$\bar X \sim N (\mu, \sigma / \sqrt{n})$$
+
+Пользуясь ее выводами, мы сможем:
+
+- строить доверительные интервалы
+- тестировать гипотезы
+
+]
+
+---
+
+# Доверительный интервал
+
+---
+
+## Если выполняется центральная предельная теорема, то
+
+.pull-left[
+```{r echo=FALSE, purl=FALSE, fig.width=5, fig.height=3.38}
+labs_x <- c(expression(-3*sigma / sqrt(n)), expression(-2*sigma / sqrt(n)), expression(-sigma / sqrt(n)), expression(bar(x)), expression(sigma / sqrt(n)), expression(2*sigma / sqrt(n)), expression(3*sigma / sqrt(n)))
+
+gg_conf_0 <- ggplot(data = data.frame(z = -4:4), aes(x = z)) +
+  stat_function(fun = dnorm, colour = 'steelblue', size = 1) + 
+  scale_x_continuous(breaks = -3:3, sec.axis = sec_axis(~., breaks = -3:3, labels = labs_x, name = 'Выборочное распределение средних')) +
+  scale_y_continuous('Плотность вероятности') +
+  coord_cartesian(ylim = c(0, 0.47), xlim = c(-3.6, 3.6))
+
+gg_conf_0
+```
+]
+.pull-right[
+
+$$\bar X \sim N(\mu, \sigma/ \sqrt{n})$$
+
+После стандартизации:
+
+$$\frac{\bar X - \mu}{\sigma / \sqrt{n}} \sim N(0, 1)$$
+
+Стандартизованное распределение выборочных средних будет подчинятся стандартному нормальному распределению.
+
+]
+
+---
+
+##  Доверительный интервал из нормального распределения
+
+.pull-left[
+
+```{r echo=FALSE, purl=FALSE, fig.width=5, fig.height=3.38}
+gg_conf_1 <- gg_conf_0 +
+  stat_function(geom = 'area', fun = dnorm, xlim = c(-1.96, 1.96),
+                fill = 'steelblue', alpha = 0.5) +
+  annotate('text', label = 'P == 0.95', parse = T,
+           x = 0, y = 0.1) +
+  annotate('text', label = '0.025', parse = T, size = 3,
+           x = c(-2.2, 2.2), y = 0.01)
+gg_conf_1
+```
+
+]
+.pull-right[
+--- это интервал, в который попадает заданный процент выборочных средних.
+
+В 95% доверительный интервал попадает выборочное среднее в 95% повторных выборок.
+
+<br/>
+
+Как найти этот интервал?
+
+]
+
+
+---
+
+##  Доверительный интервал из нормального распределения
+
+.pull-left[
+
+
+```{r echo=FALSE, purl=FALSE, fig.width=5, fig.height=3.38}
+gg_conf_2 <- gg_conf_1 + 
+  geom_vline(xintercept = c(-1.96, 1.96), linetype = 'dashed') +
+  annotate(geom = 'text', label = c('-z[0.05]==-1.96', 'z[0.05]==1.96'), hjust = c(1.03, -0.03),
+           x = c(-1.96, 1.96), y = 0.1, parse = TRUE)
+
+gg_conf_2
+```
+
+]
+.pull-right[
+
+$$\bar {x} \pm z_{\alpha} \cdot \sigma / \sqrt{n}$$
+
+Чтобы найти границы 95% доверительного интервала, нужно найти квантили стандартного нормального распределения, которые соответствуют вероятностям 0.025 и 0.975
+
+```{r}
+qnorm(p = c(0.025, 0.975))
+```
+
+
+$z_{0.05} = 1.96$
+
+95% выборочных средних в повторных выборках будут лежать в пределах $\pm 1.96$ стандартных ошибок вокруг среднего значения.
+
+]
+
+---
+
+## Условия применимости нормального распределения для доверительного интервала
+
+1.Должна быть известна $\sigma$ в генеральной совокупности.
+
+2.Должны выполняться условия, при которых справедлива ЦПТ:
+
+- Наблюдения в выборке должны быть независимы друг от друга.
+
+- Большой объем выборки **или** нормальное распределение $x$
+
+---
+
+## Если $\pmb \sigma$ не известна
+
+Если $\sigma$ в генеральной совокупности не известна, ее можно оценить по выборочному стандартному отклонению $s$.
+
+$$\sigma / \sqrt{n} \approx s/\sqrt{n}$$
+
+После стандартизации:
+
+$$\frac{\bar X - \mu}{SE_{\bar x}} = \frac{\bar X - \mu}{s / \sqrt{n}} \sim t_{df = n - 1}$$
+
+
+стандартизованное распределение выборочных средних подчиняется $t$-распределению с числом степеней свободы $df = n - 1$
+
+---
+
+## $t$-распределение
+
+.pull-left[
+
+```{r echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=2.62}
+ggplot(data = data.frame(t = -4 : 4), aes(x = t)) +
+  stat_function(aes(color = 't, df = 3', linetype = 't, df = 3'), 
+                fun = dt, args = list(df = 3), size = 1) +
+  stat_function(aes(color = 't, df = 10', linetype = 't, df = 10'), 
+                fun = dt, args = list(df = 10), size = 1) +
+  stat_function(aes(color = 'Z', linetype = 'Z'), 
+                fun = dnorm) +
+  scale_color_manual(
+    'Распределение',
+    values = c('t, df = 3' = 'red' , 
+               'Z' = 'steelblue', 
+               't, df = 10' = 'orange')) + 
+  scale_linetype_manual(
+    'Распределение', 
+    values = c('t, df = 3' = 1, 'Z' = 2, 't, df = 10' = 1)) + 
+  labs(y = 'Плотность вероятности') +
+  theme(legend.position = c(0.8, 0.75), 
+        legend.box.background = element_blank(),
+        legend.background = element_blank())
+```
+
+]
+.pull-right[
+- Симметричное колоколообразное распределение с толстыми хвостами. 
+- Единственный параметр --- число степеней свободы (для доверительного интервала $df = n - 1$).
+- При увеличении объема выборки $t$-распределение приближается к нормальному.
+]
+
+---
+
+## Доверительный интервал из $t$-распределения
+
+.pull-left[
+```{r echo=FALSE, purl=FALSE, fig.width=5.25, fig.height=3.38}
+n <- 10
+lims <- qt(p = c(0.025, 0.975), df = n - 1)
+labs <- format(lims, digits = 2, nsmall = 2)
+labs_x <- c(expression(-3*s / sqrt(n)), expression(-2*s / sqrt(n)), expression(-s / sqrt(n)), expression(bar(x)), expression(s / sqrt(n)), expression(2*s / sqrt(n)), expression(3*s / sqrt(n)))
+
+gg_conf_0 <- ggplot(data = data.frame(t = -4:4), aes(x = t)) +
+  stat_function(fun = dt, args = list(df = n - 1), colour = 'red', size = 1) +
+  scale_x_continuous(breaks = -3:3, sec.axis = sec_axis(~., breaks = -3:3, labels = labs_x, name = 'Выборочное распределение средних')) +
+  scale_y_continuous('Плотность вероятности') +
+  coord_cartesian(ylim = c(0, 0.47), xlim = c(-3.6, 3.6))
+gg_conf_1 <- gg_conf_0 +
+  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), xlim = lims,
+                fill = 'red', alpha = 0.5) +
+  annotate('text', label = 'P == 0.95', parse = T,
+           x = 0, y = 0.1) +
+  annotate('text', label = '0.025', parse = T, size = 3,
+           x = lims, y = 0.01, hjust = c(1.03, -0.03))
+gg_conf_2 <- gg_conf_1 +
+  geom_vline(xintercept = lims, linetype = 'dashed') +
+  annotate(geom = 'text', label = c(paste('-t[0.05, 9]==', labs[1]), paste('t[0.05, 0]==', labs[2])), hjust = c(1.03, -0.03),
+           x = lims, y = 0.1, parse = TRUE)
+gg_conf_2 +
+  annotate('path', x = lims, y = rep(0.42, 2), arrow = arb) +
+  annotate('text', label = paste('Для~n==10~~~~~~~bar(x)%+-%', labs[2], '*~sigma / sqrt(n)'), vjust = -0.5, x = 0, y = 0.42, parse = TRUE)
+```
+
+]
+.pull-right[
+Обязательно используется, если:
+
+- Объем выборки мал.
+- $\sigma$ не известна.
+
+$$\bar {x} \pm t_{\alpha, df} \cdot s / \sqrt{n}$$
+
+$df = n - 1$
+
+]
+
+Условия применимости
+
+Выполняются условия, при которых справедлива ЦПТ:
+
+- Наблюдения в выборке независимы друг от друга.
+- Большой объем выборки и нет "выбросов" **или** нормальное распределение $x$
+
+---
+
+## Смысл 95% доверительного интервала.
+
+.pull-left[
+
+```{r gg-many-lims, echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=5.5}
+library(dplyr)
+set.seed(14934)
+# Генеральная совокупность для симуляции
+x <- rnorm(10000, mean = 10, sd = 5)
+mu <- mean(x)
+# Функция, которая берет выборку объемом sample_size из вектора x и возвращает ее среднее значение и доверительный интервал (по t)
+sample_mean_ci <- function(x, size){
+  id <- sample(x = length(x), size)
+  my_mean <- mean(x[id])
+  ci <- my_mean + qt(p = c(0.025, 0.975), df = size - 1)
+  res <- c(my_mean, ci)
+  names(res) <- c('sample_mean', 'lower', 'upper')
+  return(res)
+}
+
+
+n_samples <- 100
+sample_size <- 20
+means_ci <- replicate(n = n_samples, expr = sample_mean_ci(x, size = sample_size))
+dfr_means <- data.frame(t(means_ci)) %>%
+  mutate(interval = 1:n_samples,
+         inside = mu >= lower & mu <= upper,
+         inside = factor(inside, levels = c(TRUE, FALSE), labels = c('Да', 'Нет')))
+perc <- round(mean(dfr_means$inside == 'Да') * 100, 1)
+
+gg_many_lims <- ggplot(data = dfr_means) +
+  geom_segment(aes(x = interval, y = lower, xend = interval, yend = upper, colour = inside)) +
+  geom_hline(yintercept = mean(x), colour = 'red', size = 1) +
+  scale_y_continuous('', breaks = mu, labels = expression(bar(x))) +
+  labs(x = 'Порядковый номер интервала в симуляции', y = 'x',
+       color = 'Включает ли\nинтервал\nистинное\nсреднее \nзначение?') +
+  coord_flip() +
+    scale_x_reverse()
+gg_many_lims
+```
+
+
+]
+.pull-right[
+Среднее в генеральной совокупности --- это фиксированная величина (она либо попала в интервал, либо нет.
+
+Доверительный интервал --- случайная величина.
+
+В повторных выборках такого же размера $\approx 95\%$ всех доверительных интервалов "накроют" истинное среднее значение.
+]
+
+
+---
+
+## Расчет и изображение доверительного интервала в R
+
+```{r}
+library(ggplot2)
+data("diamonds")
+
+# цена бриллиантов хорошего качества огранки
+good <- diamonds$price[diamonds$cut == "Good"] 
+
+.mean <- mean(good)                  # выборочное среднее
+.n <- length(good)                   # объем выборки
+SE <- sd(good)/ sqrt(.n)             # стандартная ошибка
+t_crit <- qt(p = 0.975, df = .n - 1) # критич. зн. t для данного n и p = 0.95
+err <- t_crit * SE                   # предел погрешности
+# Границы доверительного интервала
+.mean - err
+.mean + err
+```
+
+Можем записать среднюю цену бриллиантов хорошей огранки и ее доверительный интервал:
+$`r round(.mean, 1)` \pm `r round(err, 1)`$ 
+
+---
+
+## Строим доверительные интервалы в ggplot
+
+```{r}
+theme_set(theme_bw())
+ggplot(data = diamonds, aes(x = cut, y = price)) +
+  stat_summary(geom = 'pointrange', fun.data = mean_cl_normal)
+```
+
+---
+
+## Задание 1
+
+Посчитайте среднюю цену и доверительный интервал для бриллиантов с такими свойствами:
+
+- качество огранки (`cut`) идеальное (`Ideal`)
+- прозрачность (`clarity`) наивысшая (`IF`)
+
+Постройте график средней цены с доверительными интервалами для бриллиантов разного качества огранки и прозрачности.
+
+## Решение
+
+Вычислим границы доверительного интервала
+
+```{r purl=FALSE}
+ideal <- diamonds$price[diamonds$cut == 'Ideal' & diamonds$clarity == 'IF'] 
+
+.mean <- mean(ideal)                  # выборочное среднее
+.n <- length(ideal)                   # объем выборки
+SE <- sd(ideal)/ sqrt(.n)             # стандартная ошибка
+t_crit <- qt(p = 0.975, df = .n - 1) # критич. зн. t для данного n и p = 0.95
+err <- t_crit * SE                   # предел погрешности
+# Границы доверительного интервала
+.mean - err
+.mean + err
+```
+
+---
+
+## Решение
+
+Теперь можно построить график средней цены с доверительными интервалами для бриллиантов разного качества огранки и прозрачности. Для этого нужно к предыдущему графику добавить информацию о прозрачности.
+
+Способ 1 (некрасивый, требует доработки):
+
+```{r purl=FALSE}
+ggplot(data = diamonds, aes(x = cut, y = price, colour = clarity)) +
+  stat_summary(geom = 'pointrange', fun.data = mean_cl_normal)
+```
+
+---
+
+## Решение
+
+Способ 2 (удовлетворительный):
+
+```{r purl=FALSE}
+ggplot(data = diamonds, aes(x = cut, y = price, colour = clarity)) +
+  stat_summary(geom = 'pointrange', fun.data = mean_cl_normal) +
+  facet_wrap(~ clarity)
+```
+
+Осторожно! Группы могут быть неоднородны. Здесь не учтен размер и т.п.
+
+
+---
+
+
+class: middle, center, inverse
+
+# Summary
+
+---
+
+## Что почитать
