@@ -43,19 +43,19 @@ style_duo_accent(
   code_font_family_fallback = "Courier New, monospace",
   outfile = "assets/xaringan-themer.css"
 )
-
-xaringanExtra::use_tile_view()
-xaringanExtra::use_scribble()
-xaringanExtra::use_search(show_icon = FALSE)
-xaringanExtra::use_progress_bar(color = "#6d2b5e", location = "bottom", height = "5px")
-xaringanExtra::use_freezeframe()
-# xaringanExtra::use_webcam()
-# xaringanExtra::use_panelset()
-# xaringanExtra::use_extra_styles(hover_code_line = TRUE)
-
-# http://tachyons.io/docs/
-# https://roperzh.github.io/tachyons-cheatsheet/
-xaringanExtra::use_tachyons()
+# library(xaringanExtra)
+# use_tile_view()
+# use_scribble()
+# use_search(show_icon = FALSE)
+# use_progress_bar(color = "#6d2b5e", location = "bottom", height = "5px")
+# use_freezeframe()
+# # use_webcam()
+# # use_panelset()
+# # use_extra_styles(hover_code_line = TRUE)
+# 
+# # http://tachyons.io/docs/
+# # https://roperzh.github.io/tachyons-cheatsheet/
+# use_tachyons()
 
 library("kableExtra")
 options(knitr.kable.NA = '')
