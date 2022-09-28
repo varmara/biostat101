@@ -46,7 +46,7 @@ output:
 
 - Гланц, С., 1998. Медико-биологическая статистика. М., Практика.
 - **Quinn, G.G.P., Keough, M.J., 2002. Experimental design and data analysis for biologists. Cambridge University Press.**
-- Sokal, R.R., Rohlf, F.J., 1995. Biometry (3rd edn). WH Freman and company: New York.
+- Sokal, R.R., Rohlf, F.J., 1995. Biometry (3rd edn). WH Freeman and company: New York.
 - Zar, J.H., 2010. Biostatistical Analysis. Prentice Hall: New York.
 - **Zuur, A., Ieno, E.N. and Smith, G.M., 2007. Analyzing ecological data.** Springer Science & Business Media.
 
