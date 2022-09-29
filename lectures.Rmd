@@ -24,8 +24,8 @@ output:
 
 ## 3. Описательная статистика
 
-<!-- - Презентация [html](03-descriptive-statistics.html) -->
-<!-- - Презентация [html](03.2-types-of-means.html)  (самостоятельно) -->
+- Презентация [html](03-descriptive-statistics.html)
+- Презентация [html](03.2-types-of-means.html)  (самостоятельно)
 
 ## 4. Работа с данными, описательная статистика в R
 
