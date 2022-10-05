@@ -16,20 +16,20 @@ output:
 
 ## 1. Биостатистика, обзор
 
-- Презентация [html](01-overview.html)
+- Презентация [01-overview.html](01-overview.html)
 
 ## 2. Знакомство с R
 
-- [Код](02-r-intro.R)
+- [02-r-intro.R](02-r-intro.R)
 
 ## 3. Описательная статистика
 
-- Презентация [html](03-descriptive-statistics.html)
-- Презентация [html](03.2-types-of-means.html)  (самостоятельно)
+- Презентация [03-descriptive-statistics.html](03-descriptive-statistics.html)
+- Презентация [03.2-types-of-means.html](03.2-types-of-means.html)  (самостоятельно)
 
 ## 4. Работа с данными, описательная статистика в R
 
-- [Код](04-data-in-r.R)
+- [04-data-in-r.R](04-data-in-r.R)
 - Данные:
     - [passive-smoke.txt](data/passive-smoke.txt)
     - [cholesterol-and-smoking.txt](data/cholesterol-and-smoking.txt)
