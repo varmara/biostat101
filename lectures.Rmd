@@ -29,7 +29,10 @@ output:
 
 ## 4. Работа с данными, описательная статистика в R
 
-<!-- - [Код](04-data-in-r.R) -->
+- [Код](04-data-in-r.R)
+- Данные:
+    - [passive-smoke.txt](data/passive-smoke.txt)
+    - [cholesterol-and-smoking.txt](data/cholesterol-and-smoking.txt)
 
 ## 5-6. Визуализация данных. Графики в пакете ggplot2
 
