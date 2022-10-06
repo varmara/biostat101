@@ -200,8 +200,9 @@ par(mfrow = c(1, 1))
 
 
 # Статистика по группам =======================
-# split - apply - combine
-tapply(X = smoke$cotinine, INDEX = smoke$smoke_exposure, FUN = mean)
+# функции семейства *pply: apply, sapply, lapply, tapply, mapply, ...
+# фреймворк split - apply - combine
+tapply()
 
 
 # Изображаем медиану и квартили на графиках ====
