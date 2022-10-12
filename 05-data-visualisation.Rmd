@@ -517,11 +517,22 @@ class: middle, center, inverse
 
 ## Диаграмма рассеяния (= скаттерплот)
 
+.pull-left[
+
 Диаграмма рассеяния (scatterplot) позволяет показать связь между двумя непрерывными переменными.
 
-.small[Связь массы тела и длины крыла у пингвинов трех видов (Адели, Чинстрап, Генту)]
+.small[Связь массы тела и длины крыла у пингвинов трех видов (Адели, Генту, Чинстрап)]
 
-```{r gg-penguins-scatter1, opts.label = 'fig.medium.taller'}
+]
+
+.pull-right[
+
+![:scale 80%](img/palmerpenguins.jpg)
+
+]
+
+
+```{r gg-penguins-scatter1, opts.label = 'fig.medium'}
 library(palmerpenguins)
 penguins %>% 
   ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
@@ -538,7 +549,7 @@ penguins %>%
 
 ## На скаттерплот можно добавить и дискретные переменные
 
-.small[Связь массы тела и длины крыла у пингвинов трех видов (Адели, Чинстрап, Генту)]
+.small[Связь массы тела и длины крыла у пингвинов трех видов (Адели, Генту, Чинстрап)]
 
 ```{r gg-penguins-scatter2, opts.label = 'fig.wider.taller'}
 penguins %>% 
@@ -557,7 +568,7 @@ penguins %>%
 
 Иногда это просто обязательно, т.к. зависимости в разных группах данных могут выглядеть по-разному.
 
-.small[Связь высоты и длины клюва у пингвинов трех видов (Адели, Чинстрап, Генту)]
+.small[Связь высоты и длины клюва у пингвинов трех видов (Адели, Генту, Чинстрап)]
 
 ```{r gg-penguins-scatter3, opts.label = 'fig.wider.taller'}
 ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
@@ -572,7 +583,7 @@ ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 
 class: middle, center, inverse
 
-# Связь численной и категориальой переменных
+# Связь численной и категориальной переменных
 
 ---
 
