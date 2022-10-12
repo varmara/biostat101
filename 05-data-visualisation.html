@@ -40,15 +40,17 @@ class: middle, left, inverse, title-slide
 
 
 
-- Таблицы для представления и анализа данных. 
-- Графики.
-- Одна переменная.
-- Связь между двумя категориальными переменными.
-- Связь между двумя численными переменными.
-- Связь численной и категориальой переменными.
-- Ряды данных во времени и пространстве.
-- Грамматика графиков.
-- Tidy data.
+- Таблицы для представления и анализа данных
+- Графики
+- Одна переменная
+- Связь между двумя категориальными переменными
+- Связь между двумя численными переменными
+- Связь численной и категориальой переменными
+- Ряды данных во времени и пространстве
+- Подготовка и визуализация данных в R
+  - Опрятные данные, tidy data
+  - Грамматика графиков
+
 
 
 ---
@@ -408,7 +410,7 @@ __Гистограмма__ показывает количество значе�
 --
 
 .pull-right[
-![](05-data-visualisation_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](05-data-visualisation_files/figure-html/gg-birthwt-wide-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -425,7 +427,7 @@ __Метод Стурджеса__ (Sturges, 1926), плохо работает �
 `\(k_s = 1 + log_2(n)\)`
 
 &lt;br/&gt;
-![](05-data-visualisation_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](05-data-visualisation_files/figure-html/gg-birthwt-stur-1.png)&lt;!-- --&gt;
 
 `\(k_s = 1 + log_2(189) = 9\)`
 &lt;br/&gt;
@@ -444,7 +446,7 @@ __Метод Фридмана-Диакониса__ (Freedman, Diakonis, 1981)
 
 `\(h_{fd}=2 \frac{\operatorname{IQR}(x)}{\sqrt[3]{n}}\)`, `\(k_{fd} = (max - min)/h_{fd}\)`
 
-![](05-data-visualisation_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](05-data-visualisation_files/figure-html/gg-birthwt-fried-1.png)&lt;!-- --&gt;
 
 I и III квартили — 2414, 3487,  
 n = 189, max = 4990, min = 709.
@@ -646,41 +648,12 @@ class: middle, center, inverse
 
 https://commons.wikimedia.org/wiki/File:Arabidopsis_thaliana_inflorescencias.jpg#filelinks
 
----
-
-class: middle, center, inverse
-
-# Грамматика графиков
 
 ---
 
-## Грамматика графиков (grammar of graphics)
+class: middle, center
 
-.pull-left-40[
-
-![:scale 75%](img/gg-book-leland.png)
-
-]
-.pull-right-60[
-
-Wilkinson, L. (2012). The grammar of graphics. In Handbook of computational statistics (pp. 375-414). Springer, Berlin, Heidelberg.
-
-&lt;br/&gt;&lt;br/&gt;
-
-![](img/gg-hadley.png)
-
-Wickham, H. (2010). A layered grammar of graphics. Journal of Computational and Graphical Statistics, 19(1), 3-28.
-
-]
-
----
-
-## Компоненты грамматики графиков
-
-
-![](img/gg-components.png)
-
-.tiny[Источник: [towardsdatascience.com](https://towardsdatascience.com/a-comprehensive-guide-to-the-grammar-of-graphics-for-effective-visualization-of-multi-dimensional-1f92b4ed4149)]
+# Подготовка и визуализация данных в R
 
 ---
 
@@ -872,11 +845,353 @@ __Значения__
 
 class: middle, center, inverse
 
+# Грамматика графиков
+
+---
+
+## Грамматика графиков (grammar of graphics)
+
+.pull-left-40[
+
+![:scale 75%](img/gg-book-leland.png)
+
+]
+.pull-right-60[
+
+Wilkinson, L. (2012). The grammar of graphics. In Handbook of computational statistics (pp. 375-414). Springer, Berlin, Heidelberg.
+
+&lt;br/&gt;&lt;br/&gt;
+
+![](img/gg-hadley.png)
+
+Wickham, H. (2010). A layered grammar of graphics. Journal of Computational and Graphical Statistics, 19(1), 3-28.
+
+]
+
+---
+
+## Компоненты грамматики графиков
+
+
+![](img/gg-components.png)
+
+.tiny[Источник: [towardsdatascience.com](https://towardsdatascience.com/a-comprehensive-guide-to-the-grammar-of-graphics-for-effective-visualization-of-multi-dimensional-1f92b4ed4149)]
+
+Т.е. графики создаются послойно.
+
+---
+
+## Графики при помощи пакета `ggplot2`
+
+gg в названии пакета — это grammar of graphics.
+
+Активируем пакет `ggplot2`
+
+
+```r
+library(ggplot2)
+```
+
+---
+
+## Данные
+
+.pull-left[
+
+Данные для графика `ggplot2` должны быть в виде датафрейма.
+
+Попробуем нарисовать данные из датасета `penguins` про пингвинов Адели, Генту и Чинстрап, который хранится в пакете `palmerpenguins`.
+
+]
+
+.pull-right[
+
+![:scale 80%](img/palmerpenguins.jpg)
+
+.tiny[
+bluegio at deviantart.com
+]
+
+]
+
+
+
+```r
+library(palmerpenguins)
+
+head(penguins, 2)
+```
+
+```
+# A tibble: 2 × 8
+  species island    bill_length_mm bill_…¹ flipp…² body_…³ sex    year
+  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+1 Adelie  Torgersen           39.1    18.7     181    3750 male   2007
+2 Adelie  Torgersen           39.5    17.4     186    3800 fema…  2007
+# … with abbreviated variable names ¹​bill_depth_mm,
+#   ²​flipper_length_mm, ³​body_mass_g
+```
+
+```r
+colnames(penguins)
+```
+
+```
+[1] "species"           "island"            "bill_length_mm"   
+[4] "bill_depth_mm"     "flipper_length_mm" "body_mass_g"      
+[7] "sex"               "year"             
+```
+
+---
+
+## 1. Откуда брать данные?
+
+
+```r
+ggplot(data = penguins)
+```
+
+![](05-data-visualisation_files/figure-html/gg-1-1.png)&lt;!-- --&gt;
+
+---
+
+## 2. Что рисовать?
+
+При помощи функции `aes()` задаем __эстетики__ — свойства графика, при помощи которых будут отображены данные.
+
+Простейшие эстетики — это `x` и `y` — координаты по осям.
+
+
+
+```r
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g))
+```
+
+![](05-data-visualisation_files/figure-html/gg-2-1.png)&lt;!-- --&gt;
+
+---
+
+## 3. В виде чего рисовать?
+
+Геомы — графические объекты в виде которых будут изображены свойства данных.
+
+Простейший геом — точки `geom_point()`
+
+Отдельные слои графика разделяются знаком `+`. Разрыв строки можно ставить только после него, не до.
+
+
+```r
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+```
+
+![](05-data-visualisation_files/figure-html/gg-3-1.png)&lt;!-- --&gt;
+
+---
+
+## Можно "жестко" указать свойства геома
+
+Например, у точек есть свойства `shapе` — форма, `size` — размер, `colour` — цвет и т.д.
+
+Изменим цвет точек на красный и зададим размер точек 3. Это не эстетики, т.к. ни цвет ни размер никак не связаны с данными, поэтому не используется функция `aes()`.
+
+
+```r
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(colour = "red", size = 3)
+```
+
+![](05-data-visualisation_files/figure-html/gg-4-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Можно задать другие эстетики
+
+Если цвет должен отражать какое-то свойство данных — это эстетика. Пусть цвет отражает вид пингвинов. 
+
+Размер здесь по-прежнему не эстетика.
+
+
+```r
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species), size = 3)
+```
+
+![](05-data-visualisation_files/figure-html/gg-5-1.png)&lt;!-- --&gt;
+
+---
+
+## Шкалы `scale_*()` управляют эстетиками
+
+Цветовой палитрой эстетики `colour` управляют шкалы `scale_color_*`.
+
+`scale_color_brewer()` — брюйеровские цветовые палитры. У них есть имена.
+
+
+```r
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_brewer(palette = "Set2")
+```
+
+![](05-data-visualisation_files/figure-html/gg-6-1.png)&lt;!-- --&gt;
+
+---
+
+## Лейблы labs() управляют подписями
+
+
+```r
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_brewer(palette = "Set2") +
+  labs(x = "Flipper length, mm", y = "Body mass, g")
+```
+
+![](05-data-visualisation_files/figure-html/gg-7-1.png)&lt;!-- --&gt;
+
+---
+
+## Фасетки `facet_*()` делят график на части
+
+
+```r
+ggplot(data = penguins, 
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_brewer(palette = "Set2") +
+  labs(x = "Flipper length, mm", y = "Body mass, g") +
+  facet_wrap(~ island)
+```
+
+![](05-data-visualisation_files/figure-html/gg-8-1.png)&lt;!-- --&gt;
+
+---
+
+## Графики можно сохранять в переменные
+
+
+```r
+gg_peng1 &lt;- ggplot(data = penguins, 
+                   aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_brewer(palette = "Set2") +
+  labs(x = "Flipper length, mm", y = "Body mass, g") +
+  facet_wrap(~ island)
+gg_peng1
+```
+
+![](05-data-visualisation_files/figure-html/gg-9-1.png)&lt;!-- --&gt;
+
+---
+
+## Тема `theme()` настраивает оформление графика
+
+Например, можно отключить (или переставить) легенду,
+
+изменить положение подписей для конкретного графика.
+
+
+```r
+gg_peng1 +
+  theme(legend.position = "bottom", 
+        axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+![](05-data-visualisation_files/figure-html/gg-10-1.png)&lt;!-- --&gt;
+
+---
+
+## Есть встроенные темы оформления
+
+Встроенные темы `theme_*()` можно применить для конкретного графика, добавив их как отдельный слой.
+
+`base_size` — задает базовый размер графических элементов и шрифтов
+
+
+```r
+gg_peng1 + theme_classic(base_size = 20)
+```
+
+![](05-data-visualisation_files/figure-html/gg-11-1.png)&lt;!-- --&gt;
+
+---
+
+## Темы для всех последующих графиков.
+
+Можно установить какую-то тему для всех последующих графиков при помощи `theme_set()`
+
+
+```r
+theme_set(theme_bw(base_size = 20))
+gg_peng1
+```
+
+![](05-data-visualisation_files/figure-html/gg-12-1.png)&lt;!-- --&gt;
+
+---
+
+## Сохранение графиков в файл
+
+При помощи функции ggsave() можно сохранить график в векторный или растровый формат.
+
+`filename` — путь (отн. рабочей директории) и имя файла.
+
+
+```r
+# Векторный формат svg
+ggsave(filename = "plot_penguins.svg", plot = gg_peng1)
+
+# Растровый формат png
+ggsave(filename = "plot_penguins.png", plot = gg_peng1)
+```
+
+---
+
+class: middle, center, inverse
+
 # Summary
 
 ---
 
 ## Что почитать
+
+.left-column[
+
+![:scale 100%](img/tufte-book-vdci.png)
+
+![:scale 100%](img/chang-book-rcookbook.png)
+
+]
+.right-column[
+
+### Принципы визуализации данных
+
+- Tufte, E. R. (1985). The visual display of quantitative information. The Journal for Healthcare Quality (JHQ), 7(3), 15.
+
+[Сайт, посвященный работам Эдварда Тафта](https://www.edwardtufte.com/tufte/)
+
+### Ресурсы про `ggplot2`
+
+- Chang, W. (2018). R graphics cookbook: practical recipes for visualizing data. O'Reilly Media. 
+
+[Сайт книги R Graphics Cookbook](https://r-graphics.org/) — книга Winston Chang про графики в ggplot2 с рецептами решений практически на все случаи жизни
+
+- [Руководство по ggplot2](http://ggplot2.tidyverse.org/reference/)
+- [Cheat-sheet по ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+ от [RStudio](https://www.rstudio.com)
+- [ggplot2 Quick Reference: colour and fill](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- [ggplot2 Quick reference: shape](http://sape.inf.usi.ch/quick-reference/ggplot2/shape)
+
+]
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

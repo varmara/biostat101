@@ -1,0 +1,367 @@
+---
+title: Графики в ggplot2 - задания
+subtitle: "Основы биостатистики, осень 2022"
+author: 
+  - Марина Варфоломеева
+company: 'Каф. Зоологии беспозвоночных, СПбГУ'
+output:
+  xaringan::moon_reader:
+    self-contained: true
+    lib_dir: libs
+    css: [ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css"]
+    df_print: default
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [middle, left, inverse]
+      beforeInit: "assets/macros.js"
+    includes:
+      in_header: "assets/xaringan_in_header.html"
+      after_body: "assets/xaringan_after_body.html"
+---
+
+
+```{r setup, include = FALSE, cache = FALSE, purl = FALSE, fig.showtext = TRUE}
+source("assets/setup.R")
+```
+
+```{r libs, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(cowplot)
+library(scales)
+```
+
+## Данные для этого задания
+
+Датасет `penguins` про пингвинов Адели, Генту и Чинстрап.
+
+![:scale 40%](img/palmerpenguins.jpg)
+.tiny[bluegio at deviantart.com]
+
+```{r echo=TRUE}
+library(readxl)
+penguins <- read_xlsx(path = "data/penguins.xlsx", sheet = "penguin data")
+head(penguins, 2)
+colnames(penguins)
+```
+
+
+---
+
+class: middle, center, inverse
+
+# Простейшие графики (без статистической обработки)
+
+---
+
+## 1. Скаттерплот, диаграмма рассеяния - geom_point()
+
+Такой график построили на лекции.
+
+```{r gg-point, opts.label='fig.wide'}
+gg_peng1 <- ggplot(data = penguins, 
+                   aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species), size = 3) +
+  scale_color_brewer(palette = "Set2") +
+  labs(x = "Flipper length, mm", y = "Body mass, g") +
+  facet_wrap(~ island)
+gg_peng1
+```
+
+---
+
+## 2. Столбчатый график - geom_col()
+
+Чтобы его нарисовать, нам нужны уже подготовленные данные: чтобы была переменная, которая будет соответствовать высоте столбцов.
+
+Найдем объемы выборок пингвинов разных видов в разные годы наблюдений.
+
+```{r echo=TRUE}
+tbl_penguins <- table(penguins$species, penguins$year)
+tbl_penguins
+
+sample_size <- as.data.frame(tbl_penguins)
+colnames(sample_size) <- c("species", "year", "N")
+sample_size
+```
+
+---
+
+## 2. Столбчатый график - geom_col()
+
+Нарисуйте столбчатый график, на котором показан объем выборки
+пингвинов разных видов в разные годы наблюдений (покажите цветом).
+
+Что делает аргумент `position`?
+
+Заполните пропуски (`RRR`):
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) + 
+  geom_col(aes(RRR = year), position = position_dodge())
+```
+
+```{r gg-col}
+ggplot(data = sample_size, aes(x = species, y = N)) +
+  geom_col(aes(fill = year), position = position_dodge())
+```
+
+---
+
+## 3. Линейный график - `geom_line()`
+
+(a) Нарисуйте график, на котором линиями показано, как  для пингвинов разных видов (цвет) год от года изменяется объем выборки.
+
+Что делает эстетика `group` в `geom_line()`?
+
+Заполните пропуски (`RRR`):
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_line(aes(RRR = RRR, group = RRR))
+```
+
+```{r gg-line}
+ggplot(data = sample_size, aes(x = year, y = N)) +
+  geom_line(aes(colour = species, group = species))
+```
+
+---
+
+## 3. Линейный график - `geom_line()`
+
+(b) Добавьте к предыдущему графику этот слой.
+
+```{r echo=TRUE, eval=FALSE}
+coord_cartesian(ylim = c(0, max(sample_size$N)))
+```
+
+Что делает аргумент `ylim`?
+
+```{r gg-coord}
+ggplot(data = sample_size, aes(x = year, y = N)) +
+  geom_line(aes(colour = species, group = species)) +
+  coord_cartesian(ylim = c(0, max(sample_size$N)))
+```
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(a) Нарисуйте точечный график, показывающий зависимость массы тела от вида пингвинов.
+
+Заполните пропуски (`RRR`):
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_jitter(aes(colour = RRR))
+```
+
+```{r gg-jitt, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_jitter(aes(colour = species))
+```
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(b) Добавьте в `geom_jitter()` аргументы 
+
+- `width = 0.2` (ширина полосы точек) и
+- `alpha = 0.75` (прозрачность).
+
+Что они регулируют?
+
+```{r gg-jitt-opt, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_jitter(aes(colour = species), width = 0.2, alpha = 0.75)
+```
+
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(c) Измените цветовую палитру для переменной species, для этого добавьте шкалу `scale_colour_brewer()`. Выберите понравившуюся палитру из предложенных `RColorBrewer::display.brewer.all()`
+
+Заполните пропуски (`RRR`):
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_jitter(aes(colour = RRR), width = 0.2, alpha = 0.75) +
+  scale_colour_brewer(palette = RRR) 
+```
+
+
+```{r gg-jitt-scale-colour, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_jitter(aes(colour = species), width = 0.2, alpha = 0.75) +
+  scale_colour_brewer(palette = "Set1")
+```
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(d) Подпишите на русском языке оси и название легенды при помощи слоя `labs()`. Измените название видов пингвинов в легенде и подписях к оси х
+при помощи аргумента `labels` в `scale_color_brewer()` и `scale_x_discrete()`
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_jitter(aes(colour = RRR), width = 0.2, alpha = 0.75) +
+  scale_colour_brewer(palette = RRR,
+                     labels = c(RRR, RRR, RRR)) +
+  scale_x_discrete(labels = c(RRR, RRR, RRR)) +
+  labs(x = RRR, y = RRR, colour = RRR)
+```
+
+```{r gg-jitt-labels, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_jitter(aes(colour = species), width = 0.2, alpha = 0.75) +
+  scale_color_brewer(palette = "Set1", 
+                     labels = c("Адели", "Чинстрап", "Генту")) +
+  scale_x_discrete(labels = c("Адели", "Чинстрап", "Генту")) +
+  labs(x = "Вид", y = "Масса тела, г", colour = "Вид")
+```
+
+---
+
+class: middle, center, inverse
+
+# Графики со встроенной стат. обработкой
+
+---
+
+## 5. Гистограмма - `geom_histogram()`
+
+(a) Постройте гистограмму распределения массы тела пингвинов.
+Сделайте, чтобы у столбцов гистограммы был белый цвет рамки и оранжевый цвет заливки.
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(RRR = body_mass_g)) +
+  geom_histogram(RRR = "white", RRR = "orange")
+```
+
+```{r gg-hist, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = body_mass_g)) +
+  geom_histogram(colour = "white", fill = "orange")
+```
+
+---
+
+## 5. Гистограмма - `geom_histogram()`
+
+(b) Измените предыдущий график, 
+чтобы разделить информацию о разных видах пингвинов.
+Попробуйте придумать несколько вариантов решения.
+
+```{r gg-hist-species, opts.label='fig.wide.taller'}
+p1 <- ggplot(data = penguins, aes(x = body_mass_g)) +
+  geom_histogram(colour = "white", fill = "orange") +
+  facet_wrap(~ species, ncol = 1)
+p2 <- ggplot(data = penguins, aes(x = body_mass_g)) +
+  geom_histogram(aes(fill = species), position = position_dodge())
+
+plot_grid(p1, p2, nrow = 1, rel_widths = c(1, 1.5))
+```
+
+
+---
+
+## 5. Гистограмма - `geom_histogram()`
+
+(c) Измените гистограмму, чтобы использовать число интервалов, вычисленное методом Стурджеса (Sturges, 1926). Количество интервалов `geom_histogram()` задает параметр `bins`.
+
+```{r echo=TRUE, eval=FALSE}
+n_bins <- nclass.RRR(penguins$RRR)
+ggplot(data = RRR, aes(x = RRR)) +
+  geom_histogram(aes(RRR = species), 
+                 position = RRR, 
+                 bins = n_bins)
+```
+
+```{r gg-hist-stur, opts.label='fig.wider'}
+n_bins <- nclass.Sturges(penguins$body_mass_g)
+ggplot(data = penguins, aes(x = body_mass_g)) +
+  geom_histogram(aes(fill = species), 
+                 position = position_dodge(), 
+                 bins = n_bins)
+```
+
+---
+
+## 6. Боксплоты - `geom_boxplot()`
+
+Постройте боксплот распределения массы тела пингвинов разных видов.
+Сделайте так, чтобы цвет заливки боксплотов был разный у разных видов.
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_boxplot(aes(RRR = species))
+```
+
+```{r gg-box, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot(aes(fill = species))
+```
+
+
+---
+
+## 7. Точки с усами - `stat_summary(geom = "pointrange")`
+
+(a) Постройте график массы тела у разных видов пингвинов. Изобразите медиану, минимум и максимум при помощи функции `median_hilow()`
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  stat_summary(geom = "RRR", fun.data = RRR)
+```
+
+```{r gg-pointrange1}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  stat_summary(geom = "pointrange", fun.data = median_hilow)
+```
+
+---
+
+## 7. Точки с усами - `stat_summary(geom = "pointrange")`
+
+(b) Измените предыдущий график так, чтобы цвет точек и усов был разный у разных видов.
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  stat_summary(geom = "RRR", fun.data = RRR,
+               aes(RRR = species))
+```
+
+```{r gg-pointrange2, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  stat_summary(geom = "pointrange", fun.data = median_hilow,
+               aes(colour = species))
+```
+
+
+---
+
+## 7. Точки с усами - `stat_summary(geom = "pointrange")`
+
+(c) Измените предыдущий график, чтобы показать 
+средние ± 2 стандартных отклонения (функция `mean_sdl()`)
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  stat_summary(geom = "RRR", fun.data = RRR,
+               aes(RRR = species))
+```
+
+```{r gg-pointrange3, opts.label='fig.wider'}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  stat_summary(geom = "pointrange", fun.data = mean_sdl,
+               aes(colour = species))
+```
+
+
+               
+

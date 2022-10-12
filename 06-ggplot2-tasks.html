@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Графики в ggplot2 - задания</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Графики в ggplot2 - задания
+]
+.subtitle[
+## Основы биостатистики, осень 2022
+]
+.author[
+### Марина Варфоломеева
+]
+
+---
+
+
+
+
+
+
+
+## Данные для этого задания
+
+Датасет `penguins` про пингвинов Адели, Генту и Чинстрап.
+
+![:scale 40%](img/palmerpenguins.jpg)
+.tiny[bluegio at deviantart.com]
+
+
+```r
+library(readxl)
+penguins &lt;- read_xlsx(path = "data/penguins.xlsx", sheet = "penguin data")
+head(penguins, 2)
+```
+
+```
+# A tibble: 2 × 8
+  species island    bill_length_mm bill_…¹ flipp…² body_…³ sex    year
+  &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+1 Adelie  Torgersen           39.1    18.7     181    3750 male   2007
+2 Adelie  Torgersen           39.5    17.4     186    3800 fema…  2007
+# … with abbreviated variable names ¹​bill_depth_mm,
+#   ²​flipper_length_mm, ³​body_mass_g
+```
+
+```r
+colnames(penguins)
+```
+
+```
+[1] "species"           "island"            "bill_length_mm"   
+[4] "bill_depth_mm"     "flipper_length_mm" "body_mass_g"      
+[7] "sex"               "year"             
+```
+
+
+---
+
+class: middle, center, inverse
+
+# Простейшие графики (без статистической обработки)
+
+---
+
+## 1. Скаттерплот, диаграмма рассеяния - geom_point()
+
+Такой график построили на лекции.
+
+![](06-ggplot2-tasks_files/figure-html/gg-point-1.png)&lt;!-- --&gt;
+
+---
+
+## 2. Столбчатый график - geom_col()
+
+Чтобы его нарисовать, нам нужны уже подготовленные данные: чтобы была переменная, которая будет соответствовать высоте столбцов.
+
+Найдем объемы выборок пингвинов разных видов в разные годы наблюдений.
+
+
+```r
+tbl_penguins &lt;- table(penguins$species, penguins$year)
+tbl_penguins
+```
+
+```
+           
+            2007 2008 2009
+  Adelie      50   50   52
+  Chinstrap   26   18   24
+  Gentoo      34   46   44
+```
+
+```r
+sample_size &lt;- as.data.frame(tbl_penguins)
+colnames(sample_size) &lt;- c("species", "year", "N")
+sample_size
+```
+
+```
+    species year  N
+1    Adelie 2007 50
+2 Chinstrap 2007 26
+3    Gentoo 2007 34
+4    Adelie 2008 50
+5 Chinstrap 2008 18
+6    Gentoo 2008 46
+7    Adelie 2009 52
+8 Chinstrap 2009 24
+9    Gentoo 2009 44
+```
+
+---
+
+## 2. Столбчатый график - geom_col()
+
+Нарисуйте столбчатый график, на котором показан объем выборки
+пингвинов разных видов в разные годы наблюдений (покажите цветом).
+
+Что делает аргумент `position`?
+
+Заполните пропуски (`RRR`):
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) + 
+  geom_col(aes(RRR = year), position = position_dodge())
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-col-1.png)&lt;!-- --&gt;
+
+---
+
+## 3. Линейный график - `geom_line()`
+
+(a) Нарисуйте график, на котором линиями показано, как  для пингвинов разных видов (цвет) год от года изменяется объем выборки.
+
+Что делает эстетика `group` в `geom_line()`?
+
+Заполните пропуски (`RRR`):
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_line(aes(RRR = RRR, group = RRR))
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-line-1.png)&lt;!-- --&gt;
+
+---
+
+## 3. Линейный график - `geom_line()`
+
+(b) Добавьте к предыдущему графику этот слой.
+
+
+```r
+coord_cartesian(ylim = c(0, max(sample_size$N)))
+```
+
+Что делает аргумент `ylim`?
+
+![](06-ggplot2-tasks_files/figure-html/gg-coord-1.png)&lt;!-- --&gt;
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(a) Нарисуйте точечный график, показывающий зависимость массы тела от вида пингвинов.
+
+Заполните пропуски (`RRR`):
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_jitter(aes(colour = RRR))
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-jitt-1.png)&lt;!-- --&gt;
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(b) Добавьте в `geom_jitter()` аргументы 
+
+- `width = 0.2` (ширина полосы точек) и
+- `alpha = 0.75` (прозрачность).
+
+Что они регулируют?
+
+![](06-ggplot2-tasks_files/figure-html/gg-jitt-opt-1.png)&lt;!-- --&gt;
+
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(c) Измените цветовую палитру для переменной species, для этого добавьте шкалу `scale_colour_brewer()`. Выберите понравившуюся палитру из предложенных `RColorBrewer::display.brewer.all()`
+
+Заполните пропуски (`RRR`):
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_jitter(aes(colour = RRR), width = 0.2, alpha = 0.75) +
+  scale_colour_brewer(palette = RRR) 
+```
+
+
+![](06-ggplot2-tasks_files/figure-html/gg-jitt-scale-colour-1.png)&lt;!-- --&gt;
+
+---
+
+## 4. Точечный график, стрипчарт - `geom_jitter()`
+
+(d) Подпишите на русском языке оси и название легенды при помощи слоя `labs()`. Измените название видов пингвинов в легенде и подписях к оси х
+при помощи аргумента `labels` в `scale_color_brewer()` и `scale_x_discrete()`
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_jitter(aes(colour = RRR), width = 0.2, alpha = 0.75) +
+  scale_colour_brewer(palette = RRR,
+                     labels = c(RRR, RRR, RRR)) +
+  scale_x_discrete(labels = c(RRR, RRR, RRR)) +
+  labs(x = RRR, y = RRR, colour = RRR)
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-jitt-labels-1.png)&lt;!-- --&gt;
+
+---
+
+class: middle, center, inverse
+
+# Графики со встроенной стат. обработкой
+
+---
+
+## 5. Гистограмма - `geom_histogram()`
+
+(a) Постройте гистограмму распределения массы тела пингвинов.
+Сделайте, чтобы у столбцов гистограммы был белый цвет рамки и оранжевый цвет заливки.
+
+
+```r
+ggplot(data = RRR, aes(RRR = body_mass_g)) +
+  geom_histogram(RRR = "white", RRR = "orange")
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-hist-1.png)&lt;!-- --&gt;
+
+---
+
+## 5. Гистограмма - `geom_histogram()`
+
+(b) Измените предыдущий график, 
+чтобы разделить информацию о разных видах пингвинов.
+Попробуйте придумать несколько вариантов решения.
+
+![](06-ggplot2-tasks_files/figure-html/gg-hist-species-1.png)&lt;!-- --&gt;
+
+
+---
+
+## 5. Гистограмма - `geom_histogram()`
+
+(c) Измените гистограмму, чтобы использовать число интервалов, вычисленное методом Стурджеса (Sturges, 1926). Количество интервалов `geom_histogram()` задает параметр `bins`.
+
+
+```r
+n_bins &lt;- nclass.RRR(penguins$RRR)
+ggplot(data = RRR, aes(x = RRR)) +
+  geom_histogram(aes(RRR = species), 
+                 position = RRR, 
+                 bins = n_bins)
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-hist-stur-1.png)&lt;!-- --&gt;
+
+---
+
+## 6. Боксплоты - `geom_boxplot()`
+
+Постройте боксплот распределения массы тела пингвинов разных видов.
+Сделайте так, чтобы цвет заливки боксплотов был разный у разных видов.
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  geom_boxplot(aes(RRR = species))
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-box-1.png)&lt;!-- --&gt;
+
+
+---
+
+## 7. Точки с усами - `stat_summary(geom = "pointrange")`
+
+(a) Постройте график массы тела у разных видов пингвинов. Изобразите медиану, минимум и максимум при помощи функции `median_hilow()`
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  stat_summary(geom = "RRR", fun.data = RRR)
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-pointrange1-1.png)&lt;!-- --&gt;
+
+---
+
+## 7. Точки с усами - `stat_summary(geom = "pointrange")`
+
+(b) Измените предыдущий график так, чтобы цвет точек и усов был разный у разных видов.
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  stat_summary(geom = "RRR", fun.data = RRR,
+               aes(RRR = species))
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-pointrange2-1.png)&lt;!-- --&gt;
+
+
+---
+
+## 7. Точки с усами - `stat_summary(geom = "pointrange")`
+
+(c) Измените предыдущий график, чтобы показать 
+средние ± 2 стандартных отклонения (функция `mean_sdl()`)
+
+
+```r
+ggplot(data = RRR, aes(x = RRR, y = RRR)) +
+  stat_summary(geom = "RRR", fun.data = RRR,
+               aes(RRR = species))
+```
+
+![](06-ggplot2-tasks_files/figure-html/gg-pointrange3-1.png)&lt;!-- --&gt;
+
+
+               
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

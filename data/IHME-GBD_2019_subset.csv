@@ -1,0 +1,241 @@
+measure,location,sex,age,cause,metric,year,val,upper,lower
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1990,54.256446804828954,56.34059309229046,52.59095301674822
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1990,27.993106620291627,29.612169301378344,27.131933797482393
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1990,200.76073904432738,204.24496672676048,198.12390281319227
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1990,53.78817552792007,55.797454832061504,52.4256968650877
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1990,862.972550348506,866.8253043930721,858.5479617933846
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1990,952.2340076286016,956.5320760628263,947.5661937858314
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1990,212.3646107377853,216.308084221597,206.90855832876244
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1990,156.21484291262934,159.07681049045928,152.13618554543262
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1992,963.7944248548132,966.9924703146698,959.974931961175
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1992,1003.3001293835541,1007.0650050392202,998.9030304753139
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1991,212.98350570734428,217.54298053009322,206.0095867975991
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1991,156.7369922307788,159.61323559600828,152.70601851011796
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1992,57.8022986310602,59.52429167521331,56.817229890474216
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1992,26.07394068992057,27.465838378164957,25.293631537717545
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1992,246.09534523367194,248.2446579840898,244.33707089166487
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1992,61.69170946905489,63.42041154972979,60.514807078160594
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1993,267.93850982834425,279.51156352896083,263.21669105137966
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1993,179.0843386523579,183.54610178304733,174.45356994562215
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1991,53.95111988785807,55.93958542286232,52.24996120530563
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1991,27.14787250258154,28.63021156849666,26.29467954281504
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1991,210.47121526947765,213.80220441412456,207.8746039571349
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1991,55.559058853324004,57.42084351384989,54.25809524091009
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1994,1285.9937829739533,1294.0989238133855,1276.83492454572
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1994,1216.7361897765463,1221.1888401957708,1212.6845006896579
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1994,84.52685107108778,91.0549957093199,82.50093981609817
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1994,30.028607273478134,31.462991080454298,29.011460611698528
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1994,354.26516902741474,358.336702893973,345.85528167405937
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1994,84.06915093726677,85.35940972232272,81.34846192896089
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1994,285.86384883098196,304.6384391020959,279.193195428748
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1994,187.97522629035134,193.08682698044686,182.37887035576614
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1991,878.4996679530036,882.1517095203947,874.0401625977994
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1991,965.0719037509488,969.4150730549765,960.1961734389218
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1993,1163.2972596584932,1168.6330844828465,1158.4741917899273
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1993,1135.53413140626,1139.6067001765996,1131.0155770867552
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1992,228.90928524815692,233.15081032711623,224.98048873970114
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1992,161.62124339090062,164.26845252183588,157.62486294096533
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1993,72.40339670952419,75.69324637682605,70.9789227945447
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1993,28.500124276808283,29.98384589792792,27.655511021801917
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1993,313.24675943744444,315.6386626145968,307.926136220961
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1993,75.81166454937075,77.4216347104697,74.06938624728099
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1995,266.26679956964017,276.4544474946571,261.95707675513785
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1995,180.31734749194965,184.37668548851104,175.78510147470098
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1995,83.77266776991586,87.82975705971533,82.12067153944442
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1995,29.06801181348002,30.38840473265886,28.29699325352995
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1995,341.1883983898897,344.77997352752277,334.85155560972413
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1995,81.45584334678222,82.61999412379033,80.02105956027088
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1996,78.7893844348336,80.30600640708255,77.6146419451312
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1996,27.167356297477472,28.314924623523268,26.458995798979224
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1996,304.69286143729147,306.42352084313785,302.65642430636785
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1996,75.08037639772478,76.35108052117403,74.01001526513845
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1996,1150.7671157293769,1154.1166685052974,1147.2354653144525
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1996,1133.6976347236896,1137.7854089513776,1129.7008489229079
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1997,1088.2433228216128,1093.2748228996666,1084.0924925882484
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1997,1105.7826526252325,1109.7632533844255,1101.688288277099
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1997,227.88574856672912,232.29174692192342,220.95088886193776
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1997,165.20303778247387,167.53853959238526,161.2648583316708
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1998,1083.8337491063496,1089.293200183359,1078.741393991562
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1998,1098.5227969970747,1102.756294115803,1094.370228658662
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1995,1227.0333549271818,1233.3751123677014,1222.0352812856443
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1995,1174.7740243096782,1178.57282569683,1170.7857754354518
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1998,267.2540567681403,271.44449437986214,264.976048647437
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1998,68.06538628022972,69.7434585120147,66.94873298422
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1998,73.12978714766056,75.09840627622549,69.53887021111186
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1998,25.74603949792012,26.80192534472131,25.0337674179152
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1999,236.92436884380913,240.91402312368385,232.85424112817074
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1999,169.99061129666583,172.25557643181375,165.84605637292884
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2000,1267.2672418648408,1270.6281152647787,1263.5004546045425
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2000,1191.5815926677913,1195.6647991706486,1187.6134305453359
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1998,222.4516431443541,227.12499668424854,213.71414539204233
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1998,162.65335677054935,165.50713378100426,158.19170346777648
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1999,85.4864645325725,87.21661165155983,83.90274251725458
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1999,27.65801779410563,28.705079825295595,26.96392944552684
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1999,304.67652508099775,307.81957831060635,301.9345048287166
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1999,77.04732279846291,78.42876477063031,75.8033100022383
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1997,74.12105823887092,75.90345426787172,71.35693012529426
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,1997,26.25981779854862,27.415513881806746,25.553640485380612
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,1997,271.54699185680164,274.58922250116746,269.3272478246718
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,1997,69.07342910212017,70.57998809421699,67.9876391037757
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2000,94.3672775094036,95.84899879088046,93.31459406107678
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2000,28.775354877170475,29.801189340600395,28.15441607182917
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2000,325.5560165620252,327.55637813767703,323.5294253710466
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2000,79.50808661377978,80.42009116873128,78.4135715434172
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2001,243.984393612523,248.25188018063332,240.5601199673266
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2001,175.02999595132692,177.60655956141426,170.70713590060748
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1996,245.16281784744464,249.53765645150497,242.2572733527992
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1996,171.20257952143928,173.84341328886723,167.0206517061846
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2002,1351.4929710736162,1355.0884063083115,1348.4442002575258
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2002,1229.532354136944,1233.4534617666188,1225.6511119219397
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2002,103.76617406084678,105.18997448441803,102.65975307594904
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2002,30.82834963864402,31.755877759005887,30.11705288892056
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2002,333.00088564941086,334.8202615493088,330.703748149234
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2002,82.00683267776009,82.7998871594248,80.86972234890564
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2001,1300.2708953872752,1303.7307184270198,1296.6170229201323
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2001,1204.0810694531458,1207.9614425623975,1199.9548376822918
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2000,244.9747302538257,249.0726509238395,241.670175624679
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2000,173.57168747289467,176.0776369254348,169.38587167412987
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2002,247.44836676838426,251.93801234592547,243.5386632864502
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2002,178.334632323459,181.24192909519445,173.9506522691854
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,1999,1188.4871378525309,1192.5050458556022,1184.6210320627151
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,1999,1167.5131648152305,1171.5852613700831,1163.3296922522743
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2003,249.60682178022216,254.3083592798325,245.40905522831696
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2003,181.32871571639367,184.63991066656772,177.00226972564985
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2003,108.61299122527221,110.4912233729929,107.36395415356913
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2003,32.044895547738314,33.03029200735655,31.25860232521573
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2003,333.9913885479714,335.82546749631285,331.3925424163658
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2003,82.63208483300117,83.48806560265379,81.21902201537303
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2004,1364.5839428155557,1368.3232274050783,1361.1748045023153
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2004,1213.6353838343734,1217.3790085692397,1209.5232039098137
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2004,107.14562764027367,108.66630164967548,106.01236962706736
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2004,31.74993691079555,32.61893190103522,31.073792821771576
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2001,328.6169334969495,330.3732923754712,326.6394932823786
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2001,81.30155630720989,82.10245395413975,80.19290078015273
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2006,1328.2603124223704,1331.883393011629,1324.7821396600405
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2006,1183.4166346193615,1187.1058591305748,1179.6963924510976
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2006,102.9991988908223,104.31932593287894,101.96728719722947
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2006,31.66136304358516,32.47880490475602,31.0089162985266
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2001,98.48814952366173,99.95157412992928,97.47454736688007
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2001,29.594035368996362,30.531573923961236,28.948948147117935
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2005,254.36513636813578,260.66075693159183,249.54334968148873
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2005,185.596566546284,189.42978236294815,180.48423423104234
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2004,327.213137305849,329.05427886698226,324.73840565608936
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2004,80.42408582424524,81.26528402582998,78.97047162224966
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2006,295.8946753699439,297.85066890460297,293.55706137012726
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2006,72.78056169685667,73.6069996807972,71.41456160360642
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2006,237.00352650334244,241.13152769970307,233.13544677593467
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2006,177.64824342435782,180.37500064872995,172.40709716196528
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2004,243.06423220167122,247.33871611526084,239.1619837130261
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2004,178.38899388426972,181.1783773779853,173.67173537968173
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2005,1431.3139832217275,1437.0559200398002,1425.2373536907423
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2005,1247.9786094273686,1251.7651583702734,1244.1560997758459
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2008,1293.9407604969244,1297.2955103201662,1290.4185636910597
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2008,1158.6743521725293,1162.894785168113,1154.647267249976
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2003,1387.5100468875837,1391.1923790676374,1383.6676229597633
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2003,1243.7438069190396,1247.939648661059,1239.837803739979
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2008,96.35348401608455,97.83915626066025,95.33508183718723
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2008,31.61813624378837,32.408550350674275,30.88182809876414
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2007,230.41004992141882,234.3169304427717,226.0558086795157
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2007,174.6541117501804,177.37871954251975,169.18843855977002
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2008,262.28915492605483,263.9251447604919,260.01480443544534
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2008,65.58772803662033,66.43390731046959,64.29782805001396
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2007,96.8793603640017,98.05365460317783,95.73129719655736
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2007,31.293651343463214,32.084137600404915,30.593042149052533
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2007,271.58724112533804,273.2886900979937,268.9709515282792
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2007,67.5374698392051,68.33916441307623,66.32231985438966
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2009,230.87361000837754,233.80358494922683,226.28817583010022
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2009,176.83817283310592,179.6153709663633,170.96322731572866
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2005,113.55412032875574,118.57140241386276,112.00405922346995
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2005,33.20363544582423,34.08467620932821,32.19685516721782
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2009,1235.2192110999215,1238.6712343388747,1231.8158367615029
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2009,1133.3560489069393,1137.715087981673,1129.3280440346407
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2005,335.69205980077237,338.8454696869634,331.3132666608847
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2005,81.3748667665559,82.46794466666798,79.37143679400155
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2007,1277.6137051748528,1281.758308827605,1273.9928463601873
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2007,1150.5492396190589,1154.769578667354,1146.5510182664918
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2009,90.89706240502983,92.03196368691965,89.81665127957557
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2009,31.402290186018934,32.13748966200794,30.64843551631039
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2010,90.16230290323975,91.36023101026053,89.1163280126426
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2010,31.594933731399113,32.28548258930258,30.728171702378887
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2009,237.80744353772482,239.3781463682435,236.3816939688589
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2009,61.25383577980624,62.02148804993798,60.02637477901995
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2010,1250.1468141583011,1253.6387695483652,1246.4207112030685
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2010,1143.3348857567066,1147.3545658058363,1139.4976583740195
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2010,238.44546472448314,242.90265526142863,233.1701491887535
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2010,181.17111482191513,184.3445516400218,174.8721324386071
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2010,237.4765141682894,239.26171670409823,235.82540870576312
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2010,61.61808960808927,62.47847930166841,60.295446342196406
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2008,237.41535797937152,240.9261065442473,233.07538761625068
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2008,178.40330881816422,181.248540897552,172.8858329345662
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2011,227.64938356133158,230.64137857533666,222.48037133477564
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2011,175.6266412265197,178.87674494463803,168.97852250638115
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2011,86.01669552327465,87.13602627665108,84.63199105028434
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2011,31.313207233053575,31.977263706953355,30.469316759902078
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2011,211.20259221989846,212.76222958894027,209.77051307379517
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2011,54.9796808450754,55.85992398586101,53.816020025832756
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2011,1169.393504297797,1172.7068039764224,1165.9864383748968
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2011,1091.1608887062778,1095.2488541940097,1087.2949426810492
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2013,227.0337831280334,230.27566534552517,221.1157359324526
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2013,175.4402341599207,179.22007410397623,168.35294196993368
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2012,227.03084535099148,230.1484748091141,221.2690803916236
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2012,175.44913322229974,178.99195826461806,168.57521793544637
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2012,1145.5860297312643,1148.8642762158204,1142.0352513486757
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2012,1079.180358126311,1083.368071109881,1075.0547759319759
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2012,202.69764055952885,204.4968379725982,201.24238255282432
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2012,53.161021365266066,54.292080154360974,51.971839633792655
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2012,83.8683190211555,85.00814156331518,82.56891216819842
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2012,32.1146193595186,32.87961078958006,31.249279626963713
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2014,81.58223934047592,82.82799017801408,80.5405006604523
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2014,32.57029772329349,33.18922771432455,31.650521889323088
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2014,192.22023907541976,194.69564632084712,190.38750543673098
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2014,49.571124728979285,50.26088435551021,48.442828017759965
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2013,1124.9313602729053,1128.5139829724444,1121.0723618422348
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2013,1068.2803432897997,1072.5151465228685,1064.1798941452844
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2014,1144.3115833062789,1148.4508527337111,1139.6958568483415
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2014,1083.7349609855914,1088.5828836081735,1079.6427309369205
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2014,234.73146907066547,238.98036453367513,228.04135236005274
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2014,179.22497392337016,182.88896606341265,171.7506118918956
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2015,235.33714507038192,240.2650694700927,228.53720109603472
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2015,180.59643488813794,184.3786529017247,172.8509305968668
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2015,78.75485994764846,79.89006264721837,77.66578594773236
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2015,32.07362335777012,32.73949026645198,31.11874578213346
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2015,180.13561873261597,184.31291295381286,178.19606561466105
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2015,47.67881076951866,48.930773082487484,46.37439266414363
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2016,1113.5822656397252,1117.9653806618699,1107.798655410409
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2016,1077.4554812255606,1082.023899971003,1072.9640697981602
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2016,77.00578805322267,78.28133404700235,75.67698524051465
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2016,32.09863876839958,32.788371444626065,31.118043724150525
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2017,224.60973282294097,228.93832603959717,217.33898155667438
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2017,175.42288975130248,180.54385975240072,167.31419742505867
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2016,168.73171466963217,173.75618929049287,166.27374965726568
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2016,45.215478904084875,46.53950693426869,43.96789483358853
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2013,81.59431068848995,82.81362810180082,80.54608056787954
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2013,31.985406059146392,32.74894193467208,31.079529988825843
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2013,194.52498351343405,195.78836989701787,193.19855464957953
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2013,50.44593236154774,51.16787716201716,49.30048470415131
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2017,1056.4708031973908,1060.7745352102177,1051.5377821437753
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2017,1053.1691739245716,1057.7587543287675,1048.6265024695238
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2016,235.71574266870874,241.50613183530947,228.87331153793505
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2016,179.5570412270705,183.6494714912604,172.08760777428557
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2015,1125.812811443263,1130.093507576416,1120.7278999998316
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2015,1082.4851590716462,1086.8136029106224,1078.1655998287902
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2018,1049.8258306020334,1171.0920122523194,937.0264929981753
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2018,1067.660858209174,1173.0496570632272,969.3963639834085
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2018,67.7173540031183,73.08524836753467,62.424050200567876
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2018,28.62114279742637,30.986136817501357,26.43187244810324
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2018,157.0020523476485,176.27145714734235,139.02750497546907
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2018,42.88617034066308,48.41103060151746,37.768066915549696
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2018,223.00231703621674,251.4620603961406,196.94829646365224
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2018,176.92968462510996,197.96791358560236,156.5546118883266
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2019,227.33488540283437,271.3594607668724,187.07114555871306
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2019,179.56459183645856,212.94602805197317,150.045157136953
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2019,156.40550382087434,188.19256670366343,129.83769143159765
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2019,42.709800207794295,51.26255745367959,34.96407142052167
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2019,66.75623137494405,75.12743632507592,58.99414197683997
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2019,28.167362426247877,31.752214536444534,24.885670117806963
+Deaths,Russian Federation,Male,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2017,69.04101756424808,70.63177145674024,67.02556070635984
+Deaths,Russian Federation,Female,All ages,"Communicable, maternal, neonatal, and nutritional diseases",Rate,2017,29.032431869909555,29.78071372508717,27.983406039930536
+Deaths,Russian Federation,Male,All ages,Injuries,Rate,2017,155.11207132123047,160.08444680523812,152.17177488879796
+Deaths,Russian Federation,Female,All ages,Injuries,Rate,2017,42.589835078580556,44.322330805053326,41.325061525244465
+Deaths,Russian Federation,Male,All ages,Non-communicable diseases,Rate,2019,1066.7886310159827,1256.3254480196222,893.599592099033
+Deaths,Russian Federation,Female,All ages,Non-communicable diseases,Rate,2019,1086.0529718289147,1253.2675576366896,935.9815661926975

@@ -1,0 +1,301 @@
+measure,location,sex,age,cause,metric,year,val,upper,lower
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1992,1267.6920687195463,1270.5664899474912,1264.8019131340259
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1992,1091.065779542529,1094.6892434555073,1087.1241950015137
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1992,47.49505504984491,48.71350661537277,46.85004030080815
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1992,12.789005084014738,13.291735631303569,12.513424603691046
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1992,110.07347305071933,111.51708214742833,109.16656107504302
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1992,25.78657460978183,26.334724232321975,25.35148262660595
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1990,82.32619680426255,84.23492641010793,80.20414461035847
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1990,21.032356547244195,21.77446488269883,20.567334853286653
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1990,73.3883740964403,74.90179491310384,71.04276059389267
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1990,20.57159116731726,21.868542910221976,19.834412679610463
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1990,212.3646107377853,216.308084221597,206.90855832876244
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1990,156.21484291262934,159.07681049045928,152.13618554543262
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1990,1117.9897361976648,1121.014721325575,1115.1713543047767
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1990,1034.015289776812,1037.8673339650077,1029.9871232421062
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1991,76.97081589872161,78.64335928569265,74.43498137839799
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1991,21.24783106448929,22.452799021389428,20.56033439629371
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1990,45.04616814362448,49.83175426349586,43.66101965001936
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1990,12.18422781335862,13.30295492366669,11.788444666964535
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1991,212.98350570734428,217.54298053009322,206.0095867975991
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1991,156.7369922307788,159.61323559600828,152.70601851011796
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1993,144.9557275482621,146.43467302588533,142.71141767530324
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1993,32.93850777969982,33.492889626377945,31.8617235174172
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1993,114.02168589088777,119.13917176133936,112.38919612680121
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1993,28.30328954723946,29.262351570005535,27.674807825149156
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1991,1142.9220031103398,1146.0501087353252,1139.8836081642696
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1991,1047.7788351068564,1051.457649193709,1043.9094649719232
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1994,56.70070603965062,58.754366811258244,49.5957648395431
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1994,15.432048875768919,15.86234566324564,14.224556890686369
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1994,166.18937936364148,168.71012592142088,160.6196695251012
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1994,36.816521528617486,37.450849770907155,35.06996128159017
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1991,45.035805381695354,49.3326502561229,43.792766087589236
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1991,12.338471058316367,13.303346798648978,11.960843948279235
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1995,266.26679956964017,276.4544474946571,261.95707675513785
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1995,180.31734749194965,184.37668548851104,175.78510147470098
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1995,126.30467443119967,132.21272125397982,124.36669811622129
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1995,30.8916906525146,31.67340725269025,30.310412142479052
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1994,131.37508362412285,140.4994885504023,128.69471648078252
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1994,31.820580532880317,32.76084157923564,31.18365616849898
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1994,285.86384883098196,304.6384391020959,279.193195428748
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1994,187.97522629035134,193.08682698044686,182.37887035576614
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1994,1724.7858030724547,1728.1356098831593,1721.5385149676729
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1994,1330.8339479872905,1334.7002258625487,1327.060073148164
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1993,267.93850982834425,279.51156352896083,263.21669105137966
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1993,179.0843386523579,183.54610178304733,174.45356994562215
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1995,1651.9944210869855,1655.3085233047982,1648.6438271957948
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1995,1285.2978794699432,1288.9735888948342,1281.58125877602
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1995,51.71366939388045,53.229610175679255,47.03430813758687
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1995,14.544876277709346,14.837206647945408,13.6992082659446
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1996,1534.2493616015015,1537.6513330894245,1530.7236114515417
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1996,1235.9453674188894,1239.9279720441061,1231.951302920266
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1996,45.23907574569657,45.96950029117826,43.81871649081591
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1996,13.281161050789713,13.465381057098023,13.013921884143793
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1996,146.16142241444982,147.6613083914035,144.82064312385165
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1996,33.18132875646862,33.599658671477236,32.72776086127461
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1997,101.55967345384458,102.79490980118983,98.18229576482652
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1997,26.951150126054767,27.919402868307383,26.31248241278905
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1997,129.75695183143068,131.30941702972527,128.67280344948097
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1997,29.587433167695103,30.18460999428646,29.152612365962405
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1997,227.88574856672912,232.29174692192342,220.95088886193776
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1997,165.20303778247387,167.53853959238526,161.2648583316708
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1999,1578.6501274661014,1582.9383936438114,1574.3461950731387
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1999,1272.2185054078006,1276.522525192208,1267.9356555753934
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1999,236.92436884380913,240.91402312368385,232.85424112817074
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1999,169.99061129666583,172.25557643181375,165.84605637292884
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1999,43.86451355294398,44.79994115618671,43.320371004070836
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1999,13.756111170622116,13.953756739763877,13.549033733585981
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1999,111.89454859737921,113.00564386966785,110.38006766004735
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1999,28.92452908814217,29.495328813716554,28.36538107441324
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1998,1424.21759302215,1427.7223284462386,1420.7293207236712
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1998,1192.3342227752235,1196.36329168196,1188.2227855834203
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1998,100.25533441325616,101.73890694482304,96.12682616613695
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1998,26.646751373072355,27.52263790428452,25.95763278044505
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1998,127.21203399481426,129.1546295499527,125.98244579404135
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1998,28.850072249385143,29.58282814641302,28.382473079541498
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1998,222.4516431443541,227.12499668424854,213.71414539204233
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1998,162.65335677054935,165.50713378100426,158.19170346777648
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1998,39.7866883600696,42.52705648700089,38.944906529506284
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1998,12.568562657772292,13.117734641425708,12.286290144172652
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2000,1687.1905359362709,1691.1010163081899,1683.266929013973
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2000,1299.8650341587415,1304.1838035436426,1295.8058606009
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2000,156.6482613671983,158.250507407523,154.92133543681155
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2000,34.645558124720985,35.166038437344554,34.09889947427275
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2000,46.89668087506204,47.425770809185906,46.34823938154736
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2000,14.420114264688186,14.59170373896725,14.223945076517227
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2001,154.36419407735133,155.62205964989198,152.69487979007903
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2001,34.57988872559141,34.94461423116186,34.1094911251246
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2001,126.33781397876659,127.56754446133584,125.37524884799643
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2001,31.77596144802252,32.22052256606693,31.202757614736157
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2001,243.984393612523,248.25188018063332,240.5601199673266
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2001,175.02999595132692,177.60655956141426,170.70713590060748
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2002,130.3239322421441,131.65661537725865,129.11092514678464
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2002,33.048339716420585,33.47302422080103,32.43460799372764
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2002,247.44836676838426,251.93801234592547,243.5386632864502
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2002,178.334632323459,181.24192909519445,173.9506522691854
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2002,1788.260030783875,1791.896399414203,1784.720686038287
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2002,1342.3675364533449,1346.2346731660896,1338.6489742761596
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2002,153.8607014277483,155.25559418442154,151.55837369023763
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2002,33.540832968518004,33.94157530289671,33.04791389756512
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2002,48.81625197951841,49.30144382747508,48.28477682216481
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2002,15.417659992821592,15.615089079983917,15.126639590043764
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2003,132.91421637152627,134.97571314947777,131.48109794375875
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2003,33.754070246706526,34.22383410033826,33.03891944114217
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2003,249.60682178022216,254.3083592798325,245.40905522831696
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2003,181.32871571639367,184.63991066656772,177.00226972564985
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2003,1830.1144266608283,1833.856099507112,1826.089834596904
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2003,1358.42078729978,1362.626713883536,1354.5333759166588
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2003,50.26977332961182,50.854899404101765,49.29975063799195
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2003,15.956202371546997,16.191354344953606,15.501375933869282
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2004,147.75643319441508,148.9982087821315,145.53520936932742
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2004,32.02698352256164,32.36997620116893,31.50617987037797
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2004,1798.9427077616783,1802.9927767218678,1795.2319618263946
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2004,1325.8094065694122,1329.7692191635458,1321.6158317463291
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2004,49.83808047518348,50.49696107642539,48.577218340874495
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2004,15.588536477283355,15.803411412567055,15.247298008970418
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2005,148.72994215280394,150.68553932940995,145.15193078467385
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2005,31.545449559624597,32.022049999496,30.486256492029085
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2005,134.60597966224412,139.7083861728148,132.35823080041922
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2005,33.712844572701165,34.542645158989075,32.7149912561867
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2005,254.36513636813578,260.66075693159183,249.54334968148873
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2005,185.596566546284,189.42978236294815,180.48423423104234
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1991,88.46459398906055,90.46022289677231,86.71396520073985
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1991,21.972756730518398,22.781866232639175,21.48403035519258
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1992,88.52681713310767,89.85080196102368,87.43486111465918
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1992,23.1161297752582,24.23806911252554,22.471970669260756
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1992,228.90928524815692,233.15081032711623,224.98048873970114
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1992,161.62124339090062,164.26845252183588,157.62486294096533
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2006,1727.1541866831355,1730.8079937340976,1723.5858619075666
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2006,1287.8585593598025,1291.7785138358663,1284.0808149132786
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2006,129.13320355784353,130.7891446311073,127.31205350296267
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2006,27.485177592108617,27.81124764348415,26.95923073333179
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2006,48.17421352186984,49.01351579573049,46.284539552821386
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2006,14.77211424340893,15.008635639371118,14.418302116638273
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2006,118.58725829023001,119.96365478710365,117.43221481918815
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2006,30.523269861339013,31.004181655341792,29.746408340866832
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2006,237.00352650334244,241.13152769970307,233.13544677593467
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2006,177.64824342435782,180.37500064872995,172.40709716196528
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1993,1548.9474158054607,1552.4945925698205,1545.6197431171036
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1993,1239.8459202324398,1243.93754722033,1235.5945696621131
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1993,54.26934599829479,55.62647917920526,49.64564136496788
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1993,14.569867222431489,14.883962105644867,13.862338648062487
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2007,1646.0803066641913,1650.272339588741,1642.3856466762845
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2007,1249.3803608017301,1253.6673273137978,1245.412190038598
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2007,45.16807637556429,46.031828980291074,44.400848095863715
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2007,13.91811102729294,14.119190753992635,13.64928258769814
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2007,107.4664591209098,108.45273532900843,106.5573492544978
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2007,28.259532706380217,28.726886909043486,27.518029163356815
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2007,230.41004992141882,234.3169304427717,226.0558086795157
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2007,174.6541117501804,177.37871954251975,169.18843855977002
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1995,163.17005456480987,165.60209607302386,157.62337611961118
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1995,36.01927641655817,36.535575403919395,35.30711526417455
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,1996,113.29236327714486,114.68971230860184,112.36287126381457
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,1996,28.617886590466398,29.467052031751557,28.04400951876177
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,1996,245.16281784744464,249.53765645150497,242.2572733527992
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,1996,171.20257952143928,173.84341328886723,167.0206517061846
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2008,1652.5833994390646,1656.440771754487,1648.4927421280827
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2008,1255.8802164529404,1260.3601706271027,1251.9034854148238
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2008,115.23809168127552,116.34338581379644,113.51368917326393
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2008,24.593649632549486,24.908932033376384,24.186686390407512
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2008,43.45145297732577,44.40940250120993,42.40351281483828
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2008,13.480330179661447,13.682397962219058,13.204450743929538
+Deaths,Russian Federation,Male,All ages,All causes,Rate,1997,1433.911372917283,1437.2590433749,1430.5359325555228
+Deaths,Russian Federation,Female,All ages,All causes,Rate,1997,1201.1158995258993,1205.0888028599077,1197.1635616865767
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,1997,40.23036657152628,42.12674773285647,39.55744208528039
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,1997,12.53484580837021,12.908612307797412,12.295083415116332
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,1999,148.91746293067473,151.82787218853846,146.68941460163933
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,1999,34.366682539698616,35.46868032729961,33.492467367918444
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2000,122.01107431976469,123.26690670264497,121.07967518972059
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2000,30.442414224370573,30.92431387883174,29.938242760566197
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2000,244.9747302538257,249.0726509238395,241.670175624679
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2000,173.57168747289467,176.0776369254348,169.38587167412987
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2010,95.95581587064193,97.11628865165952,95.06855923126035
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2010,27.015335553750063,27.530875857150985,26.213505453350503
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2010,238.44546472448314,242.90265526142863,233.1701491887535
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2010,181.17111482191513,184.3445516400218,174.8721324386071
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2010,102.59501140390888,103.5088748419009,101.79486299327024
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2010,22.533534439761844,22.906399792800148,22.096293282544714
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2009,230.87361000837754,233.80358494922683,226.28817583010022
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2009,176.83817283310592,179.6153709663633,170.96322731572866
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2009,93.70883900469484,94.50145623543663,92.7669660333376
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2009,25.816398041330576,26.251857220073596,25.086190203287472
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2009,104.4918309257725,105.57258626366932,103.70131278949611
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2009,23.022556303890948,23.358687397705385,22.62439268551112
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2010,1577.7856312298327,1581.6252178183308,1573.9054960565509
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2010,1236.5479090961978,1240.4992994315428,1232.4606321988067
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2001,1727.3759784078895,1731.076496830234,1723.6219403115226
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2001,1314.9766611293526,1318.9265342460055,1311.1223002405663
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2001,47.91492544083164,48.430375754429356,47.40080166783866
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2001,14.945706133596099,15.146014136417453,14.727593392395782
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2010,38.92568689373901,39.61121397387705,38.36622963726971
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2010,12.069219614577394,12.29963446695269,11.84258047979735
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2003,150.8073988468334,152.05378378666015,148.41039309918725
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2003,32.92181221474759,33.31824354697138,32.24973650637451
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2011,1466.6127920409708,1470.396817054341,1462.9680991164469
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2011,1177.4537767844051,1181.2871226723964,1173.6134516980305
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2011,36.02539666312563,37.14160741154634,35.51500514542004
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2011,11.188610962351127,11.734755976821475,10.953710106765334
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2011,81.937861911892,82.71724434660226,80.84855405064344
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2011,23.262516474106285,23.670903980566212,22.55753429639097
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2011,227.64938356133158,230.64137857533666,222.48037133477564
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2011,175.6266412265197,178.87674494463803,168.97852250638115
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2012,1432.1519893119475,1435.6257997590312,1428.3314652005886
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2012,1164.4559988510966,1168.7432551081001,1160.282012324293
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2012,89.85855516379381,91.27785516102742,88.99339533761892
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2012,19.97854177513871,20.342654851004266,19.618105496664676
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2012,34.87944412258355,36.18618541763979,34.34787256362775
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2012,10.69773621692814,11.39128623126269,10.466490772754938
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2004,129.6186236362505,131.3739737656027,128.24222352660553
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2004,32.80856582440032,33.26628936293925,32.027228429063065
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2004,243.06423220167122,247.33871611526084,239.1619837130261
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2004,178.38899388426972,181.1783773779853,173.67173537968173
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2013,73.81837265226098,74.5269649254831,73.15787643319494
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2013,21.27602050223495,21.704540174070335,20.53910848539558
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2013,227.0337831280334,230.27566534552517,221.1157359324526
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2013,175.4402341599207,179.22007410397623,168.35294196993368
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2013,87.60383592679887,89.5060091189849,86.6618817828822
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2013,19.14835626499394,19.689634166970535,18.751753412058605
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2014,73.50075437131164,74.51473680879778,72.75458948444324
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2014,21.15088555274908,21.569391669288933,20.416487809906027
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2014,1418.114061722175,1422.305230749321,1414.5544484301695
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2014,1165.8763834378613,1170.5066567339215,1161.8040209487692
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2014,234.73146907066547,238.98036453367513,228.04135236005274
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2014,179.22497392337016,182.88896606341265,171.7506118918956
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2014,32.57686620980569,33.20906723773788,31.244679803241855
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2014,9.84756832795587,10.051829891308785,9.27340283011738
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2014,86.14261849430277,88.7307488377053,85.11704846108164
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2014,18.57267084827432,18.920010535679864,18.210608529908075
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2015,1384.7032901235282,1388.5716460418466,1380.804999812963
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2015,1162.2375931989357,1166.5597174286906,1157.9680702698215
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2015,68.70282458133491,69.49376253500267,67.81901951900147
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2015,20.379116793894937,20.83044004468212,19.55992058457386
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2015,235.33714507038192,240.2650694700927,228.53720109603472
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2015,180.59643488813794,184.3786529017247,172.8509305968668
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2015,29.88761554613211,31.58895959349024,29.235843680826072
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2015,9.343872729188073,10.264946406999474,9.095360260442867
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2016,1359.3197683625788,1363.1250740055132,1355.380204960456
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2016,1154.7695988980447,1159.1594931207462,1150.4668141327024
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2016,27.244046885531773,29.41964884839036,26.481360794608396
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2016,8.603238234093434,9.647318522765,8.347190027630415
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2016,76.36378868502415,79.94467957687475,74.74497080724097
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2016,16.904180458397192,17.372842321571618,16.524417712682016
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2018,1274.5452369528016,1418.3883742600478,1141.7190923264172
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2018,1139.168171347265,1251.708082457889,1033.9240603694097
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2018,25.328103461181563,29.695560424968495,22.212272286898884
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2018,8.037577271594866,9.619340327882803,6.933789409280618
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2017,70.61158829178858,74.75542445159817,68.61226530547015
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2017,15.896470184949683,16.61520091405907,15.458681435417152
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2017,59.5146867808349,60.784664113831354,57.57392152789105
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2017,18.661255323552822,19.136048032715923,17.8568090866295
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2017,224.60973282294097,228.93832603959717,217.33898155667438
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2017,175.42288975130248,180.54385975240072,167.31419742505867
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2018,59.616205594412655,66.78177543050974,52.958186693044645
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2018,18.602387517040945,20.80464379974871,16.473593271593256
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2018,223.00231703621674,251.4620603961406,196.94829646365224
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2018,176.92968462510996,197.96791358560236,156.5546118883266
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2018,72.05774329205423,82.30408240809115,63.45217521145877
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2018,16.246205552027288,18.619766785957804,14.163926919570725
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2019,59.86266272195867,71.45250953809449,49.54224322215197
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2019,18.58809548279093,22.03015307700407,15.390302857672683
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2019,25.116545935214045,30.928024530380473,20.750515413818146
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2019,7.9802939264221555,10.093894013533442,6.452961449022092
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2019,227.33488540283437,271.3594607668724,187.07114555871306
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2019,179.56459183645856,212.94602805197317,150.045157136953
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2019,1289.9503662118007,1516.5006987202532,1085.0749132899841
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2019,1156.930134462958,1334.8508488233463,995.4884285648852
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2005,1880.5601633512556,1884.2601515411488,1876.9303233372975
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2005,1362.5571116397493,1366.3603922721516,1358.8101522023424
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2005,52.35613798572395,53.60869595639671,48.30275538868773
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2005,16.116572634230163,16.495822299520572,15.217371115420002
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2007,118.95270562886348,120.01193296080335,117.14878496610383
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2007,25.35982610553201,25.65101059309947,24.92418709677157
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2008,103.59961026745381,104.99602303536396,102.6235954267384
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2008,27.513748224409547,27.978473342771586,26.74875071168008
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2008,237.41535797937152,240.9261065442473,233.07538761625068
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2008,178.40330881816422,181.248540897552,172.8858329345662
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2009,1563.9237170426745,1567.881332134785,1560.1868377526396
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2009,1226.0121748727638,1230.1946639193247,1221.9562599481483
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2009,39.60677360725696,40.55959673925378,39.15982137351098
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2009,12.414881434584805,12.692112858124071,12.187299460137801
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2011,93.23933364488111,94.36625887090489,92.41994463398169
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2011,20.528553408618055,20.812528597438437,20.158654648405488
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2012,227.03084535099148,230.1484748091141,221.2690803916236
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2012,175.44913322229974,178.99195826461806,168.57521793544637
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2012,77.9596412731513,78.70513180579762,76.98339390364754
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2012,22.484743373199144,22.898817200306148,21.778691402570725
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2013,1401.0506544748278,1404.8588765919853,1397.065901300234
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2013,1150.7116817104968,1155.0522819219202,1146.3844103424387
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2013,33.10277493437431,33.670112016721774,31.914773576180885
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2013,10.021555594318901,10.217612929959955,9.439502468892018
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2015,81.54517860514889,84.20573082502703,79.97249960655212
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2015,17.955821246435622,18.359637636766696,17.570104851794657
+Deaths,Russian Federation,Male,All ages,Total cancers,Rate,2016,235.71574266870874,241.50613183530947,228.87331153793505
+Deaths,Russian Federation,Female,All ages,Total cancers,Rate,2016,179.5570412270705,183.6494714912604,172.08760777428557
+Deaths,Russian Federation,Male,All ages,Unintentional injuries,Rate,2016,65.12387909907615,66.07835936178145,63.98042100772715
+Deaths,Russian Federation,Female,All ages,Unintentional injuries,Rate,2016,19.708060211594166,20.17894318240445,18.916104896257703
+Deaths,Russian Federation,Male,All ages,All causes,Rate,2017,1280.6238920828698,1284.5919322175505,1276.8739631486856
+Deaths,Russian Federation,Female,All ages,All causes,Rate,2017,1124.791440873062,1129.2689289874875,1120.3569152048597
+Deaths,Russian Federation,Male,All ages,Transport injuries,Rate,2017,24.985796248607123,28.0378960253439,24.039527093873772
+Deaths,Russian Federation,Female,All ages,Transport injuries,Rate,2017,8.032109570078042,9.262870874433242,7.729301173560286
+Deaths,Russian Federation,Male,All ages,Self-harm and interpersonal violence,Rate,2019,71.42629516370175,87.7592838649559,58.592107565788986
+Deaths,Russian Federation,Female,All ages,Self-harm and interpersonal violence,Rate,2019,16.14141079858129,19.702319921771934,13.060402093090827
