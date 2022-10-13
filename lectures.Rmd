@@ -36,7 +36,7 @@ output:
 
 ## 5-6. Визуализация данных. Графики в пакете ggplot2
 
-<!-- - Презентация [05-data-visualisation.html](05-data-visualisation.html) -->
+- Презентация [05-data-visualisation.html](05-data-visualisation.html)
 - Код [06-ggplot2.R](06-ggplot2.R)
 - Данные:
     - [penguins.xlsx](data/penguins.xlsx)
