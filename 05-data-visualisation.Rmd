@@ -21,9 +21,21 @@ output:
       after_body: "assets/xaringan_after_body.html"
 ---
 
-
 ```{r setup, include = FALSE, cache = FALSE, purl = FALSE, fig.showtext = TRUE}
 source("assets/setup.R")
+library(xaringanExtra)
+use_tile_view()
+use_scribble()
+use_search(show_icon = FALSE)
+use_progress_bar(color = "#6d2b5e", location = "bottom", height = "10px")
+use_freezeframe()
+# use_webcam()
+# use_panelset()
+# use_extra_styles(hover_code_line = TRUE)
+
+# http://tachyons.io/docs/
+# https://roperzh.github.io/tachyons-cheatsheet/
+use_tachyons()
 ```
 
 ```{r libs, include=FALSE, warning=FALSE}

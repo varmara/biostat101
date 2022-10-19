@@ -50,7 +50,7 @@ output:
 
 <!-- - Презентация [07-probabilities.html](07-probabilities.html) -->
 <!-- - Презентация [07.2-monty-hall-problem.html](07.2-monty-hall-problem.html) (самостоятельно) -->
-<!-- - Код [08-probabilities-in-r.R](08-probabilities-in-r.R) -->
+- Код [08-probabilities-in-r.R](08-probabilities-in-r.R)
 
 ## 9-10. Доверительные интервалы
 
