@@ -48,8 +48,8 @@ output:
 
 ## 7-8. Вероятности и распределения
 
-<!-- - Презентация [07-probabilities.html](07-probabilities.html) -->
-<!-- - Презентация [07.2-monty-hall-problem.html](07.2-monty-hall-problem.html) (самостоятельно) -->
+- Презентация [07-probabilities.html](07-probabilities.html)
+<!-- - Презентация [07.2-monty-hall-problem.html](07.2-monty-hall-problem.html) (самостоятельно для развлечения) -->
 - Код [08-probabilities-in-r.R](08-probabilities-in-r.R)
 
 ## 9-10. Доверительные интервалы
