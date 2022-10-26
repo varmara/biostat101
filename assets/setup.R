@@ -9,6 +9,7 @@ library(knitr)
 knitr::opts_template$set(
   fig.full = list(fig.width = 12, fig.height = 9),
   fig.large = list(fig.width = 12, fig.height = 8),
+  fig.wide.tall = list(fig.width = 12, fig.height = 8),
   fig.wide.taller = list(fig.width = 12, fig.height = 6),
   fig.wide = list(fig.width = 12, fig.height = 4.5),
   fig.wider.tall = list(fig.width = 8, fig.height = 8),

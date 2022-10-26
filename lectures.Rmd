@@ -52,15 +52,17 @@ output:
 <!-- - Презентация [07.2-monty-hall-problem.html](07.2-monty-hall-problem.html) (самостоятельно для развлечения) -->
 - Код [08-probabilities-in-r.R](08-probabilities-in-r.R)
 
-## 9-10. Доверительные интервалы
+## 9-10. Доверительные интервалы. Тестирование гипотез.
 
-<!-- - Презентация [09-confidence-intervals.html](09-confidence-intervals.html) -->
-<!-- - Код [10-confidence-intervals-in-r.R](10-confidence-intervals-in-r.R) -->
+<!-- - Презентация [09-confidence-intervals-and-hypothesis-testing.html](09-confidence-intervals-and-hypothesis-testing.html) -->
 
-## 11-12. Тестирование гипотез, сравнение двух групп
+- Код [10-confidence-intervals-and-hypothesis-testing-in-r.R](10-confidence-intervals-and-hypothesis-testing-in-r.R)
+- Данные [memory.csv](data/memory.csv)
 
-<!-- - Презентация [11-hypothesis-testing.html](11-hypothesis-testing.html) -->
-<!-- - Код [12-hypothesis-testing-in-r.R](12-hypothesis-testing-in-r.R) -->
+## 11-12. Cравнение двух групп
+
+<!-- - Презентация [11-comparing-two-groups.html](11-comparing-two-groups.html) -->
+<!-- - Код [12-comparing-two-groups-in-r.R](12-comparing-two-groups-in-r.R) -->
 
 ## 13-14. Ограничения статистических методов. Непараметрические методы
 
