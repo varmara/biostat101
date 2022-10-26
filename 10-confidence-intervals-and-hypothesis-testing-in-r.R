@@ -102,13 +102,12 @@ table(cholest$Group)
 # 3. Статистика по группам при помощи пакета `dplyr` #########################
 library(dplyr)
 
-# t_crit_95 <- qt(p = 0.975, df = N - 1)
-
 cholest %>% 
   group_by(Group) %>% 
   summarise(Mean = mean(Cholesterol),
             N = n(),
             SE = sd(Cholesterol)/sqrt(N),
+            t_crit_95 = qt(p = 0.975, df = N - 1),
             err = t_crit_95 * SE,
             lwr = Mean - err,
             upr = Mean + err)
