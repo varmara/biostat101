@@ -63,8 +63,11 @@ class: middle, left, inverse, title-slide
 - Доверительный интервал для среднего из нормального и _t_-распределения
 - Как устроено тестирование гипотез
 - Одновыборочный t-тест
+- Ошибки при тестировании гипотез
 
 ---
+
+class: middle, center, inverse
 
 # Выборочная оценка среднего
 
@@ -527,7 +530,7 @@ class: segue-yellow
 
 - __Альтернативная гипотеза__ `\(H_A\)` формулируется как **присутствие различий**, она обратна нулевой гипотезе, т.е. включает все остальные случаи.
 
-Например: Риск остановки сердца различается у людей использующих и не использующих лекарство.
+Например: Длительность интервала QT различается у людей использующих и не использующих лекарство.
 
 --
 
@@ -651,7 +654,7 @@ class: middle, center, inverse
 
 ]
 
-Давайте проверим, есть ли статистически значимые отличия длины интервала QTc после лечения от нормы.
+Давайте проверим, есть ли статистически значимые отличия длины интервала QTc после применения лекарства от нормы.
 
 
 
@@ -750,11 +753,6 @@ __Уровень значимости__ — это вероятность пол
 
 Можно вычислить значение `\(p\)`
 
-
-```
-[1] 0.00557
-```
-
 Если бы длительность интервала QTc не отличалось нормы, получить `\(t\)` меньше или больше `\(2.4\)` можно было бы с вероятностью `\(p = 0.022\)`. 
 
 ]
@@ -765,7 +763,7 @@ __Уровень значимости__ — это вероятность пол
 
 .pull-left[
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right[
@@ -786,7 +784,7 @@ __Уровень значимости__ — это вероятность пол
 
 .pull-left[
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right[
@@ -867,7 +865,7 @@ class: middle, center, inverse
 
 ## Можно построить теоретические распределения &lt;br/&gt;при `\(H_0\)` и `\(H_A\)`
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 Распределение статистики, когда справедлива `\(H_0\)`, нам уже знакомо — его мы используем в тестах.
 
@@ -879,7 +877,7 @@ class: middle, center, inverse
 
 ## Ошибка I рода — &lt;br/&gt;найти различия там, где их нет
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 `\(\alpha\)` (критический уровень значимости) — это вероятность ошибки I рода.
 
@@ -891,7 +889,7 @@ class: middle, center, inverse
 
 ## Ошибка II рода — &lt;br/&gt;не найти различий, где они есть
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 
 `\(\beta\)` — вероятность ошибки II рода.
 
@@ -903,7 +901,7 @@ class: middle, center, inverse
 
 .pull-left-55[
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right-45[
@@ -919,7 +917,7 @@ class: middle, center, inverse
 
 ## Мощность теста — &lt;br/&gt;вероятность найти различия, если они есть
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 `\(Power = 1 - \beta\)` — мощность теста.
 
@@ -931,7 +929,7 @@ class: middle, center, inverse
 
 .pull-left-60[
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 ]
 .pull-right-40[
 
@@ -946,7 +944,7 @@ class: middle, center, inverse
 
 ## С увеличением объема выборки &lt;br/&gt;растет мощность теста
 
-![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](09-confidence-intervals-and-hypothesis-testing_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 
 То есть, если различия очень малы, то хорошей мощности теста 80% сложно достичь, т.к. нужны очень большие объемы выборок.
 
@@ -958,7 +956,45 @@ class: middle, center, inverse
 
 ---
 
+## Summary: 
+
+- Благодаря центральной предельной теореме мы можем строить доверительные интервалы к оценкам различных статистик и тестировать гипотезы.
+
+- Стандартизация — трансформация данных, позволяющая привести их к единой шкале измерений, выраженной в стандартных отклонениях.
+
+
+---
+
+
+## Summary: 
+
+- Доверительный интервал --- это интервал, в который попадает заданный процент выборочных средних.
+
+- Для построения доверительного интервала можно использовать нормальное распределение только тогда, когда известна `\(\sigma\)` в генеральной совокупности. 
+
+- Если же нам приходится оценивать `\(\sigma\)`  по данным как выборочное стандартное отклонение `\(s\)`, то для доверительного интервала будет использоваться `\(t\)`-распределение. Кроме того:
+  - Наблюдения в выборке должны быть независимы друг от друга.
+  - Большой объем выборки и нет "выбросов" **или** нормальное распределение `\(x\)`
+
+---
+
+## Summary: 
+
+- При тестировании гипотез формулируются две гипотезы: нулевая и альтернативная (двусторонняя или односторонняя).
+
+- Уровень значимости — это вероятность получить такое же или более экстремальное значение статистики при условии, что `\(H_0\)` была бы справедлива. 
+
+- При тестировании гипотез возможны ошибки I (ложноположительный результат) или II рода (ложноотрицательный результат).
+
+- Мощность теста — это способность выявлять различия, когда они есть. Она зависит от объема выборки и выбранного порогового уровня значимости для принятия решений по поводу `\(H_0\)`.
+
+---
+
 ## Что почитать
+
+- **Quinn, G.G.P., Keough, M.J., 2002. Experimental design and data analysis for biologists. Cambridge University Press.**
+- Sokal, R.R., Rohlf, F.J., 1995. Biometry (3rd edn). WH Freeman and company: New York.
+- Zar, J.H., 2010. Biostatistical Analysis. Prentice Hall: New York.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
