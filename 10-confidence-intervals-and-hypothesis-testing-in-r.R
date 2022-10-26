@@ -107,8 +107,8 @@ cholest %>%
   summarise(Mean = mean(Cholesterol),
             N = n(),
             SE = sd(Cholesterol)/sqrt(N),
-            t_crit_95 = qt(p = 0.975, df = N - 1),
-            err = t_crit_95 * SE,
+            t_crit = qt(p = 0.975, df = N - 1),
+            err = t_crit * SE,
             lwr = Mean - err,
             upr = Mean + err)
 
