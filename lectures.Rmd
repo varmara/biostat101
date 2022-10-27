@@ -54,8 +54,7 @@ output:
 
 ## 9-10. Доверительные интервалы. Тестирование гипотез.
 
-<!-- - Презентация [09-confidence-intervals-and-hypothesis-testing.html](09-confidence-intervals-and-hypothesis-testing.html) -->
-
+- Презентация [09-confidence-intervals-and-hypothesis-testing.html](09-confidence-intervals-and-hypothesis-testing.html)
 - Код [10-confidence-intervals-and-hypothesis-testing-in-r.R](10-confidence-intervals-and-hypothesis-testing-in-r.R)
 - Данные [memory.csv](data/memory.csv)
 
