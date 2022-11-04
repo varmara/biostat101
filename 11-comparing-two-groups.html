@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cравнение двух групп</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <script src="libs/header-attrs-2.15/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Cравнение двух групп
+]
+.subtitle[
+## Основы биостатистики, осень 2022
+]
+.author[
+### Марина Варфоломеева
+]
+
+---
+
+
+
+
+
+
+## Cравнение двух групп
+
+- Независимые выборки и парные наблюдения
+- Парные наблюдения: два вида снотворного
+  - Доверительный интервал к средней разнице значений
+  - Парный t-тест
+- Независимые выборки: гормоны и артериальная гипертензия
+  - Доверительный интервал к разнице средних
+  - Двухвыборочный t-тест
+    - t-тест Стьюдента
+    - t-тест Уэлча (разные SD)
+- Множественное тестирование гипотез
+- Интерпретация доверительных интервалов на графиках
+- Сравнение дисперсий
+
+---
+
+class: middle, center, inverse
+
+# Независимые выборки или парные наблюдения?
+
+
+
+
+---
+
+## Независимые выборки или парные наблюдения
+
+Два варианта снотворных. Какой из них лучше?
+
+Различается ли изменение продолжительности сна (в часах) при применении этих двух снотворных?
+
+Ответить на вопрос могут два варианта эксперимента.
+
+.pull-left[
+
+__Независимые выборки__
+
+![](img/independent-samples.png)
+
+- Наблюдения сделаны на независимых объектах.
+
+- 20 человек случайным образом распределили по двум вариантам эксперимента (снотворное 1 или 2).
+
+- __Разница средних значений__ изменения продолжительности сна в двух группах — это разница влияния этих двух снотворных.
+
+]
+
+--
+
+.pull-right[
+
+__Парные наблюдения__
+
+![](img/paired-samples.png)
+
+- Наблюдения взаимозависимые (парные). 
+
+- 10 человек, с каждым последовательно провели оба варианта эксперимента (снотворное 1 или 2).
+
+- __Средняя разница__ изменения продолжительности сна человека со снотворным 1 и со снотворным 2 — это разница влияния этих двух снотворных.
+
+]
+
+---
+
+class: middle, center, inverse
+
+# Парные наблюдения
+
+## Пример: Два вида снотворного
+
+---
+
+## Пример: Два вида снотворного
+
+
+В датасете `sleep` содержатся данные об увеличении продолжительности сна по сравнению с контролем после применения двух снотворных препаратов (Cushny, Peebles, 1905, Student, 1908).
+
+Одинаково ли два снотворных влияют на увеличение продолжительности сна?
+
+.pull-left-40[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; ID &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pill_1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pill_2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+--
+
+.pull-right-60[
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+## Средняя разница в парах значений
+
+Если посчитать разницу между значениями для одного и того же объекта, то можно превратить парные данные в данные одной единственной выборки.
+
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; ID &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pill_1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pill_2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; ID &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; d &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+--
+
+Две возможных задачи:
+
+1. Можно _оценить среднюю разницу_  между изменением продолжительности сна после первого и второго снотворного (т.е. `\(\mu_d\)`).
+
+2. Можно проверить, _отличается ли эта средняя разница от нуля_ (т.е. `\(H_0: \mu_d = 0\)`).
+
+
+---
+
+class: middle, center, inverse
+
+## Доверительный интервал к средней разнице значений
+
+---
+
+## Средняя разница значений
+
+
+
+
+.pull-left-40[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; ID &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pill_1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pill_2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; d &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+.pull-right-60[
+
+
+
+разница (между эффектом снотворных 2 и 1)  
+`\(d_i = pill_{2i} - pill_{1i}\)`
+
+средняя разница   
+`\(\bar d = 1.58\)`
+
+выборочное стандартное отклонение разницы   
+`\(s_d = \sqrt{\frac{\sum(d_i - \bar d)^2}{n - 1}} = 1.23\)`
+
+размер выборки   
+`\(n = 10\)`
+
+]
+
+---
+
+## Доверительный интервал к средней разнице
+
+.pull-left-55[
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+`\(\bar d \pm |t_{\alpha, df}|\cdot SE_{\bar d}\)`
+
+`\(df = n - 1\)`
+
+`\(SE_{\bar d} = \frac{s_d}{\sqrt{n}}\)`
+
+]
+.pull-right-45[
+В нашем примере
+
+`\(SE_{\bar d} = \frac{1.23}{\sqrt{10}} = 0.389\)`
+
+`\(df = 10 - 1 = 9\)`
+
+&lt;br/&gt;
+
+Таким образом, 95% доверительный интервал для средней разницы эффектов двух снотворных
+
+`\(\bar d \pm |t_{\alpha, df}|\cdot SE_{\bar d}\)`
+
+`\(1.58 \pm 2.262 \cdot 0.389\)`
+
+то есть
+
+`\(1.58 \pm 0.88\)`
+
+]
+
+
+---
+
+class: middle, center, inverse
+
+## Парный _t_-тест
+
+---
+
+## Гипотезы в парном _t_-тесте
+
+На человеческом языке:
+
+`\(H_0:\)` эффективность снотворных не различается.
+
+`\(H_A:\)` у снотворных разная эффективность.
+
+--
+
+&lt;br/&gt;
+
+На языке статистики:
+
+`\(H_0: \mu_d = 0\)` — средняя разница значений в парах равна нулю
+
+`\(H_A: \mu_d \ne 0\)` — средняя разница значений в парах не равна нулю
+
+---
+
+## Парный _t_-тест
+
+`\(H_0: \mu_d = 0\)` — средняя разница значений в парах равна нулю
+
+`\(H_A: \mu_d \ne 0\)` — средняя разница значений в парах не равна нулю
+
+--
+
+_t_-тест в общем виде: 
+
+`$$t=\frac{\text{Наблюдаемая величина - Ожидаемое значение при }H_0}{\text{Стандартная ошибка}}$$`
+
+&lt;br/&gt;
+
+--
+
+`$$t = \frac{\bar d - \mu_d}{SE_{\bar d}} \sim t(df)$$`
+
+`\(df = n - 1\)`
+
+--
+
+Парный _t_-тест — это всего лишь одновыборочный _t_-тест для средней разницы значений в парах.
+
+---
+
+## Парный _t_-тест в нашем примере
+
+.pull-left[
+
+
+
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+`$$t = \frac{\bar d - \mu_d}{SE_{\bar d}}$$`
+
+`\(df = n - 1\)`
+
+`\(SE_{\bar d} = \frac{s_d}{\sqrt{n}}\)`
+
+]
+.pull-right[
+
+В нашем примере
+
+`\(SE_{\bar d} = \frac{1.23}{\sqrt{10}} = 0.389\)`
+
+`\(df = 10 - 1 = 9\)`
+
+&lt;br/&gt;
+
+Таким образом, наблюдаемое значение t-статистики 
+
+`\(t = \frac{\bar d - \mu_d}{SE_{\bar d}} = \frac{1.58 - 0}{0.389} = 4.062\)`
+
+Ему соответствует `\(p = 0.003\)`
+
+Oтвергаем `\(H_0\)`
+
+]
+
+---
+
+## Опишем результаты
+
+.pull-left-40[
+
+
+
+- Различия изменения продолжительности сна при применении двух препаратов были статистически значимы ( `\(t_{9} = -4.06\)`, `\(p = &lt;0.01\)`)
+
+]
+
+.pull-right-60[
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+**Осторожно!** Если не учитывать зависимость между группами, можно прийти к неверному выводу.
+
+&lt;br/&gt;
+
+Кроме того, прежде чем описывать результаты, хорошо бы проверить выполнение условий применимости теста.
+
+
+---
+
+## Условия применимости одновыборочного _t_-теста
+
+Прежде чем описывать результаты, нужно проверить выполнение условий применимости теста.
+
+&lt;br/&gt;
+
+--
+
+1.Объекты исследования независимы друг от друга?
+
+--
+
+- Да, независимы. Это случайная выборка людей.
+
+--
+
+2.Наблюдения зависимы друг от друга?
+
+--
+
+- Да, одни и те же люди участвуют в обоих вариантах исследования (10 человек, каждый пил оба снотворных). Эти данные подходят для парного t-теста.
+
+--
+
+3.Объем выборки достаточно велик или разницы значений `\(d\)` нормально распределены?
+
+--
+
+- Объем выборки мал, `\(n = 10\)`
+
+Нужно проверить форму распределения разницы значений.
+
+---
+
+## Нормально ли распределена разница значений?
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+--
+
+Могло бы быть и лучше. Одно наблюдение сильно отклоняется от ожиданий для нормального распределения.
+
+Для этих данных хорошо бы использовать другой, непараметрический тест, у которого нет таких жестких требований к данным.
+
+---
+
+class: middle, center, inverse
+
+# Независимые выборки
+
+## Пример: Гормоны и артериальная гипертензия
+
+---
+
+## Пример: Гормоны и артериальная гипертензия
+
+Синдром Кушинга --- это нарушения уровня артериального давления, вызванные гиперсекрецией кортизола надпочечниками.
+
+В датасете `Cushings` (пакет `MASS`) записаны данные о секреции его метаболита тетрагидрокортизона с мочой (мг/сут.) при разных типах синдрома Кушинга (данные из кн. Aitchison, Dunsmore, 1975):
+
+- `a` --- аденома
+- `b` --- двусторонняя гиперплазия
+- `c` --- карцинома
+- `u` --- другие патологии (без уточнения)
+
+Пусть нас интересует только две из этих групп: аденома и двусторонняя гиперплазия надпочечников.
+
+--
+
+Две возможных задачи:
+
+1. Можно оценить разницу среднего уровня секреции гидрокортизона при этих двух патологиях (т.е. `\(\mu_1 - \mu_2\)`).
+
+2. Можно проверить, отличается ли эта разница от нуля (т.е. `\(H_0: \mu_1 - \mu_2 = 0\)`).
+
+---
+
+class: middle, center, inverse
+
+# Доверительный интервал к разнице средних
+
+---
+
+## Разница выборочных средних
+
+Чему равна `\(\mu_1 - \mu_2\)` разница среднего уровня секреции гидрокортизона при аденоме и двусторонней гиперплазии надпочечников в генеральной совокупности?
+
+Это можно оценить по разнице средних в выборках 
+
+
+
+`\(\bar x_1 - \bar x_2 = 2.967 - 8.18 = -5.213\)`
+
+&lt;br/&gt;
+
+Чтобы построить к ней доверительный интервал, нужно понять, как она распределена.
+
+---
+
+## Распределение разницы выборочных средних
+
+Если `\(x_1 \sim N(\mu_1, \sigma_1)\)` и `\(x_2 \sim N(\mu_2, \sigma_2)\)` или размер выборки достаточно велик,
+
+то __согласно ЦПТ__
+
+--
+
+`\(\bar x_1 \sim N(\mu_1, \sigma_1/\sqrt{n_1})\)` и `\(\bar x_2 \sim N(\mu_2, \sigma_2/\sqrt{n_2})\)`
+
+--
+
+&lt;br/&gt;
+
+Тогда разница выборочных средних нормально распределена
+
+`$$\bar x_1 - \bar x_2 \sim N(\mu_1 - \mu_2, SE_{\bar x_1 - \bar x_2})$$`
+
+со стандартной ошибкой
+
+`$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma_1^2}{n_{1}} + \frac{\sigma_2^2}{n_{2}}}$$`
+
+Стандартную ошибку придется оценить по данным выборок.
+
+---
+
+## Оценка стандартной ошибки разницы средних
+
+Стандартная ошибка разницы средних:  
+`$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma_1^2}{n_{1}} + \frac{\sigma_2^2}{n_{2}}}$$`
+
+--
+
+__Если предположить, что дисперсии в группах равны__, то  
+`$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{\sigma^2 \big( \frac{1}{n_{1}} + \frac{1}{n_{2}}\big)}$$`
+
+--
+
+Тогда `\(\sigma^2\)` можно оценить так:
+
+`$$s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}$$`
+
+`\(s_p^2\)` — это __обобщенная дисперсия__, т.е. усредненная дисперсия в двух выборках, взвешенная по их числу степеней свободы.
+
+--
+
+Т.е. `$$SE_{\bar{x}_1 - \bar{x}_2} \approx \sqrt{s_p^2 \big( \frac{1}{n_{1}} + \frac{1}{n_{2}}\big)}$$`
+
+---
+
+## Распределение выборочных средних &lt;br/&gt;для построения доверительного интервала &lt;br/&gt;разницы средних
+
+Распределение разницы выборочных средних  
+
+`$$\bar x_1 - \bar x_2 \sim N(\mu_1 - \mu_2, SE_{\bar x_1 - \bar x_2})$$`
+
+После стандартизации превращается в
+
+`$$t = \frac{(\bar x_1 - \bar x_2) - (\mu_1 - \mu_2)}{SE_{\bar x_1 - \bar x_2}} \sim t(df)$$`
+
+Т.е. стандартизованная разница средних подчиняется _t_-распределению с числом степеней свободы `\(df = n_1 + n_2 - 2\)`. (Это справедливо с учетом сделанных ранее предположений, т.е. если выполняется ЦПТ и дисперсии в выборках равны).
+
+И это распределение как раз можно использовать для построения доверительного интервала.
+
+---
+
+## Доверительный интервал к разнице средних
+
+
+
+
+.pull-left[
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+`\(\bar x_1 - \bar x_2 \pm t(\alpha,df) \cdot SE_{\bar x_1 - \bar x_2 }\)`
+
+`\(df = n_1 + n_2 - 2\)`
+
+`\(SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{s_p^2 \big( \frac{1}{n_{1}} + \frac{1}{n_{2}}\big)}\)`
+
+`\(s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}\)`
+]
+
+.pull-right[
+В нашем примере
+
+`\(x_1 = 2.967\)`, `\(x_2 = 8.18\)`  
+`\(n_1 = 6\)`, `\(n_2 = 10\)`  
+`\(sd_1 = 0.924\)`, `\(sd_2 = 3.789\)`
+
+`\(s_p^2 = \cfrac{(6 - 1) 0.924^2 + (10 - 1) 3.789^2}{(6 - 1) + (10 - 1)} = \\ \frac{133.489}{14} = 9.535\)`
+
+`\(SE_{\bar d} = \sqrt{9.535 \big( \frac{1}{6} + \frac{1}{10}\big)} = 1.595\)`
+
+`\(df = 6 + 10 - 2 = 14\)`
+
+95% доверительный интервал для разницы среднего уровня секреции тетрагидрокортизона (мг/сут.) при аденоме и двусторонней гиперплазии надпочечников  
+`\(2.967 - 8.18 \pm 2.145 \cdot 1.595\)`
+
+то есть
+
+`\(-5.213 \pm 3.42\)`
+
+]
+
+---
+
+class: middle, center, inverse
+
+# Двухвыборочный t-тест
+
+---
+
+## Гипотезы в двухвыборочном `\(t\)`-тесте
+
+На человеческом языке:
+
+`\(H_0:\)` средний уровень секреции тетрагидрокортизона одинаков при аденоме и двусторонней гиперплазии надпочечников.
+
+`\(H_A:\)` при этих двух патологиях средний уровень секреции тетрагидрокортизона разный.
+
+--
+
+&lt;br/&gt;
+
+На языке статистики:
+
+`\(H_0: \mu_1 - \mu_2 = 0\)` --- разность между средними в двух группах равна нулю.
+
+`\(H_A: \mu_1 - \mu_2 \ne 0\)` --- между средними в группах есть ненулевая разница.
+
+
+---
+
+## Двухвыборочный _t_-тест
+
+`\(H_0: \mu_1 - \mu_2 = 0\)` --- разность между средними в двух группах равна нулю.
+
+`\(H_A: \mu_1 - \mu_2 \ne 0\)` --- между средними в группах есть ненулевая разница.
+
+&lt;br/&gt;
+
+_t_-тест в общем виде: 
+
+`$$t=\frac{\text{Наблюдаемая величина - Ожидаемое значение}}{\text{Стандартная ошибка}}$$`
+
+--
+
+`$$t=\frac{(\bar{x}_1 - \bar{x}_2) - (\mu_1 - \mu_2)}{SE_{\bar{x}_1 - \bar{x}_2}} \; = \; \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}} \sim t(df)$$`
+
+--
+
+`\(SE_{\bar{x}_1 - \bar{x}_2}\)` --- стандартная ошибка разности двух средних, может рассчитываться по-разному
+
+- t-тест Стьюдента --- если считать, что дисперсии в группах равны (как мы это делали для расчета доверительного интервала)
+- t-тест Уэлча --- если считать, что дисперсии могут быть разными
+
+---
+
+## Стандартная ошибка разности средних в t-тесте Стьюдента
+
+Student 1908
+
+Если группы независимы и дисперсии в них равны, то по центральной предельной теореме
+
+`$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma^2}{n_{1}} + \frac{\sigma^2}{n_{2}}} \approx \sqrt{ \frac{s_p^2}{n_{1}} + \frac{s_p^2}{n_{2}}}$$`
+
+`\(s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}\)` --- это __обобщенная дисперсия__ по двум выборкам.
+
+Результирующая `\(t\)`-статистика подчиняется `\(t\)`-распределению с  `\(df = n_1 + n_2 - 2\)`.
+
+--
+
+Равенство дисперсий в группах --- это часто нереалистичное предположение!
+
+---
+
+## Cтандартная ошибка разности средних в t-тесте Уэлча
+
+Если группы независимы и дисперсии в них неизвестны, то получается
+
+`$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma^2_{1}}{n_{1}} + \frac{\sigma^2_{2}}{n_{2}}} \approx \sqrt{ \frac{s^2_{1}}{n_{1}} + \frac{s^2_{2}}{n_{2}}}$$`
+
+--
+
+Проблема в том, что эта величина __лишь приблизительно следует t-распределению__, если считать его степени свободы как обычно для двух групп `\(df = n_1 + n_2 - 2\)`.
+
+Это из-за того, что мы оцениваем __две__ дисперсии  
+при помощи их стандартных отклонений. 
+
+--
+
+__Приблизительное число степеней свободы__ можно рассчитать по уравнению Уэлча-Саттеруэйта (Welch-Satterthwaite). Это решит проблему. 
+
+`$$df_{WS} \approx \cfrac {\bigg(\cfrac{s^2_{1}}{n_{1}} + \cfrac{s^2_{2}}{n_{2}}\bigg)^2}
+{\cfrac{1}{n_{1} - 1}\bigg(\cfrac {s_{1}^2} {n_{1}}\bigg)^2 + \cfrac{1}{n_{2} - 1}\bigg(\cfrac {s_{2}^2} {n_{2}}\bigg)^2}$$`
+
+--
+
+t-тестом Уэлча можно пользоваться, даже если дисперсии равны.
+
+Он немного консервативнее, чем тест Стьюдента.
+
+---
+
+## Условия применимости двухвыборочного t-теста
+
+Почти такие же, как условия справедливости ЦПТ
+
+--
+
+- Наблюдения независимы друг от друга.
+- Выборки независимы друг от друга (новое условие).
+- Объем выборки достаточно велик или величины нормально распределены.
+
+- Для теста Стьюдента требуется равенство дисперсий в выборках.  
+Для теста Уэлча это не требуется.
+
+---
+
+## Проверяем условия применимости...
+
+1.Наблюдения независимы друг от друга?
+
+--
+
+- Да, независимы. Это случайная выборка.
+
+&lt;br/&gt;
+
+--
+
+2.Выборки независимы друг от друга?
+
+--
+
+- Да, независимы. В группах разные люди (естественно, т.к. тип синдрома у человека может быть только какой-то один).
+
+&lt;br/&gt;
+
+--
+
+3.Объем выборки достаточно велик или величины нормально распределены?
+
+--
+
+- Объем выборки мал
+
+Пациентов с аденомой всего `\(n_1 = 6\)`,  
+а с двусторонней гиперплазией надпочечников — `\(n_2 = 10\)`.
+
+Нужно проверить форму распределения в обеих группах.
+
+---
+
+## Нормально ли распределены концентрации тетрагидрокортизона в группах?
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+--
+
+В одной из групп несколько значений выбиваются. Но при таких ничтожно малых объемах выборки сложно ожидать лучшего. 
+
+В этом учебном примере будем считать, что можно аппроксимировать концентрацию тетрагидрокортизона нормальным распределением.
+
+---
+
+## Двухвыборочный _t_-тест в нашем примере
+
+.pull-left-45[
+
+
+
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+`$$t= \; \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}$$`
+
+`$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ {s^2_{1}}/{n_{1}} + {s^2_{2}}/{n_{2}}}$$`
+
+`$$df_{ WS} \approx \cfrac {\big({s^2_{1}}/{n_{1}} + {s^2_{2}}/{n_{2}}\big)^2}
+{\frac{1}{n_{1} - 1}\big(\frac {s_{1}^2} {n_{1}}\big)^2 + \frac{1}{n_{2} - 1}\big(\frac {s_{2}^2} {n_{2}}\big)^2}$$`
+
+]
+.pull-right-55[
+
+В нашем примере
+
+`\(SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{0.924^2}{6} + \frac{3.789^2}{10}} = 1.256\)`
+
+`$$df_{ WS} \approx \frac {\big({\frac{0.924^2}{6} + \frac{3.789^2}{10}}\big)^2}
+{\frac{1}{6 - 1}\big(\frac {0.924^2} {6}\big)^2 + \frac{1}{10 - 1}\big(\frac {3.789^2} {10}\big)^2} = \\ = 10.685$$`
+
+&lt;br/&gt;
+
+Таким образом, значение t-статистики 
+
+`$$t= \; \frac{2.967 - 8.18}{1.256} = -4.15$$`
+
+Ему соответствует `\(p = 0.002\)`
+
+Oтвергаем `\(H_0\)`
+
+]
+
+
+
+---
+
+## Опишем результаты
+
+.pull-left[
+
+Уровень секреции тетрагидрокортизона статистически значимо отличается у пациентов с аденомой и двусторонней гиперплазией надпочечников  
+( `\(t_{10.69} = -4.15\)`, `\(p = &lt;0.05\)`).
+
+]
+.pull-right[
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+Можно указать в скобках не сравнение с `\(\alpha\)`, а само значение `\(p\)`:  
+( `\(t_{10.69} = -4.15\)`, `\(p = 0.0017\)`).
+
+Только не надо безумствовать и указывать слишком много знаков...
+
+---
+
+class: middle, center, inverse
+
+# Множественное тестирование гипотез
+
+---
+
+## Есть ли взаимосвязь &lt;br/&gt;между поведением бабочек в Швейцарии &lt;br/&gt;и дождем в Париже?
+
+Inaudi et al. 1995. Chaos: evidence for the butterfly effect. Annals of Improbable research 1 (6).
+
+--
+
+Если проверить много-много взаимосвязей, то сколько-то из них окажутся статистически значимыми.
+
+Чем больше тестов, тем больше вероятность ошибочно обнаружить различия.
+
+---
+
+## Множественное тестирование гипотез
+
+В датасете `Cushings` (пакет `MASS`) есть информация о секреции тетрагидрокортизона с мочой (мг/сут.) при синдроме Кушинга (данные из кн. Aitchison, Dunsmore, 1975). Всего 4 типа патологии:
+
+- `a` --- аденома
+- `b` --- двусторонняя гиперплазия
+- `c` --- карцинома
+- `u` --- другие патологии (без уточнения)
+
+
+Мы сравнили уровень секреции только при двух из них. 
+
+А что, если мы хотим сравнить все друг с другом?  
+
+Сколько всего нужно будет сделать сравнений?
+
+--
+
+`\(m\)` — количество попарных сравнений `\(k\)` групп между собой:
+
+`\(m = \frac{k^2 - k}{2}\)`, т.е. в нашем случае `\(m = \frac{4^2 - 4}{2} = 6\)`
+
+---
+
+## Тестируем множество гипотез
+
+Сравним уровень секреции тетрагидрокортизона при разных типах патологий при помощи двухвыборочного _t_-теста.
+
+.pull-left[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа 1 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Группа 2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p в t-тесте &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.304 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.008 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.039 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.058 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.252 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.337 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.pull-right[
+
+Представим, что мы проводим каждый из тестов при `\(\alpha = 0.05\)`, желая зафиксировать вероятность ошибок I рода  на уровне 5%.
+
+В этом случае количество тестов, где различия оказались статистически значимыми: 2
+
+]
+
+--
+
+&lt;br/&gt;
+
+Но вот вероятность ошибок I рода в итоге вовсе не 5%.
+
+
+---
+
+## При множественных тестах увеличивается вероятность ошибочно найти различия
+
+`\(\alpha\)` --- это вероятность совершить хотя бы одну ошибку I рода (найти различия там, где их нет).
+
+Если сделать `\(n\)` тестов, то вероятность совершить хотя бы одну ошибку I рода во всем семействе тестов (family-wise error rate, FWER) значительно возрастает.
+
+`$$1 - (1 - \alpha)^m$$`
+
+--
+
+Например, если мы проведем 6 тестов на уровне значимости 0.05, то c вероятностью 26.5 мы совершим хотя бы одну ошибку I рода, т.е. практически в 1/4 всех тестов.
+
+---
+
+## Поправка Бонферрони
+
+Простой, но очень жесткий способ коррекции. Зная общее число тестов, можно вычислить скорректированный уровень значимости и использовать его.
+
+`$$\alpha^* = \frac{\alpha}{m}$$`
+
+--
+
+&lt;br/&gt;
+
+Например, чтобы сохранить в группе из 6 тестов вероятность ошибки I рода 0.05, 
+нужно проводить каждый тест при `\(\alpha^* = 0.00833\)`.
+
+--
+
+А если бы нужно было сделать 10 тестов, то при `\(\alpha^* = 0.005\)`, и т.д.
+
+--
+
+При проведении множества тестов (не обязательно попарных)  
+резко возрастает вероятность ошибки II рода,   
+т.е. не найти различий там, где они есть.
+
+---
+
+## Применим поправку Бонферрони
+
+Bonferroni, 1936
+
+Каждый из 6 тестов проводим при `\(\alpha^* = 0.00833\)`.
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа 1 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Группа 2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p в t-тесте &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; C поправкой Бонферрони &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.304 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.008 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.058 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.252 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.337 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+После поправки Бонферрони мы сохранили для всего семейства сравнений вероятность ошибки I рода на уровне 5%. Но при этом не осталось значимых различий — такая это жесткая поправка.
+
+---
+
+## Метод Хольма-Бонферрони
+
+Holm, 1979
+
+Чтобы зафиксировать `\(FWER \le \alpha\)`:
+
+1.Сортируем в порядке возрастания `\(m\)` значений `\(p\)`, полученные в тестах, и присваиваем им ранги `\(j\)` от 1 до `\(m\)`   
+`\(p_{1} \le p_{2} \le \cdots \le p_{m - 1} \le p_{m}\)`
+
+2.Вводим поправку для значений `\(p\)`  
+`\({p^*_{j}} = min{\{(m - j + 1) \cdot p_{j},\;1\}}\)`
+
+3.Если на каком-то шаге получилось `\({p^*_{j+1}}\)` меньше, чем предыдущее `\({p^*_{j}}\)`, то записываем большее из них.
+
+4.Сравниваем с `\(\alpha\)`
+
+--
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Группа 1 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Группа 2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p в t-тесте &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Ранг `\(j\)` &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; `\(p^*\)` &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; C поправкой Хольма-Бонферрони &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.008 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.051 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.194 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.058 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.234 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.252 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.755 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.304 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.755 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; u &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.337 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.755 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Сохраняем `\(H_0\)` &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+class: middle, center, inverse
+
+# Интерпретация доверительных интервалов на графиках
+
+---
+
+## Опасности косвенных сравнений
+
+Участникам эксперимента (Christenfeld, Hill, 1995) показывали фото младенцев и предлагали выбрать наиболее похожее из 3 фото их матерей и 3 фото отцов.
+
+На кого больше похожи дети: на отцов или на матерей?
+
+.pull-left[
+
+![](img/WS2015p345f12.5-1.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.5-1]
+
+]
+
+--
+
+.pull-right[
+
+Процент правильных догадок о матерях не значимо отличался от случайного, а правильные фото отцов выбирали значимо чаще, чем при случайном выборе.
+
+]
+
+--
+
+Однако нельзя заключить, что отцов правильные фото отцов выбирали чаще, чем матерей, т.к. частота правильных угадываний не различается.
+
+Из того, что A не значимо отличается от С,  
+а B значимо отличается от C,  
+не следует, что А значимо отличается от B.
+
+---
+
+## Интерпретация перекрывания &lt;br/&gt;доверительных интервалов
+
+![](img/WS2015p347f12.6-1.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.6-1]
+
+---
+
+class: middle, center, inverse
+
+# Сравнение дисперсий
+
+---
+
+## Тесты для сравнения дисперсий
+
+.pull-left-45[
+
+__F-тест равенства дисперсий__
+
+(F-test of equal variances)
+
+&lt;br/&gt;
+
+Предложен Р.Фишером в 20е годы  
+(назван в честь Фишера Snedecor, Cochran, 1989)
+
+- Сравнение двух дисперсий друг с другом.
+
+
+]
+
+.pull-right-55[
+
+__Тест Левина на гомогенность дисперсий__
+
+(Levene's test for homogeneity of variances)
+
+&lt;br/&gt;
+
+Levene, Howard, 1960
+
+&lt;br/&gt;&lt;br/&gt;
+
+- Сравнение сразу нескольких дисперсий друг с другом.
+
+]
+
+---
+
+## F-тест равенства дисперсий
+
+.pull-left[
+
+`\(H_0: \sigma_1^2 = \sigma_2^2\)`
+
+`\(H_A: \sigma_1^2 \ne \sigma_2^2\)`
+
+
+`$$F = \cfrac{s_1^2}{s_2^2}$$`
+
+При `\(H_0\)` F-статистика подчиняется F-распределению с двумя параметрами: `\(df_1 = n_1 - 1\)` и `\(df_2 = n_2 - 1\)`.
+
+]
+
+--
+
+.pull-right[
+
+F-распределение при `\(df_1 = 5\)` и `\(df_2 = 9\)`
+
+![](11-comparing-two-groups_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+]
+
+Условие применимости: нормальное распределение в обеих группах.
+
+--
+
+F-тест равенства дисперсий крайне чувствителен к отклонениям от нормального распределения. Если в одной из групп переменная не подчиняется нормальному распределению, резко возрастает вероятность ошибки I рода.
+
+---
+
+## Тест Левина на гомогенность дисперсий
+
+Levene, Howard, 1960
+
+`\(H_0: \sigma_1^2 = \sigma_2^2 = \ldots = \sigma_k^2\)`
+
+`\(H_A: \exists\; i, j: \sigma_i^2 \ne \sigma_j^2\)` --- __хотя бы одна__ дисперсия отличается
+
+`$$W=\frac{(N-k)}{(k-1)} \cdot \frac{\sum_{i=1}^k N_i\left(\bar Z_{i}-\bar Z\right)^2}{\sum_{i=1}^k \sum_{j=1}^{N_i}\left(Z_{i j}-\bar Z_{i}\right)^2}$$`
+
+- `\(k\)` — число групп
+- `\(N = n_1 + n_2\)` — общий объем выборки
+- `\(Z_{i j} = | x_{ij} - \bar x_{i}|\)` — модуль отклонения значения `\(x_{ij}\)` от среднего в своей `\(i\)`-той группе `\(\bar x_{i}\)`
+- `\(\bar Z_{i}\)` — среднее `\(Z_{i j}\)` в `\(i\)`-той группе
+- `\(\bar Z\)` — общее среднее `\(Z_{i j}\)` (без учета группы)
+
+При `\(H_0\)` `\(W\)`-статистика подчиняется `\(F\)`-распределению с двумя параметрами: `\(df_1 = k - 1\)` и `\(df_2 = N - k\)`.
+
+--
+
+Условие применимости: распределение значений во всех группах приблизительно симметрично. 
+
+Тест Левина более устойчив к отклонениям от условий применимости.
+
+---
+
+class: middle, center, inverse
+
+# Summary
+
+---
+
+## Что почитать
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

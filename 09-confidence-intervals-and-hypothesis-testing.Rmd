@@ -676,7 +676,7 @@ gg_conf_2 +
 - Объем выборки мал.
 - $\sigma$ не известна.
 
-$$\bar {x} \pm t_{\alpha, df} \cdot s / \sqrt{n}$$
+$$\bar {x} \pm |t_{\alpha, df}| \cdot s / \sqrt{n}$$
 
 $df = n - 1$
 
@@ -1015,7 +1015,7 @@ $$t = \cfrac{\bar x - \mu}{ s / \sqrt{n} }$$
 
 ```{r echo=FALSE}
 t_val <- round((x - mu) / (s / sqrt(n)), 2)
-p_val <- format(2*pt(-t_val, df = n - 1), digits = 1, nsmall = 3)
+p_val <- format(2*(1 - pt(abs(t_val), df = n - 1)), digits = 1, nsmall = 3)
 ```
 
 Вычислим t-статистику по этим данным:

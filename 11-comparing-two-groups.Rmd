@@ -1,5 +1,5 @@
 ---
-title: Тестирование гипотез, сравнение двух групп
+title: Cравнение двух групп
 subtitle: "Основы биостатистики, осень 2022"
 author: 
   - Марина Варфоломеева
@@ -23,258 +23,397 @@ output:
 
 ```{r setup, include = FALSE, cache = FALSE, purl = FALSE, fig.showtext = TRUE}
 source("assets/setup.R")
+knitr::opts_chunk$set(dev.args = list(png  = list(type = "cairo")))
+library(xaringanExtra)
+use_tile_view()
+use_scribble()
+use_search(show_icon = FALSE)
+use_progress_bar(color = "#6d2b5e", location = "bottom", height = "10px")
+use_freezeframe()
+# use_webcam()
+# use_panelset()
+# use_extra_styles(hover_code_line = TRUE)
+
+# http://tachyons.io/docs/
+# https://roperzh.github.io/tachyons-cheatsheet/
+use_tachyons()
+
+# library(renderthis)
+# to_pdf(from = "07-probabilities.Rmd",
+#        to = "07-probabilities.pdf",
+#        complex_slides = TRUE, partial_slides = TRUE)
 ```
 
-## Тестирование гипотез, сравнение двух групп
-
-- [ ] Нулевая и альтернативная гипотезы.
-- [ ] Одновыборочный t-тест
-- [ ] Уровень значимости, доверительная вероятность.
-- [ ] Ошибки при тестировании гипотез
-- [ ] Двухвыборочный t-тест
-- [ ] t-тест Уэлча (разные SD)
-- [ ] Парный t-тест
-- [ ] Сравнение дисперсий (тест Левина)
-
----
-
-# Как устроено тестирование гипотез
-
----
-
-## Сравнение выборок
-
-Различия между выборками не всегда видны невооружённым глазом.
-
-![](images/tres-caracoles-by-Alberto-Villen-on-freeimages.com.jpg)
-![](images/tres-caracoles-by-Alberto-Villen-on-freeimages.com.jpg)
-
-<small>tres caracoles by Alberto Villen on Freeimages.com</small>
-
----
-
-## Нулевая и альтернативная гипотезы
-
-Это первый шаг
-
-![](images/tres-caracoles-by-Alberto-Villen-on-freeimages.com.jpg)
-
-![](images/tres-caracoles-by-Alberto-Villen-on-freeimages.com.jpg)
-
-<small>tres caracoles by Alberto Villen on Freeimages.com</small>
-
->- Нулевая гипотеза $H_0$ чаще всего формулируется как **отсутствие различий** между сравниваемыми объектами. Например: Улитки из обеих популяций одинакового размера
-
->- Альтернативная гипотеза $H_A$ формулируется как **присутствие различий**, она обратна нулевой гипотезе, т.е. включает все остальные случаи. Например: Улитки из обеих популяций разного размера.
-
----
-
-## Нулевая и альтернативная гипотезы --- это "два мира"
-
-Вне зависимости от нас, реальность может находиться в одном из двух состояний:
-
-- $H_0$ верна, улитки одинаковы
-- $H_0$ неверна, улитки различаются 
-
-|$H_0$ верна |	$H_0$ неверна |
-|:-----:|:-----:|
-
-<br />После статистического теста мы принимаем решение о том, принять или отвергнуть $H_0$. Но это решение не обязательно окажется верным. Возможно четыре исхода:
-
-В мире где улитки одинаковы ($H_0$ верна) мы можем:  
-- принять $H_0$ (верное решение),  
-- отвергнуть $H_0$ (ошибка).
-
-Аналогично, в мире где улитки различаются ($H_A$ верна), мы можем:  
-- принять $H_0$ (ошибка),  
-- либо отвергнуть $H_0$ (верное решение).
-
----
-
-## Верные и неверные решения
-
-<div class="columns-2">
-
-**Ошибка I рода: нашли то, чего нет**
-
-**Ошибка II рода: не нашли то, что было**
-
-</div>
-
-| 	|$H_0$ верна |	$H_0$ неверна |
-|:-----:|:-----:|:-----:|
-| Отклонить H0 | Ошибка I рода с вероятностью <span class="orange">&alpha;</span></br>Ложно-положительный результат | 	Верно |
-| Сохранить H0 | Верно | Ошибка II рода с вероятностью <span class= "blue">&beta;</span> </br> Ложно-отрицательный результат |
-
----
-
-## Тестирование гипотез: Тестовые статистики
-
-
-### 1. Формулируем нулевую и альтернативную гипотезы.
-
-Гипотезы выражаются математически в виде тестовых статистик. На этом этапе мы делаем определенные допущения.
-
-### 2. Проверяем __условия применимости__ тестовой статистики.
-
-### 3. По реальным данным вычисляем __эмпирическое значение тестовой статистики__.
-
-Дальше мы должны ответить на вопрос:
-
-**Насколько вероятно получить _такое или более экстремальное_ эмпирическое значение, если верна нулевая гипотеза  $H_0$?**
-
-### 4. Строим теоретическое распределение тестовой статистики для случая, когда верна $H_0$, и оцениваем по нему уровень значимости.
-
-### 5. Решаем сохранить или отвергнуть $H_0$.
-
-Увы, мы не сможем узнать, какая гипотеза верна, но поймем, насколько с ней согласуются исходные данные.
-
----
-
-# Одновыборочный $t$-тест
-
----
-
-## Размер кладки черепах
-
-Разберемся с одновыборочным $t$-тестом на вымышленном примере.
-
-```{r echo=FALSE, purl=FALSE}
-n <- 33
-set.seed(1814)
-X <- rnorm(n, mean = 8.5, sd = 3.2)
-x <- round(mean(X), 1)
-s <- round(sd(X), 1)
-mu <- 7
+```{r libs, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(cowplot)
+library(scales)
 ```
 
-Представьте, что в одной статье сказано, что средняя плодовитость черепах определенного вида --- `r mu` яиц в кладке.
+## Cравнение двух групп
 
-В вашей выборке из $`r n`$ черепах --- $\bar x = `r x`$, $s = `r s`$.
-
-```{r echo=FALSE, eval=FALSE}
-mu <- 7
-X <- c(5.7, 11.6, 5.7, 9.89, 9.01, 10.1, 12.4, 2.37, 7.21, 6.86, 9.77, 10.6, 3.82, 13.7, 6.01, 10.2, 7.36, 14.8, 10.1, 8.44, 10.5, 8.85, 4.18, 9.12, 12.3, 7.83, 9.51, 4.01, 9.75, 7.59, 0.769, 8.5, 10.8)
-(n <- length(X))
-(x <- mean(X))
-(s <- sd(X))
-```
-
-Отличается ли реальная плодовитость в обследованной вами популяции черепах от того, что указано в статье?
-
-![](images/gopher-tortoise.jpg)
-
-
-<small>Gopher Tortoise by Judy Gallagher on Flickr</small>
-<!-- https://flic.kr/p/Q2ZozS -->
+- Независимые выборки и парные наблюдения
+- Парные наблюдения: два вида снотворного
+  - Доверительный интервал к средней разнице значений
+  - Парный t-тест
+- Независимые выборки: гормоны и артериальная гипертензия
+  - Доверительный интервал к разнице средних
+  - Двухвыборочный t-тест
+    - t-тест Стьюдента
+    - t-тест Уэлча (разные SD)
+- Множественное тестирование гипотез
+- Интерпретация доверительных интервалов на графиках
+- Сравнение дисперсий
 
 ---
 
-## Одновыборочный t-тест
+class: middle, center, inverse
 
-- $H_0: \mu = \mu_0$ --- Реальная средняя плодовитость черепах такая, как в статье.
-- $H_A: \mu \ne \mu_0$ --- Средняя плодовитость отличается от того, что написано в статье.
+# Независимые выборки или парные наблюдения?
 
-$\mu_0$ --- это какое-то конкретное значение. В нашей задаче это --- `r mu` яиц в кладке.
+
+```{r sim-paired}
+library(MASS)
+th_void_frame <- theme_void() + 
+  theme(legend.position = "none", 
+        # panel.background = element_rect(colour = "black"),
+        plot.margin = unit(c(5, 5, 5, 5), "mm")) 
+
+set.seed(6)
+n <- 20
+n2 <- n/2
+dat <- data.frame(mvrnorm(n, c(10, 8), 
+                          matrix(c(10,3,4,12),2,2)), 
+                  group = rep(c("A", "B"), n))
+
+gg_ind <- ggplot(dat, aes(x = X1, y = X2, colour = group)) +
+  geom_point(size = 6) + 
+  scale_colour_manual(values = c("limegreen", "purple")) +
+  coord_cartesian(clip = 'off') +
+  th_void_frame
+
+gg_paired <- dat %>% 
+  dplyr::filter(group == "B") %>%
+  ggplot(aes(x = X1, y = X2)) +
+  geom_text(label ="\u25D2", colour="limegreen", size = 8, family = "DejaVu Sans") +
+  geom_text(label = "\u25D3", colour = "purple", size = 8, family = "DejaVu Sans") +
+  coord_cartesian(clip = 'off') +
+  theme_void() + th_void_frame
+
+ggsave("img/paired-samples.png", gg_paired, device = 'png', bg = "white", width = unit(7, "cm"), height = unit(2, "cm"))
+ggsave("img/independent-samples.png", gg_ind, device = 'png', bg = "white", width = unit(7, "cm"), height = unit(2, "cm"))
+# plot_grid(gg_ind, gg_paired, nrow = 1)
+```
+
+---
+
+## Независимые выборки или парные наблюдения
+
+Два варианта снотворных. Какой из них лучше?
+
+Различается ли изменение продолжительности сна (в часах) при применении этих двух снотворных?
+
+Ответить на вопрос могут два варианта эксперимента.
+
+.pull-left[
+
+__Независимые выборки__
+
+![](img/independent-samples.png)
+
+- Наблюдения сделаны на независимых объектах.
+
+- `r n` человек случайным образом распределили по двум вариантам эксперимента (снотворное 1 или 2).
+
+- __Разница средних значений__ изменения продолжительности сна в двух группах — это разница влияния этих двух снотворных.
+
+]
+
+--
+
+.pull-right[
+
+__Парные наблюдения__
+
+![](img/paired-samples.png)
+
+- Наблюдения взаимозависимые (парные). 
+
+- `r n2` человек, с каждым последовательно провели оба варианта эксперимента (снотворное 1 или 2).
+
+- __Средняя разница__ изменения продолжительности сна человека со снотворным 1 и со снотворным 2 — это разница влияния этих двух снотворных.
+
+]
+
+---
+
+class: middle, center, inverse
+
+# Парные наблюдения
+
+## Пример: Два вида снотворного
+
+---
+
+## Пример: Два вида снотворного
+
+
+В датасете `sleep` содержатся данные об увеличении продолжительности сна по сравнению с контролем после применения двух снотворных препаратов (Cushny, Peebles, 1905, Student, 1908).
+
+Одинаково ли два снотворных влияют на увеличение продолжительности сна?
+
+.pull-left-40[
+
+```{r sleep-data}
+data(sleep)
+sl_wide <- sleep %>% pivot_wider(id_cols = ID, names_from = group, names_prefix = "pill_", values_from = extra)
+
+sl_wide %>% kable()
+```
+
+]
+
+--
+
+.pull-right-60[
+
+```{r opts.label='fig.medium.taller'}
+sleep %>% 
+  mutate(pill = ifelse(group == 1, "pill_1", "pill_2")) %>% 
+ggplot(data = ., aes(x = pill, y = extra, colour = ID)) + geom_point(size = 3) + geom_line(aes(group = ID), size = 1) + labs(y = "Изменение\nпродолжительности\nсна, час") + theme(axis.title.x = element_blank(), legend.position = "bottom")
+
+```
+
+]
+
+---
+
+## Средняя разница в парах значений
+
+Если посчитать разницу между значениями для одного и того же объекта, то можно превратить парные данные в данные одной единственной выборки.
+
+
+.pull-left[
+
+```{r sleep-data}
+```
+
+]
+
+.pull-right[
+
+```{r sl-diff}
+sl_diff <- sl_wide %>% mutate(d = pill_2 - pill_1) %>% dplyr::select(ID, d)
+
+sl_diff %>% kable()
+```
+
+]
+
+--
+
+Две возможных задачи:
+
+1. Можно _оценить среднюю разницу_  между изменением продолжительности сна после первого и второго снотворного (т.е. $\mu_d$).
+
+2. Можно проверить, _отличается ли эта средняя разница от нуля_ (т.е. $H_0: \mu_d = 0$).
+
+
+---
+
+class: middle, center, inverse
+
+## Доверительный интервал к средней разнице значений
+
+---
+
+## Средняя разница значений
+
+
+
+
+.pull-left-40[
+
+```{r sl-diff-full}
+sl_wide %>% mutate(d = pill_2 - pill_1) %>% kable()
+```
+
+]
+.pull-right-60[
+
+```{r echo=FALSE, results='hide'}
+m <- mean(sl_diff$d, na.rm = TRUE)
+s <- sd(sl_diff$d, na.rm = TRUE)
+n <- length(na.omit(sl_diff$d))
+semdiff <- s / sqrt(n)
+dfmdiff <- n - 1
+tval <- qt(p = 0.975,df = dfmdiff)
+```
+
+разница (между эффектом снотворных 2 и 1)  
+$d_i = pill_{2i} - pill_{1i}$
+
+средняя разница   
+$\bar d = `r m`$
+
+выборочное стандартное отклонение разницы   
+$s_d = \sqrt{\frac{\sum(d_i - \bar d)^2}{n - 1}} = `r s`$
+
+размер выборки   
+$n = `r n`$
+
+]
+
+---
+
+## Доверительный интервал к средней разнице
+
+.pull-left-55[
+
+```{r echo=FALSE, purl=FALSE, opts.label='fig.column'}
+arb <- arrow(angle = 10, ends = "both", type = "closed", length = unit(3, "mm"))
+ar <- arrow(angle = 10, ends = "last", type = "closed", length = unit(3, "mm"))
+
+df_plot <- dfmdiff
+
+lims <- qt(p = c(0.025, 0.975), df = df_plot)
+labs <- format(lims, digits = 2, nsmall = 3)
+ggplot(data = data.frame(t = -5.5:5.5), aes(x = t)) +
+  stat_function(fun = dt, args = list(df = df_plot), colour = 'red', size = 1) +
+  scale_x_continuous(breaks = -5:5) +
+  scale_y_continuous('Плотность вероятности') +
+  coord_cartesian(ylim = c(0, 0.47)) +
+  stat_function(geom = 'area', fun = dt, args = list(df = df_plot), xlim = lims,
+                fill = 'red', alpha = 0.25) +
+  annotate('text', label = 'P == 0.95', parse = T,
+           x = 0, y = 0.1, size = 7) +
+  annotate('text', label = '0.025', parse = T, size = 6,
+           x = lims, y = 0.01, hjust = c(1.03, -0.03)) +
+  geom_vline(xintercept = lims, linetype = 'dashed') +
+  annotate(geom = 'text', label = c(paste('-t[0.025, 9]==', labs[1]), paste('t[0.975, 0]==', labs[2])), hjust = c(1.03, -0.03),
+           x = lims, y = 0.1, parse = TRUE, size = 7) +
+  annotate('path', x = lims, y = rep(0.42, 2), arrow = arb) +
+  annotate('text', label = paste('Для~df==', df_plot, '~~~~~~~bar(d)%+-%', labs[2], '*~s[bar(d)] / sqrt(n)'), vjust = -0.5, x = 0, y = 0.42, parse = TRUE, size = 7)
+```
+
+$\bar d \pm |t_{\alpha, df}|\cdot SE_{\bar d}$
+
+$df = n - 1$
+
+$SE_{\bar d} = \frac{s_d}{\sqrt{n}}$
+
+]
+.pull-right-45[
+В нашем примере
+
+$SE_{\bar d} = \frac{`r s`}{\sqrt{`r n`}} = `r semdiff`$
+
+$df = `r n` - 1 = `r dfmdiff`$
 
 <br/>
 
-$$t = \cfrac{\bar x - \mu}{ s / \sqrt{n} }$$
+Таким образом, 95% доверительный интервал для средней разницы эффектов двух снотворных
 
-Если выполняется ЦПТ, то одновыборочная $t$-статистика подчиняется $t$-распределению  
-с числом степеней свободы $df = n - 1$.
+$\bar d \pm |t_{\alpha, df}|\cdot SE_{\bar d}$
 
-Условия применимости:
+$`r m` \pm `r round(tval, 3)` \cdot `r semdiff`$
 
-- Наблюдения в выборке должны быть независимы друг от друга.
-- Объем выборки достаточно велик **или** величины нормально распределены.
+то есть
 
----
+$`r m` \pm `r round(tval * semdiff, 3)`$
 
-### Задание 2
+]
 
-Проверьте условия применимости t-теста. Вычислите t и p.
-
-## Проверяем, нормально ли распределение
-
-```{r echo=FALSE, purl=FALSE, fig.width=5.8, fig.height=5}
-library(car)
-qqPlot(X, id = FALSE)
-```
 
 ---
 
-## Вычислим наблюдаемое значение $t$-статистики
+class: middle, center, inverse
 
-$$t = \cfrac{\bar x - \mu}{ s / \sqrt{n} }$$
-Средняя плодовитость в выборке из `r n` черепах $\bar x = `r x`$, стандартное отклонение $s = `r s`$.
-В статье указана плодовитость $`r mu`$.
+## Парный _t_-тест
 
+---
+
+## Гипотезы в парном _t_-тесте
+
+На человеческом языке:
+
+$H_0:$ эффективность снотворных не различается.
+
+$H_A:$ у снотворных разная эффективность.
+
+--
+
+<br/>
+
+На языке статистики:
+
+$H_0: \mu_d = 0$ — средняя разница значений в парах равна нулю
+
+$H_A: \mu_d \ne 0$ — средняя разница значений в парах не равна нулю
+
+---
+
+## Парный _t_-тест
+
+$H_0: \mu_d = 0$ — средняя разница значений в парах равна нулю
+
+$H_A: \mu_d \ne 0$ — средняя разница значений в парах не равна нулю
+
+--
+
+_t_-тест в общем виде: 
+
+$$t=\frac{\text{Наблюдаемая величина - Ожидаемое значение при }H_0}{\text{Стандартная ошибка}}$$
+
+<br/>
+
+--
+
+$$t = \frac{\bar d - \mu_d}{SE_{\bar d}} \sim t(df)$$
+
+$df = n - 1$
+
+--
+
+Парный _t_-тест — это всего лишь одновыборочный _t_-тест для средней разницы значений в парах.
+
+---
+
+## Парный _t_-тест в нашем примере
+
+.pull-left[
 
 ```{r echo=FALSE}
-t_val <- round((x - mu) / (s / sqrt(n)), 1)
-p_val <- format(2*pt(-t_val, df = n - 1), digits = 1, nsmall = 3)
+t_val <- round((m - 0) / (s / sqrt(n)), 3)
+p_val <- format(2*(1 - pt(abs(t_val), df = n - 1)), digits = 1, nsmall = 3)
 ```
 
 
-$$t = \cfrac{`r x` - `r mu`}{ `r s` / \sqrt{`r n`} } = `r t_val`$$
-
----
-
-## Насколько это значение согласуется с $H_0$?
-
-```{r echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=3.38}
-library(ggplot2)
-theme_set(theme_bw())
-cols <- c('orange', 'red')
+```{r echo=FALSE, purl=FALSE, opts.label='fig.column'}
+cols <- c('yellow2', 'red')
 labs <- c(paste('p =', p_val), expression(alpha ==0.05))
 mappings <- factor(c('p', 'alpha'), levels = c('p', 'alpha'), labels = labs)
 names(cols) <- labs
 
-gg_test_0 <- ggplot(data = data.frame(t = -4:4), aes(x = t)) + 
-  stat_function(fun = dt, args = list(df = n - 1), colour = 'steelblue', size = 1) +
-  scale_x_continuous(breaks = -4:4, 
-                     sec.axis = sec_axis(~.  * (s / sqrt(n))+ mu, 
-                                         name = 'Наблюдаемое значение',
-                                         breaks = seq(2, 18, 1))) +
-  coord_cartesian(ylim = c(0, 0.5), xlim = c(-3.8, 3.8)) +
-  labs(y = 'Плотность вероятности')
-
-gg_test_t <- gg_test_0 +
+gg_test_alpha_p <- 
+  ggplot(data = data.frame(t = -6:6), aes(x = t)) + 
+  stat_function(fun = dt, args = list(df = dfmdiff), 
+                colour = 'darkcyan', size = 1) +
+  scale_x_continuous(breaks = -6:6) +
+  coord_cartesian(ylim = c(0, 0.4), xlim = c(-5, 5)) +
+  labs(y = 'Плотность вероятности') +
   # Выноски для t
   annotate(geom = 'segment', 
            x = c(-t_val, t_val), 
-           y = dt(c(-t_val, t_val), df = n - 1) + 0.15,
+           y = dt(c(-t_val, t_val), df = dfmdiff) + 0.15,
            xend = c(-t_val, t_val), 
            yend = c(0, 0), 
            arrow = ar) +
-    # Подпись t
+  # Подпись t
   annotate(geom = 'text', label = c(paste('-t =', -t_val), paste('t =', t_val)),
            x = c(-t_val, t_val), 
            y = dt(c(-t_val, t_val), df = n - 1) + 0.15,
-           vjust = -0.3)
-
-gg_test_p <- gg_test_t +
-    # Площадь под кривой
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = mappings[1]), xlim = c(-4, -t_val), alpha = 0.7) +
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-               aes(fill = mappings[1]), xlim = c(t_val, 4), alpha = 0.7) +
-  scale_fill_manual('', values = cols) +
-  theme(legend.position = c(0.14, 0.96), legend.background = element_blank())
-
-gg_test_alpha <- gg_test_0 + 
-  # geom_vline(xintercept = qt(c(0.025, 0.975), df = n - 1), linetype = 2) +
-        # Уровень значимости
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = mappings[2]), xlim = c(-4, qt(0.025, df = n - 1)), alpha = 0.3) +
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = mappings[2]), xlim = c(qt(0.975, df = n - 1), 4), alpha = 0.3) +
-   scale_fill_manual('', values = cols, labels = labs[2])+
-  guides(fill = guide_legend(override.aes = list(alpha = 0.4))) +
-  theme(legend.position = c(0.13, 0.96), legend.background = element_blank())
-
-gg_test_alpha_p <- gg_test_t + 
+           vjust = -0.3, size = 8) + 
   # Критический уровень значимости
   stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
                 aes(fill = mappings[2]), xlim = c(-4, qt(0.025, df = n - 1)), alpha = 0.3) +
@@ -282,486 +421,407 @@ gg_test_alpha_p <- gg_test_t +
                 aes(fill = mappings[2]), xlim = c(qt(0.975, df = n - 1), 4), alpha = 0.3) +
   # Значение p, уровень значимости
   stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = mappings[1]), xlim = c(-4, -t_val), alpha = 0.8) +
+                aes(fill = mappings[1]), xlim = c(-4, -t_val), alpha = 0.9) +
   stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = mappings[1]), xlim = c(t_val, 4), alpha = 0.8) +
-  scale_fill_manual('', values = cols, labels = rev(labs)) +
-  guides(fill = guide_legend(override.aes = list(alpha = 0.25)))+
-  theme(legend.position = c(0.14, 0.92), legend.background = element_blank())
-
-gg_test_t # реальное t
-# gg_test_p # уровень значимости
-# gg_test_alpha # критический уровень значимости
-# gg_test_alpha_p # сравнение с уровнем значимости
-```
-
-
-При $H_0$ значение $t$ будет близко к нулю.
-
-Насколько необычны значения t меньше или больше $\pm `r t_val`$?
-
----
-
-## Уровень значимости ($p$-value)
-
-```{r echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=3.38}
-gg_test_p # Значение p
-```
-
-
-__Уровень значимости__ --- это вероятность получить значение $t$ меньше или больше данного, если бы $H_0$ была справедлива.
-
----
-
-
-## Уровень значимости ($p$-value)
-
-\columnsbegin
-\column{0.49\textwidth}
-
-```{r echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=3.38}
-gg_test_p # Значение p
-```
-
-\column{0.49\textwidth}
-
-Можно вычислить значение $p$
-
-```{r purl=FALSE}
-2 * ( 1 - pt(2.7, df = 33 - 1) )
-```
-
-Если бы плодовитость не отличалось от указанной в статье, получить $t$ меньше или больше $`r t_val`$ можно было бы с вероятностью $p = `r p_val`$. 
-
-\columnsend
-
----
-
-
-## Критический уровень значимости
-
-
-```{r echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=3.38}
-gg_test_alpha +  geom_vline(xintercept = qt(c(0.025, 0.975), df = n - 1), linetype = 2)
-```
-
-
-Критический уровень значимости $\alpha$ --- это порог для принятия решений.
-
-Обычно используют $\alpha = 0.05$.
-
-Если $p \le \alpha$ --- отвергаем $H_0$  и принимаем $H_A$.
-
-Если $p > \alpha$ --- сохраняем $H_0$,  не можем ее отвергнуть.
-
----
-
-## Принимаем решение
-
-
-```{r echo=FALSE, purl=FALSE, fig.width=3.75, fig.height=3.38}
-gg_test_alpha_p
-```
-
-
-Мы получили $p < \alpha$, поэтому отвергаем $H_0$ и принимаем $H_A$.
-
-Фактическая плодовитость статистически значимо отличается от указанной в статье.
-
-
-## Заблуждения о $p$-values
-
->- Правда ли, что $p$ --- вероятность того, что верна сама $H_0$?  
->- Нет! Значение $p$ всегда считается __при условии, что $H_0$ верна__. Но $H_0$ может быть неверна.
-
-<br/>
-
->- Правда ли, что $p$ --- это вероятность получить такое значение статистики при справедливой $H_0$?
->- Нет! Вероятность вычисляется как площадь под участком кривой.  Конкретное значение статистики --- это точка и под ней нет площади.
-
-<br/>
-
->- Правда ли, что если $p > 0.05$, то различий между группами на самом деле нет?  
->- Нет! Это значит, что наблюдаемый эффект согласуется с нулевой гипотезой. Различия могут быть.
-
----
-
-# Статистические ошибки при проверке гипотез
-
----
-
-## Статистические ошибки при проверке гипотез
-
-<div class="columns-2">
-
-**Ошибка I рода: нашли то, чего нет**
-
-**Ошибка II рода: не нашли то, что было**
-
-</div>
-
-| 	|$H_0$ верна |	$H_0$ неверна |
-|:-----:|:-----:|:-----:|
-| Отклонить H0 | Ошибка I рода с вероятностью <span class="orange">&alpha;</span></br>Ложно-положительный результат | 	Верно |
-| Сохранить H0 | Верно | Ошибка II рода с вероятностью <span class= "blue">&beta;</span> </br> Ложно-отрицательный результат |
-
-<br/>
-
-Как эти ошибки выглядят на графике? Как они взаимосвязаны?
-
-
-```{r power_alpha, echo = FALSE, purl = FALSE, fig.width=4.05}
-cols <- c('red', 'steelblue', 'green')
-br <- c('alpha', 'beta', '1 - beta')
-labs <- list(bquote(alpha), bquote(beta), bquote(1 - beta))
-mappings <- factor(c('alpha', 'beta', 'power'), levels = c('alpha', 'beta', 'power'), labels = labs)
-names(cols) <- labs
-
-# Только нулевая
-gg_H0 <- ggplot(data = data.frame(t = -7:7), aes(x = t)) +
-  stat_function(fun = dt, args = list(df = n - 1), colour = 'steelblue', size = 1) +
-  scale_x_continuous(breaks = -7:7) +
-  coord_cartesian(ylim = c(0, 0.5), xlim = c(-3.6, 6.6)) +
-  labs(y = 'Плотность вероятности') +
-  theme(legend.position = c(0.8, 1), legend.background = element_blank(), legend.justification = c(0, 1))
-
-# Нулевая и альтернативная
-nc <- (x - mu)/(s/sqrt(n))
-gg_H0A <- gg_H0 + stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                geom = "line", colour = 'steelblue', size = 1, linetype = 2) +
-  annotate('text', label = 'H[0]', parse = TRUE, x = -Inf, y = Inf, hjust = - 0.5, vjust = 1.7, size = 5) +
-  annotate('text', label = 'H[A]', parse = TRUE, x = Inf, y = Inf, hjust = 1.5, vjust = 1.7, size = 5) +
-  annotate('path', x = c(-2.5, -0.5), y = c(0.43, 0.38), arrow = ar) +
-  annotate('path', x = c(5.4, 3), y = c(0.43, 0.38), arrow = ar)
-# gg_H0A
-
-# Альфа
-gg_alpha <- gg_H0 +
-  geom_vline(xintercept = qt(c(0.025, 0.975), df = n - 1), linetype = 2) +
-  # Уровень значимости
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = 'alpha'), xlim = c(-5, qt(0.025, df = n - 1)), alpha = 0.5) +
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = 'alpha'), xlim = c(qt(0.975, df = n - 1), 5), alpha = 0.5) +
-  scale_fill_manual('', values = cols, labels = labs)
-# gg_alpha
-
-# Нулевая с альфой и альтернативная
-gg_nc <- gg_alpha +
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                geom = "line", colour = 'steelblue', size = 1, linetype = 2)
-# gg_nc
-
-# Нулевая с альфой и альтернативная + бета
-gg_beta <- gg_alpha + 
-  # beta
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                geom = "area", aes(fill = 'beta'), alpha = 0.7, 
-                xlim = qt(p = c(0.0275, 0.975), df = n - 1)) +
-  # H_A curve
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                geom = "line", colour = "steelblue", size = 1, linetype = 2) +
-  scale_fill_manual('', values = cols, labels = labs)
-# gg_beta
-
-# С меньшим уровнем значимости
-gg_beta_1 <- gg_H0 +
-  geom_vline(xintercept = qt(c(0.005, 0.995), df = n - 1), linetype = 2) +
-    # Уровень значимости
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = 'alpha'), xlim = c(-5, qt(0.005, df = n - 1)), alpha = 0.5) +
-  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
-                aes(fill = 'alpha'), xlim = c(qt(0.995, df = n - 1), 5), alpha = 0.5) +
-  scale_fill_manual('', values = cols, labels = labs) + 
-    # beta
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                geom = "area", aes(fill = 'beta'), alpha = 0.7, 
-                xlim = qt(p = c(0.005, 0.995), df = n - 1)) +
-  # H_A curve
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                geom = "line", colour = "steelblue", size = 1, linetype = 2) +
-  scale_fill_manual('', values = cols, labels = labs)
-  # gg_beta_1
-
-# Нулевая с альфой и альтернативная + бета + мощность
-p_nc <- pt(qt(p = c(0.0275, 0.975), df = n - 1), df = n - 1, ncp = nc)
-lims_nc <- qt(p = p_nc, df = n - 1, ncp = nc)
-gg_power <- gg_beta +
-  # power - upper
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                 geom = "area", aes(fill = '1 - beta'), alpha = 0.7,
-                xlim = c(lims_nc[2], 6)) +
-  # power- lower
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc), 
-                geom = "area", aes(fill = '1 - beta'), alpha = 0.7,
-                xlim = c(-6, lims_nc[1])) +
-  scale_fill_manual('', values = cols, breaks = br, labels = labs)
-# gg_power
-
-x_1 <- 7.4
-nc_1 <- (x_1 - mu)/(s/sqrt(n))
-p_nc_1 <- pt(qt(p = c(0.0275, 0.975), df = n - 1), df = n - 1, ncp = nc_1)
-lims_nc_1 <- qt(p = p_nc_1, df = n - 1, ncp = nc_1)
-
-gg_power_1 <- gg_alpha + 
-  # beta
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc_1), 
-                geom = "area", aes(fill = 'beta'), alpha = 0.7, 
-                xlim = qt(p = c(0.0275, 0.975), df = n - 1)) +
-  # H_A curve
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc_1), 
-                geom = "line", colour = "steelblue", size = 1, linetype = 2) +
+                aes(fill = mappings[1]), xlim = c(t_val, 4), alpha = 0.9) +
   scale_fill_manual('', values = cols, labels = labs) +
-  # power - upper
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc_1), 
-                 geom = "area", aes(fill = '1 - beta'), alpha = 0.7,
-                xlim = c(lims_nc_1[2], 7)) +
-  # power- lower
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc_1), 
-                geom = "area", aes(fill = '1 - beta'), alpha = 0.7,
-                xlim = c(-7, lims_nc_1[1])) +
-  scale_fill_manual('', values = cols, breaks = br, labels = labs) +
-  annotate('segment', x = 0, y = 0.42, xend = nc_1, yend = 0.42, arrow = arb) +
-  annotate('text', x = nc_1/2, y = 0.42, label = 'Эффект', vjust = -0.4)
-# gg_power_1
+  guides(fill = guide_legend(override.aes = list(alpha = 0.25)))+
+  theme(legend.position = c(0, 1), legend.background = element_blank(), legend.justification = c(0, 1))
 
-# S и M ошибки при маленькой величине эффекта
-x_2 <- 5.93
-nc_2 <- (x_2 - mu)/(s/sqrt(n))
-p_nc_2 <- pt(qt(p = c(0.0275, 0.975), df = n - 1), df = n - 1, ncp = nc_2)
-lims_nc_2 <- qt(p = p_nc_2, df = n - 1, ncp = nc_2)
-
-gg_sm <- gg_H0 +
-  geom_vline(xintercept = qt(c(0.025, 0.975), df = n - 1), linetype = 2) +
-  # H_A curve
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc_2), 
-                geom = "line", colour = "steelblue", size = 1, linetype = 2) +
-  # power - upper
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc_2), 
-                geom = "area", aes(fill = '1 - beta'), alpha = 0.7,
-                xlim = c(lims_nc_2[2], 7)) +
-  # power- lower
-  stat_function(fun = dt, 
-                args = list(df = n - 1, ncp = nc_2), 
-                geom = "area", aes(fill = '1 - beta'), alpha = 0.7,
-                xlim = c(-7, lims_nc_2[1])) +
-  scale_fill_manual('', values = cols, breaks = br, labels = labs) +
-  geom_vline(xintercept = 0) +
-  geom_vline(xintercept = nc_2, linetype = 'dotted') +
-  annotate('segment', x = 0, y = 0.42, xend = nc_2, yend = 0.42, size = 2, colour = 'red') +
-  annotate('segment', x = 0, y = 0.45, xend = qt(p = 0.975, df = n - 1), yend = 0.45, size = 2, colour = 'orange') +
-  annotate('text', x = qt(p = 0.975, df = n - 1) / 2, y = 0.45, label = 'M', vjust = -0.4) +
-  annotate('text', x = -3, y = 0.01, label = 'S', vjust = -0.4)  +
-  coord_cartesian(ylim = c(0, 0.5), xlim = c(-3.6, 3.6))
-# gg_sm
+gg_test_alpha_p # сравнение с уровнем значимости
 ```
+
+$$t = \frac{\bar d - \mu_d}{SE_{\bar d}}$$
+
+$df = n - 1$
+
+$SE_{\bar d} = \frac{s_d}{\sqrt{n}}$
+
+]
+.pull-right[
+
+В нашем примере
+
+$SE_{\bar d} = \frac{`r s`}{\sqrt{`r n`}} = `r (se <- s / sqrt(n))`$
+
+$df = `r n` - 1 = `r n - 1`$
+
+<br/>
+
+Таким образом, наблюдаемое значение t-статистики 
+
+$t = \frac{\bar d - \mu_d}{SE_{\bar d}} = \frac{`r m` - 0}{`r se`} = `r m/se`$
+
+Ему соответствует $p = `r p_val`$
+
+`r ifelse(p_val <=0.05, "Oтвергаем", "Cохраняем")` $H_0$
+
+]
 
 ---
 
-## Можно построить распределения при $H_0$ и $H_A$
+## Опишем результаты
 
-```{r echo = FALSE, purl = FALSE, fig.width=4.05}
-gg_H0A
+.pull-left-40[
+
+```{r echo=FALSE, results='hide'}
+tt <- t.test(formula = extra ~ group, data = sleep, paired = TRUE)
+tt
 ```
 
-Распределение статистики, когда справедлива $H_0$, нам уже знакомо --- его мы используем в тестах.
+- Различия изменения продолжительности сна при применении двух препаратов были статистически значимы ( $t_{`r round(tt$parameter, 2)`} = `r round(tt$statistic, 2)`$, $p = `r format.pval(tt$p.value, eps = 0.01)`$)
 
-Но может быть справедлива $H_A$ и ее тоже можно описать своим распределением.
+]
 
-При помощи этих распределений можно определить вероятность ошибок различных типов.
+.pull-right-60[
+
+```{r opts.label='fig.medium.taller'}
+sleep %>% 
+  mutate(pill = ifelse(group == 1, "pill_1", "pill_2")) %>% 
+  ggplot(data = ., aes(x = pill, y = extra, colour = pill)) + stat_summary(fun.data = mean_cl_boot) + 
+  scale_x_discrete(labels = c("снотворное 1", "снотворное 2")) +
+  labs(y = "Изменение\nпродолжительности\nсна, час") +
+  theme(axis.title.x = element_blank(), 
+        legend.position = "none")
+
+```
+
+]
+
+--
+
+**Осторожно!** Если не учитывать зависимость между группами, можно прийти к неверному выводу.
+
+<br/>
+
+Кроме того, прежде чем описывать результаты, хорошо бы проверить выполнение условий применимости теста.
+
 
 ---
 
-## Ошибка I рода --- найти различия там, где их нет
+## Условия применимости одновыборочного _t_-теста
 
-```{r echo = FALSE, purl = FALSE, fig.width=4.05}
-gg_nc
-```
+Прежде чем описывать результаты, нужно проверить выполнение условий применимости теста.
 
-$\alpha$ (критический уровень значимости) --- это вероятность ошибки I рода.
+<br/>
 
-Если $H_0$ справедлива, то при $\alpha = 0.05$ мы отвергаем ее с 5% вероятностью.
+--
 
-Чтобы снизить вероятность таких ошибок, можно уменьшить $\alpha$.
+1.Объекты исследования независимы друг от друга?
 
----
+--
 
-## Ошибка II рода --- не найти различий, где они есть
+- Да, независимы. Это случайная выборка людей.
 
-```{r echo = FALSE, purl = FALSE, fig.width=8}
-plot_grid(gg_beta, gg_beta_1, ncol = 2)
-```
+--
 
-$\beta$ --- вероятность ошибки II рода.
+2.Наблюдения зависимы друг от друга?
 
-Считается, что допустимо $\beta \le 0.2$, но часто про нее забывают.
+--
 
-Если мы уменьшаем $\alpha$ (график справа), то возрастает $\beta$.
+- Да, одни и те же люди участвуют в обоих вариантах исследования (10 человек, каждый пил оба снотворных). Эти данные подходят для парного t-теста.
 
----
+--
 
-## Мощность теста --- вероятность найти различия, если они есть
+3.Объем выборки достаточно велик или разницы значений $d$ нормально распределены?
 
-```{r echo = FALSE, purl = FALSE, fig.width=8}
-plot_grid(gg_power, gg_power_1, ncol = 2)
-```
+--
 
-$Power = 1 - \beta$ --- мощность теста.
+- Объем выборки мал, $n = `r n`$
 
-Хорошо, когда мощность не меньше $0.8$.
-
-Мощность теста зависит от величины наблюдаемого эффекта (от величины различий).
+Нужно проверить форму распределения разницы значений.
 
 ---
 
-## С увеличением объема выборки растет мощность теста
+## Нормально ли распределена разница значений?
 
-```{r echo=FALSE, purl=FALSE, fig.width=8.25, fig.height=2.62}
-# Plots of power vs. sample size etc.
-# Modified after http://imdevsoftware.wordpress.com/2013/01/17/255/
-
-# Need pwr, reshape2, ggplot2 packages
-gen_pwr_vs_n <- function(d = c(0.2, 0.5, 0.8), a = c(0.05, 0.01), n = 150){
-  if(!require(pwr)){install.packages("pwr");library("pwr")}
-  # t-TEST
-  #---------------------------------
-  n <- 1:n
-  t.test.power.effect<-
-    as.data.frame(do.call("cbind", lapply(1:length(d),function(i){
-    sapply(1:length(a),function(k){
-      sapply(1:length(n), function(j){
-        #       paste(d[i], n[j], a[k])
-        power.t.test(n = n[j],d = d[i],sig.level = a[k],power = NULL,
-                     type = "two.sample")$power
-      })
-    })
-  })))
-  t.test.power.effect[is.na(t.test.power.effect)]<-0 # some powers couldn't be calculated, set these to zero
-  # melt the data
-  if(!require(reshape2)){install.packages("reshape2");library("reshape2")}
-  measured <- length(d)*length(a)
-  t.test.power.effect <- melt(t.test.power.effect, measure.vars = 1:measured)
-  # fill the levels of n, a, and d
-  nms <- expand.grid(size = n, sig.level = a, effect = d)
-  t.test.power.effect <- cbind(t.test.power.effect, nms)
-  # do-not need variable column
-  t.test.power.effect <- t.test.power.effect[, -1]
-  return(t.test.power.effect)
-}
-
-dat <-gen_pwr_vs_n(n = 150)
-# factors
-dat$sig.level <- factor(dat$sig.level, levels = c(0.01, 0.05),
-                        labels = c("alpha == 0.01", "alpha == 0.05"))
-dat$effect <- factor(dat$effect, levels = c(0.2, 0.5, 0.8),
-                     labels = c("Слабый эффект", "Умеренный эффект", "Сильный эффект"))
-
-# pwr_size <-
-#   ggplot(data = dat[(dat$effect == "d = 0.5" & dat$sig.level == "p = 0.05"), ],
-#          aes(x = size, y = value, color = sig.level)) +
-#   geom_line(size = 1.5) +
-#   scale_colour_discrete(name = "Уровень\nзначимости") +
-#   labs(x = "Объем выборки", y = "Мощность") +
-#   ggtitle("t-тест, d = 0.5") +
-#   theme_minimal(base_size = 18) +
-#   theme(legend.key = element_blank(),
-#         axis.line = element_line(colour = "black"))
-# pwr_size
-# 
-# pwr_size_apha <- ggplot(data = dat[dat$effect == "d = 0.5", ],
-#                         aes(x = size, y = value, color = sig.level)) +
-#   geom_line(size = 1.5) +
-#   scale_colour_discrete(name = "Уровень\nзначимости",
-#                         limits = c("alpha == 0.05", "alpha == 0.01")) +
-#   labs(x = "Объем выборки", y = "Мощность") +
-#   ggtitle("t-тест, d = 0.5") +
-#   theme(legend.key = element_blank(),
-#         axis.line = element_line(colour = "black"))
-# pwr_size_apha
-
-pwr_size_alpha_d <- ggplot(data = dat, aes(x = size, y = value, color = sig.level)) +
-    geom_line(size = 1) + facet_wrap(~effect) +
-  scale_colour_manual(name = "Уровень\nзначимости",
-                        limits = c("alpha == 0.05", "alpha == 0.01"), values = c('steelblue', 'red'), labels = c(bquote(alpha==0.05), bquote(alpha==0.01))) +
-  labs(x = "Объем выборки", y = "Мощность") +
-  scale_y_continuous(breaks = seq(0, 1, 0.2)) +
-  geom_hline(yintercept = 0.8, linetype = 2) +
-  ggtitle("Мощность двухвыборочного t-теста") +
-  theme(legend.key = element_blank(),
-        axis.line = element_line(colour = "black"))
-pwr_size_alpha_d
+```{r echo=FALSE, opts.label='fig.wider.taller'}
+library(car)
+par(cex = 1.4)
+qqPlot(sl_diff$d, id = FALSE, ylab = "d")
 ```
 
+--
+
+Могло бы быть и лучше. Одно наблюдение сильно отклоняется от ожиданий для нормального распределения.
+
+Для этих данных хорошо бы использовать другой, непараметрический тест, у которого нет таких жестких требований к данным.
+
 ---
+
+class: middle, center, inverse
+
+# Независимые выборки
+
+## Пример: Гормоны и артериальная гипертензия
+
+---
+
+## Пример: Гормоны и артериальная гипертензия
+
+Синдром Кушинга --- это нарушения уровня артериального давления, вызванные гиперсекрецией кортизола надпочечниками.
+
+В датасете `Cushings` (пакет `MASS`) записаны данные о секреции его метаболита тетрагидрокортизона с мочой (мг/сут.) при разных типах синдрома Кушинга (данные из кн. Aitchison, Dunsmore, 1975):
+
+- `a` --- аденома
+- `b` --- двусторонняя гиперплазия
+- `c` --- карцинома
+- `u` --- другие патологии (без уточнения)
+
+Пусть нас интересует только две из этих групп: аденома и двусторонняя гиперплазия надпочечников.
+
+--
+
+Две возможных задачи:
+
+1. Можно оценить разницу среднего уровня секреции гидрокортизона при этих двух патологиях (т.е. $\mu_1 - \mu_2$).
+
+2. Можно проверить, отличается ли эта разница от нуля (т.е. $H_0: \mu_1 - \mu_2 = 0$).
+
+---
+
+class: middle, center, inverse
+
+# Доверительный интервал к разнице средних
+
+---
+
+## Разница выборочных средних
+
+Чему равна $\mu_1 - \mu_2$ разница среднего уровня секреции гидрокортизона при аденоме и двусторонней гиперплазии надпочечников в генеральной совокупности?
+
+Это можно оценить по разнице средних в выборках 
+
+```{r echo=FALSE, results='hide'}
+library(MASS)
+data("Cushings")
+# выборка 1
+X1 <- Cushings$Tetrahydrocortisone[Cushings$Type == "a"]
+# выборка 2
+X2 <- Cushings$Tetrahydrocortisone[Cushings$Type == "b"]
+x1 <- mean(X1, na.rm = TRUE)
+x2 <- mean(X2, na.rm = TRUE)
+```
+
+$\bar x_1 - \bar x_2 = `r x1` - `r x2` = `r x1 - x2`$
+
+<br/>
+
+Чтобы построить к ней доверительный интервал, нужно понять, как она распределена.
+
+---
+
+## Распределение разницы выборочных средних
+
+Если $x_1 \sim N(\mu_1, \sigma_1)$ и $x_2 \sim N(\mu_2, \sigma_2)$ или размер выборки достаточно велик,
+
+то __согласно ЦПТ__
+
+--
+
+$\bar x_1 \sim N(\mu_1, \sigma_1/\sqrt{n_1})$ и $\bar x_2 \sim N(\mu_2, \sigma_2/\sqrt{n_2})$
+
+--
+
+<br/>
+
+Тогда разница выборочных средних нормально распределена
+
+$$\bar x_1 - \bar x_2 \sim N(\mu_1 - \mu_2, SE_{\bar x_1 - \bar x_2})$$
+
+со стандартной ошибкой
+
+$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma_1^2}{n_{1}} + \frac{\sigma_2^2}{n_{2}}}$$
+
+Стандартную ошибку придется оценить по данным выборок.
+
+---
+
+## Оценка стандартной ошибки разницы средних
+
+Стандартная ошибка разницы средних:  
+$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma_1^2}{n_{1}} + \frac{\sigma_2^2}{n_{2}}}$$
+
+--
+
+__Если предположить, что дисперсии в группах равны__, то  
+$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{\sigma^2 \big( \frac{1}{n_{1}} + \frac{1}{n_{2}}\big)}$$
+
+--
+
+Тогда $\sigma^2$ можно оценить так:
+
+$$s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}$$
+
+$s_p^2$ — это __обобщенная дисперсия__, т.е. усредненная дисперсия в двух выборках, взвешенная по их числу степеней свободы.
+
+--
+
+Т.е. $$SE_{\bar{x}_1 - \bar{x}_2} \approx \sqrt{s_p^2 \big( \frac{1}{n_{1}} + \frac{1}{n_{2}}\big)}$$
+
+---
+
+## Распределение выборочных средних <br/>для построения доверительного интервала <br/>разницы средних
+
+Распределение разницы выборочных средних  
+
+$$\bar x_1 - \bar x_2 \sim N(\mu_1 - \mu_2, SE_{\bar x_1 - \bar x_2})$$
+
+После стандартизации превращается в
+
+$$t = \frac{(\bar x_1 - \bar x_2) - (\mu_1 - \mu_2)}{SE_{\bar x_1 - \bar x_2}} \sim t(df)$$
+
+Т.е. стандартизованная разница средних подчиняется _t_-распределению с числом степеней свободы $df = n_1 + n_2 - 2$. (Это справедливо с учетом сделанных ранее предположений, т.е. если выполняется ЦПТ и дисперсии в выборках равны).
+
+И это распределение как раз можно использовать для построения доверительного интервала.
+
+---
+
+## Доверительный интервал к разнице средних
+
+```{r echo=FALSE, results='hide'}
+n1 <- length(na.omit(X1))
+n2 <- length(na.omit(X2))
+sd1 <- sd(X1, na.rm = TRUE)
+sd2 <- sd(X2, na.rm = TRUE)
+df1 <- n1 - 1
+df2 <- n2 - 1
+df12 <- n1 + n2 - 2
+s2p <- (df1*sd1^2 + df2*sd2^2)/df12
+sedif <- sqrt(s2p * (1/n1 + 1/n2))
+tval <- qt(p = 0.975, df = df12)
+```
+
+
+.pull-left[
+
+```{r echo=FALSE, purl=FALSE, opts.label='fig.column'}
+arb <- arrow(angle = 10, ends = "both", type = "closed", length = unit(3, "mm"))
+ar <- arrow(angle = 10, ends = "last", type = "closed", length = unit(3, "mm"))
+lims <- qt(p = c(0.025, 0.975), df = df12)
+labs <- format(lims, digits = 2, nsmall = 3)
+
+gg_conf_0 <- ggplot(data = data.frame(t = -5:5), aes(x = t)) +
+  stat_function(fun = dt, args = list(df = n - 1), colour = 'red', size = 1) +
+  scale_x_continuous(breaks = -5:5) +
+  scale_y_continuous('Плотность вероятности') +
+  coord_cartesian(ylim = c(0, 0.47))
+gg_conf_1 <- gg_conf_0 +
+  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), xlim = lims,
+                fill = 'red', alpha = 0.25) +
+  annotate('text', label = 'P == 0.95', parse = T,
+           x = 0, y = 0.1, size = 7) +
+  annotate('text', label = '0.025', parse = T, size = 6,
+           x = lims, y = 0.01, hjust = c(1.03, -0.03))
+gg_conf_2 <- gg_conf_1 +
+  geom_vline(xintercept = lims, linetype = 'dashed') +
+  annotate(geom = 'text', label = c(paste('-t[0.025, 9]==', labs[1]), paste('t[0.975, 0]==', labs[2])), hjust = c(1.03, -0.03),
+           x = lims, y = 0.1, parse = TRUE, size = 7)
+gg_conf_2 +
+  annotate('path', x = lims, y = rep(0.42, 2), arrow = arb) +
+  annotate('text', label = paste('Для~df==', df12, '~~~~~~~bar(x)[1] - bar(x)[2]%+-%', labs[2], '*~SE[bar(x)[1] - bar(x)[2]]'), vjust = -0.5, x = 0, y = 0.42, parse = TRUE, size = 7)
+```
+
+$\bar x_1 - \bar x_2 \pm t(\alpha,df) \cdot SE_{\bar x_1 - \bar x_2 }$
+
+$df = n_1 + n_2 - 2$
+
+$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{s_p^2 \big( \frac{1}{n_{1}} + \frac{1}{n_{2}}\big)}$
+
+$s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}$
+]
+
+.pull-right[
+В нашем примере
+
+$x_1 = `r x1`$, $x_2 = `r x2`$  
+$n_1 = `r n1`$, $n_2 = `r n2`$  
+$sd_1 = `r round(sd1, 3)`$, $sd_2 = `r round(sd2, 3)`$
+
+$s_p^2 = \cfrac{(`r n1` - 1) `r sd1`^2 + (`r n2` - 1) `r sd2`^2}{(`r n1` - 1) + (`r n2` - 1)} = \\ \frac{`r ((n1-1)*sd1^2 + (n2-1)*sd2^2)`}{`r (n1 + n2 - 2)`} = `r round(s2p, 3)`$
+
+$SE_{\bar d} = \sqrt{`r s2p` \big( \frac{1}{`r n1`} + \frac{1}{`r n2`}\big)} = `r round(sedif, 3)`$
+
+$df = `r n1` + `r n2` - 2 = `r df12`$
+
+95% доверительный интервал для разницы среднего уровня секреции тетрагидрокортизона (мг/сут.) при аденоме и двусторонней гиперплазии надпочечников  
+$`r x1` - `r x2` \pm `r round(tval, 3)` \cdot `r sedif`$
+
+то есть
+
+$`r x1 - x2` \pm `r round(tval * sedif, 3)`$
+
+]
+
+---
+
+class: middle, center, inverse
 
 # Двухвыборочный t-тест
 
 ---
 
-## Гипотезы в двухвыборочном $t$-тесте и тестовая статистика
+## Гипотезы в двухвыборочном $t$-тесте
 
-$H_0: \mu_1 - \mu_2 = 0$ --- средние значения не различаются в двух группах
+На человеческом языке:
 
-$H_A: \mu_1 - \mu_2 \ne 0$ --- средние значения различаются
+$H_0:$ средний уровень секреции тетрагидрокортизона одинаков при аденоме и двусторонней гиперплазии надпочечников.
 
-\vspace{1\baselineskip}
-
-Т.е. нас интересует __разность выборочных средних__.
-
-Ее ожидаемое значение при $H_0$ будет 0.
-
-
-t-тест в общем виде выглядит так
-
-$$t=\frac{\text{Наблюдаемая величина - Ожидаемое значение}}{\text{Стандартная ошибка}}$$
-
----
-
-## t-тест и его разновидности
-
-Двухвыборочный t-тест используется для проверки значимости различий между средними
-
-$$t=\frac{(\bar{x}_1 - \bar{x}_2) - (\mu_1 - \mu_2)}{SE_{\bar{x}_1 - \bar{x}_2}} \; = \; \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}$$
-
-\pause
-
-$SE_{\bar{x}_1 - \bar{x}_2}$ --- стандартная ошибка разности двух средних, может рассчитываться по-разному
-
-- t-тест Стьюдента --- если считать, что дисперсии в группах равны
-- t-тест Уэлча --- если считать, что дисперсии могут быть разными
+$H_A:$ при этих двух патологиях средний уровень секреции тетрагидрокортизона разный.
 
 --
 
+<br/>
+
+На языке статистики:
+
+$H_0: \mu_1 - \mu_2 = 0$ --- разность между средними в двух группах равна нулю.
+
+$H_A: \mu_1 - \mu_2 \ne 0$ --- между средними в группах есть ненулевая разница.
+
+
+---
+
+## Двухвыборочный _t_-тест
+
+$H_0: \mu_1 - \mu_2 = 0$ --- разность между средними в двух группах равна нулю.
+
+$H_A: \mu_1 - \mu_2 \ne 0$ --- между средними в группах есть ненулевая разница.
+
+<br/>
+
+_t_-тест в общем виде: 
+
+$$t=\frac{\text{Наблюдаемая величина - Ожидаемое значение}}{\text{Стандартная ошибка}}$$
+
+--
+
+$$t=\frac{(\bar{x}_1 - \bar{x}_2) - (\mu_1 - \mu_2)}{SE_{\bar{x}_1 - \bar{x}_2}} \; = \; \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}} \sim t(df)$$
+
+--
+
+$SE_{\bar{x}_1 - \bar{x}_2}$ --- стандартная ошибка разности двух средних, может рассчитываться по-разному
+
+- t-тест Стьюдента --- если считать, что дисперсии в группах равны (как мы это делали для расчета доверительного интервала)
+- t-тест Уэлча --- если считать, что дисперсии могут быть разными
+
+---
+
 ## Стандартная ошибка разности средних в t-тесте Стьюдента
 
-\note{Student 1908}
+Student 1908
 
 Если группы независимы и дисперсии в них равны, то по центральной предельной теореме
 
-$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma^2}{n_{1}} + \frac{\sigma^2}{n_{2}}} \approx \sqrt{ \frac{s^2}{n_{1}} + \frac{s^2}{n_{2}}}$$
+$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma^2}{n_{1}} + \frac{\sigma^2}{n_{2}}} \approx \sqrt{ \frac{s_p^2}{n_{1}} + \frac{s_p^2}{n_{2}}}$$
 
-$s^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{n_1 + n_2 - 2}$ --- это __обобщенная дисперсия__ по двум выборкам.
+$s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}$ --- это __обобщенная дисперсия__ по двум выборкам.
 
 Результирующая $t$-статистика подчиняется $t$-распределению с  $df = n_1 + n_2 - 2$.
 
-\pause
+--
 
-Осторожно, равенство дисперсий в группах ---  
-это часто нереалистичное предположение!
+Равенство дисперсий в группах --- это часто нереалистичное предположение!
 
 ---
 
@@ -770,20 +830,22 @@ $s^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{n_1 + n_2 - 2}$ --- это __об
 Если группы независимы и дисперсии в них неизвестны, то получается
 
 $$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma^2_{1}}{n_{1}} + \frac{\sigma^2_{2}}{n_{2}}} \approx \sqrt{ \frac{s^2_{1}}{n_{1}} + \frac{s^2_{2}}{n_{2}}}$$
-\pause
+
+--
 
 Проблема в том, что эта величина __лишь приблизительно следует t-распределению__, если считать его степени свободы как обычно для двух групп $df = n_1 + n_2 - 2$.
 
 Это из-за того, что мы оцениваем __две__ дисперсии  
 при помощи их стандартных отклонений. 
 
-## Приблизительное число степеней свободы
+--
 
-Можно рассчитать по уравнению Уэлча-Саттеруэйта. Это решит проблему. 
+__Приблизительное число степеней свободы__ можно рассчитать по уравнению Уэлча-Саттеруэйта (Welch-Satterthwaite). Это решит проблему. 
 
-$$df_{ Welch-Satterthwaite} \approx \cfrac {\bigg(\cfrac{s^2_{1}}{n_{1}} + \cfrac{s^2_{2}}{n_{2}}\bigg)^2}
+$$df_{WS} \approx \cfrac {\bigg(\cfrac{s^2_{1}}{n_{1}} + \cfrac{s^2_{2}}{n_{2}}\bigg)^2}
 {\cfrac{1}{n_{1} - 1}\bigg(\cfrac {s_{1}^2} {n_{1}}\bigg)^2 + \cfrac{1}{n_{2} - 1}\bigg(\cfrac {s_{2}^2} {n_{2}}\bigg)^2}$$
 
+--
 
 t-тестом Уэлча можно пользоваться, даже если дисперсии равны.
 
@@ -795,382 +857,521 @@ t-тестом Уэлча можно пользоваться, даже если
 
 Почти такие же, как условия справедливости ЦПТ
 
+--
+
 - Наблюдения независимы друг от друга.
 - Выборки независимы друг от друга (новое условие).
 - Объем выборки достаточно велик или величины нормально распределены.
 
----
-
-# Двухвыборочный t-тест в R
-
----
-
-## Пример: Гормоны и артериальная гипертензия
-
-Синдром Кушинга --- это нарушения уровня артериального давления, вызванные гиперсекрецией кортизола надпочечниками.
-
-В датасете `Cushings` (пакет `MASS`) записаны данные о секреции двух метаболитов при разных типах синдрома (данные из кн. Aitchison, Dunsmore, 1975).
-
-- `Tetrahydrocortisone` --- секреция тетрагидрокортизона с мочой (мг/сут.)
-- `Pregnanetriol` --- секреция прегнантриола с мочой (мг/сут.)
-- `Type` --- тип синдрома:
-    - `a` --- аденома
-    - `b` --- двусторонняя гиперплазия
-    - `c` --- карцинома
-    - `u` --- не известно
-
-Давайте сравним секрецию тетрагидрокортизона при аденома и двусторонней гиперплазии надпочечников. Различается ли она?
+- Для теста Стьюдента требуется равенство дисперсий в выборках.  
+Для теста Уэлча это не требуется.
 
 ---
-
-## Открываем данные
-
-```{r}
-library(MASS)
-data("Cushings")
-```
-
-Все ли правильно открылось?
-
-```{r}
-head(Cushings)
-str(Cushings)
-```
-
-## Знакомимся с данными
-
-Есть ли пропущенные значения?
-
-```{r}
-colSums(is.na(Cushings))
-```
-
-<br/>
-
-Каковы объемы выборки в каждой группе?
-
-```{r}
-table(Cushings$Type)
-```
-
-Обратите внимание, объемы выборок **маленькие**.
 
 ## Проверяем условия применимости...
 
 1.Наблюдения независимы друг от друга?
+
+--
 
 - Да, независимы. Это случайная выборка.
 
 <br/>
 
+--
+
 2.Выборки независимы друг от друга?
+
+--
 
 - Да, независимы. В группах разные люди (естественно, т.к. тип синдрома у человека может быть только какой-то один).
 
 <br/>
 
+--
+
 3.Объем выборки достаточно велик или величины нормально распределены?
+
+--
 
 - Объем выборки мал
 
-```{r}
-table(Cushings$Type)
-```
+Пациентов с аденомой всего $n_1 = `r n1`$,  
+а с двусторонней гиперплазией надпочечников — $n_2 = `r n2`$.
 
 Нужно проверить форму распределения в обеих группах.
+
+---
 
 ## Нормально ли распределены концентрации тетрагидрокортизона в группах?
 
-```{r eval=FALSE}
+```{r echo=FALSE, opts.label='fig.wide.taller'}
 library(car)
-qqPlot(Cushings$Tetrahydrocortisone[Cushings$Type == 'a'])
-qqPlot(Cushings$Tetrahydrocortisone[Cushings$Type == 'b'])
-```
-
-```{r echo=FALSE, fig.height=4}
-library(car)
-par(mfrow = c(1, 2))
-qqPlot(Cushings$Tetrahydrocortisone[Cushings$Type == 'a'], id = FALSE)
-qqPlot(Cushings$Tetrahydrocortisone[Cushings$Type == 'b'], id = FALSE)
+par(mfrow = c(1, 2), cex = 1.3)
+qqPlot(X1, id = FALSE, ylab = "Тетрагидрокортизон, мг./сут.", main = "Аденома")
+qqPlot(X2, id = FALSE, ylab = "Тетрагидрокортизон, мг./сут.", main = "Двусторонняя\nгиперплазия")
 par(mfrow = c(1, 1))
 ```
 
-Удовлетворительно. При таких малых объемах выборки сложно ожидать лучшего. 
+--
 
-<!-- Будем считать, что можно аппроксимировать концентрацию тетрагидрокортизона нормальным распределением. -->
+В одной из групп несколько значений выбиваются. Но при таких ничтожно малых объемах выборки сложно ожидать лучшего. 
 
-## Двухвыборочный t-тест в R: способ 1.
+В этом учебном примере будем считать, что можно аппроксимировать концентрацию тетрагидрокортизона нормальным распределением.
 
-Сравним секрецию тетрагидрокортизона при помощи **двухвыборочного** t-теста.
+---
 
+## Двухвыборочный _t_-тест в нашем примере
+
+.pull-left-45[
+
+```{r echo=FALSE, results='hide'}
+sews <- sqrt((sd1^2) /n1 + (sd2^2)/n2)
+dfws <- (((sd1^2)/n1 + (sd2^2)/n2)^2)/((1/df1) * ((sd1^2)/n1)^2 + (1/df2) * ((sd2^2)/n2)^2)
+
+t_val <- (x1 - x2) / sews
+p_val <- format(2*(1 - pt(abs(t_val), df = dfws)), digits = 1, nsmall = 3)
+
+tt <- t.test(formula = Tetrahydrocortisone ~ Type, data = Cushings, subset = Cushings$Type %in% c('a', 'b'))
+# tt$statistic
+# tt$parameter
+# tt$p.value
 ```
-t.test(x = значения_в_гр.1, 
-       y = значения_в_гр.2)
+
+
+```{r echo=FALSE, purl=FALSE, opts.label='fig.column'}
+cols <- c('yellow2', 'red')
+labs <- c(paste('p =', p_val), expression(alpha ==0.05))
+mappings <- factor(c('p', 'alpha'), levels = c('p', 'alpha'), labels = labs)
+names(cols) <- labs
+
+df_plot <- round(dfws, 1)
+tval_plot <- abs(round(t_val, 2))
+gg_test_alpha_p <- 
+  ggplot(data = data.frame(t = -6:6), aes(x = t)) + 
+  stat_function(fun = dt, args = list(df = df_plot), 
+                colour = 'darkcyan', size = 1) +
+  scale_x_continuous(breaks = -6:6) +
+  coord_cartesian(ylim = c(0, 0.4), xlim = c(-5, 5)) +
+  labs(y = 'Плотность вероятности') +
+  # Выноски для t
+  annotate(geom = 'segment', 
+           x = c(-tval_plot, tval_plot), 
+           y = dt(c(-tval_plot, tval_plot), df = df_plot) + 0.15,
+           xend = c(-tval_plot, tval_plot), 
+           yend = c(0, 0), 
+           arrow = ar) +
+  # Подпись t
+  annotate(geom = 'text', label = c(paste('-t =', -tval_plot), paste('t =', tval_plot)),
+           x = c(-tval_plot, tval_plot), 
+           y = dt(c(-tval_plot, tval_plot), df = n - 1) + 0.15,
+           vjust = -0.3, size = 8) + 
+  # Критический уровень значимости
+  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
+                aes(fill = mappings[2]), xlim = c(-5, qt(0.025, df = n - 1)), alpha = 0.3) +
+  stat_function(geom = 'area', fun = dt, args = list(df = n - 1), 
+                aes(fill = mappings[2]), xlim = c(qt(0.975, df = n - 1), 4), alpha = 0.3) +
+  # Значение p, уровень значимости
+  stat_function(geom = 'area', fun = dt, args = list(df = df_plot),
+                aes(fill = mappings[1]), xlim = c(-5, -tval_plot), alpha = 0.9) +
+  stat_function(geom = 'area', fun = dt, args = list(df = df_plot),
+                aes(fill = mappings[1]), xlim = c(tval_plot, 5), alpha = 0.9) +
+  scale_fill_manual('', values = cols, labels = labs) +
+  guides(fill = guide_legend(override.aes = list(alpha = 0.25)))+
+  theme(legend.position = c(0, 1), legend.background = element_blank(), legend.justification = c(0, 1))
+
+gg_test_alpha_p # сравнение с уровнем значимости
 ```
 
-```{r}
-tt <- t.test(x = Cushings$Tetrahydrocortisone[Cushings$Type == 'a'],
-             y = Cushings$Tetrahydrocortisone[Cushings$Type == 'b'])
-tt
-```
+$$t= \; \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}$$
 
+$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ {s^2_{1}}/{n_{1}} + {s^2_{2}}/{n_{2}}}$$
 
-## Опишем результаты
+$$df_{ WS} \approx \cfrac {\big({s^2_{1}}/{n_{1}} + {s^2_{2}}/{n_{2}}\big)^2}
+{\frac{1}{n_{1} - 1}\big(\frac {s_{1}^2} {n_{1}}\big)^2 + \frac{1}{n_{2} - 1}\big(\frac {s_{2}^2} {n_{2}}\big)^2}$$
 
-```{r echo=FALSE}
-tt
-```
+]
+.pull-right-55[
 
-- Секреция тетрагидрокортизона значимо различается у пациентов с аденомой и двусторонней гиперплазией надпочечников ($t_{`r round(tt$parameter, 2)`} = `r round(tt$statistic, 2)`$, $p = `r format.pval(tt$p.value, eps = 0.05)`$)
+В нашем примере
 
+$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{`r sd1`^2}{`r n1`} + \frac{`r sd2`^2}{`r n2`}} = `r round(sews, 3)`$
+
+$$df_{ WS} \approx \frac {\big({\frac{`r sd1`^2}{`r n1`} + \frac{`r sd2`^2}{`r n2`}}\big)^2}
+{\frac{1}{`r n1` - 1}\big(\frac {`r sd1`^2} {`r n1`}\big)^2 + \frac{1}{`r n2` - 1}\big(\frac {`r sd2`^2} {`r n2`}\big)^2} = \\ = `r dfws`$$
 
 <br/>
 
-Можно указать в скобках не сравнение с $\alpha$, а само значение $p$:  
-($t_{`r round(tt$parameter, 2)`} = `r round(tt$statistic, 2)`$, $p = `r format.pval(tt$p.value, digits = 2, eps = 0.001)`$).
+Таким образом, значение t-статистики 
 
-Только не надо безумствовать и указывать слишком много знаков...
+$$t= \; \frac{`r x1` - `r x2`}{`r round(sews, 3)`} = `r round(t_val, 3)`$$
 
+Ему соответствует $p = `r p_val`$
 
+`r ifelse(p_val <=0.05, "Oтвергаем", "Cохраняем")` $H_0$
 
-## Задание 3: Двухвыборочный t-тест в R, способ 2.
-
-Перепишите вызов функции t.test с использованием другого шаблона вызова (с использованием формулы).
-
-`t.test(formula = что_зависит ~ группы, data = данные)`
-
-Второй вариант синтаксиса можно использовать только, если у вас есть только две группы. Если групп больше, то можно отфильтровать нужные с помощью логического вектора.
-
-```
-t.test(formula = что_зависит ~ группы, data = данные,
-       subset = логический_вектор)
-```
-
-## Решение: Двухвыборочный t-тест в R, способ 2.
-
-`t.test(formula = что_зависит ~ группы, data = данные)`
-
-Второй вариант синтаксиса можно использовать только, если у вас есть только две группы. Если групп больше, то можно отфильтровать нужные с помощью логического вектора.
-
-```
-t.test(formula = что_зависит ~ группы, data = данные,
-       subset = логический_вектор)
-```
-
-```{r eval=FALSE}
-t.test(formula = Tetrahydrocortisone ~ Type, data = Cushings, 
-       subset = Cushings$Type %in% c('a', 'b'))
-```
-
-Результаты точно такие же, естественно.
-
-## Задание 4 
-
-Посмотрите структуру результатов (`tt`) при помощи
-функции `str()` и извлеките из них:
-
-- степени свободы
-- уровень значимости
-- значение t-критерия
-
-## Решение: Что спрятано в результатах?
-
-Как называются отдельные элементы результатов можно узнать посмотрев их структуру при помощи функции `str()`
-
-```{r}
-str(tt)
-```
-
-## Решение: Можно получить элементы результатов в виде отдельных чисел
-
-```{r purl=FALSE}
-tt$parameter # степени свободы
-tt$p.value # уровень значимости
-tt$statistic # значение t-критерия
-```
-
-## График со средними и доверительными интервалами
-
-```{r}
-ggplot(data = Cushings[Cushings$Type %in% c('a', 'b'), ],
-       aes(x = Type, y = Tetrahydrocortisone)) +
-  stat_summary(fun.data = mean_cl_normal)
-```
-
-
-# Двухвыборочный t-тест (самостоятельная работа)
-
-## Задание 5
-
-Файл `aml.csv` содержит данные о влиянии регулярной химиотерапии на продолжительность ремиссии.
-
-Прочитаем эти данные
-```{r}
-rem <- read.csv(file = "data/aml.csv", header = TRUE)
-head(rem)
-```
-
-- В переменной `time` представлена продолжительность ремиссии в днях.
-- `group` указывает, к какой экспериментальной группе принадлежал пациент. В группе 1 проводилась регулярная химиотерапия, в группе 2 - нет.
-
-Ваша задача сравнить эти группы с помощью t-теста.
-
-## Решение: Разведочный анализ
-
-```{r  purl=FALSE}
-str(rem)
-# Делаем group фактором
-rem$group <- factor(rem$group, labels = c("therapy", "control"))
-
-# Пропущенные значения?
-colSums(is.na(rem))
-
-# Объемы выборок?
-table(rem$group)
-```
-
-
-## Решение: Проверка условий применимости
-
-```{r  purl=FALSE, fig.height=4}
-# Выборки малы, поэтому проверяем на нормальность и отсутствие выбросов
-op <- par(mfrow = c(1, 2))
-qqPlot(rem$time[rem$group == "therapy"])
-qqPlot(rem$time[rem$group == "control"])
-par(op)
-```
-
-
-## Решение: Проверка условий применимости
-
-Есть отскакивающее значение в группе `therapy`, в этой группе оно 11 по порядку (видно на `qqPlot()`).
-
-```{r  purl=FALSE}
-rem$time[rem$group == "therapy"]
-rem$time[rem$group == "therapy"][11]
-```
-
-Пусть в этом случае это вполне реальное наблюдение, но это значение придется исключить, т.к. t-тест не устойчив к выбросам.
-
-## Решение: Двухвыборочный t-тест
-
-```{r purl=FALSE}
-# удалено наблюдение со значением 161
-tt <- t.test(formula = time ~ group, data = rem,
-       subset = rem$time != 161)
-```
-
-Или то же самое:
-
-```{r purl=FALSE, results="hide"}
-# удалено 11 наблюдение в группе `therapy`
-tt <- t.test(x = rem$time[rem$group == 'therapy'][-11],
-       y = rem$time[rem$group == 'control'])
-```
-
-## Решение: Результаты двухвыборочного t-теста
-
-```{r purl=FALSE}
-tt
-```
-
-- `r ifelse(tt$p.value <= 0.05, 'Продолжительность ремиссии значимо различается', 'Не найдено значимых различий продолжительности ремиссии')` у пациентов после регулярной лучевой терапии и обычного лечения ($t_{`r round(tt$parameter, 2)`} = `r round(tt$statistic, 2)`$, $p = `r format.pval(tt$p.value, eps = 0.01, digits = 3)`$).
-
-## Решение: График со средними и доверительными интервалами
-
-```{r fig.width=4}
-ggplot(data = rem[rem$time != 161, ], aes(x = factor(group), y = time)) + 
-  stat_summary(fun.data = mean_cl_normal)
-```
-
-# Парный t-тест (факультативно)
-
-## Пример: Снотворное
-
-В датасете `sleep` содержатся данные об увеличении продолжительности сна по сравнению с контролем после применения двух снотворных препаратов (Cushny, Peebles, 1905, Student, 1908)
-
-Одинаково ли два снотворных влияют на увеличение продолжительности сна?
-
-```{r}
-data(sleep)
-head(sleep)
-# str(sleep)
-```
-
-
-## Проверяем условия применимости...
-
-1.Наблюдения независимы друг от друга?
-
-- Да, независимы. Это случайная выборка людей.
-
-2.Выборки независимы друг от друга?
-
-- **Нет!**. В группах одни и те же люди (10 человек, каждый пил оба снотворных).  
-**ОСТОРОЖНО**. Эти данные НЕ ПОДХОДЯТ для двухвыборочного t-теста, т.к. группы не являются взаимно независимыми. Нужно использовать **парный** t-тест.
-
-<br/>
-
-3.Объем выборки достаточно велик или величины нормально распределены?
-
-- Объем выборки мал
-
-```{r}
-table(sleep$group)
-```
-
-Нужно проверить форму распределения в обеих группах.
-
-## Нормально ли распределена зависимая переменная в группах?
-
-```{r eval=FALSE}
-qqPlot(sleep$extra[sleep$group == 1])
-qqPlot(sleep$extra[sleep$group == 2])
-```
-
-```{r echo=FALSE, fig.height=4}
-par(mfrow = c(1, 2))
-qqPlot(sleep$extra[sleep$group == 1], id = FALSE)
-qqPlot(sleep$extra[sleep$group == 2], id = FALSE)
-par(mfrow = c(1, 1))
-```
-
-Хорошо. Можно аппроксимировать нормальным распределением 
-
-## Парный t-тест в R
-
-Сравним увеличение продолжительности сна при помощи **парного** t-теста.
-
-```{r}
-t.test(formula = extra ~ group, data = sleep, paired = TRUE)
-```
-
-## Опишем результаты
-
-```{r echo=FALSE}
-tt <- t.test(formula = extra ~ group, data = sleep, paired = TRUE)
-tt
-```
-
-- Различия изменения продолжительности сна при применении двух препаратов были достоверны ($t_{`r round(tt$parameter, 2)`} = `r round(tt$statistic, 2)`$, $p = `r format.pval(tt$p.value, eps = 0.01)`$)
-
-**Кстати, если бы мы не учли зависимость между группами, мы пришли бы к неверному выводу.**  В этом можно убедиться, выполнив этот код:
-
-```{r eval=FALSE}
-t.test(formula = extra ~ group, data = sleep)
-```
-
-## График со средними и доверительными интервалами
-
-```{r fig.width=4}
-ggplot(data = sleep, aes(x = factor(group), y = extra)) + 
-  stat_summary(fun.data = mean_cl_normal)
-```
+]
 
 
 
 ---
 
+## Опишем результаты
+
+.pull-left[
+
+Уровень секреции тетрагидрокортизона статистически значимо отличается у пациентов с аденомой и двусторонней гиперплазией надпочечников  
+( $t_{`r round(tt$parameter, 2)`} = `r round(tt$statistic, 2)`$, $p = `r format.pval(tt$p.value, eps = 0.05)`$).
+
+]
+.pull-right[
+
+```{r}
+ggplot(data = Cushings[Cushings$Type %in% c('a', 'b'), ],
+       aes(x = Type, y = Tetrahydrocortisone)) +
+  stat_summary(fun.data = mean_cl_normal) +
+  scale_x_discrete(labels = c("аденома", "двусторонняя\nгиперплазия"))+
+  coord_cartesian(ylim = c(0, 11)) +
+  labs(x = "Тип патологии", y = "Тетрагидрокортизон\nмг./сут.")
+```
+
+]
+
+--
+
+Можно указать в скобках не сравнение с $\alpha$, а само значение $p$:  
+( $t_{`r round(tt$parameter, 2)`} = `r round(tt$statistic, 2)`$, $p = `r format.pval(tt$p.value, digits = 2, eps = 0.001)`$).
+
+Только не надо безумствовать и указывать слишком много знаков...
+
+---
+
+class: middle, center, inverse
+
+# Множественное тестирование гипотез
+
+---
+
+## Есть ли взаимосвязь <br/>между поведением бабочек в Швейцарии <br/>и дождем в Париже?
+
+Inaudi et al. 1995. Chaos: evidence for the butterfly effect. Annals of Improbable research 1 (6).
+
+--
+
+Если проверить много-много взаимосвязей, то сколько-то из них окажутся статистически значимыми.
+
+Чем больше тестов, тем больше вероятность ошибочно обнаружить различия.
+
+---
+
+## Множественное тестирование гипотез
+
+В датасете `Cushings` (пакет `MASS`) есть информация о секреции тетрагидрокортизона с мочой (мг/сут.) при синдроме Кушинга (данные из кн. Aitchison, Dunsmore, 1975). Всего 4 типа патологии:
+
+- `a` --- аденома
+- `b` --- двусторонняя гиперплазия
+- `c` --- карцинома
+- `u` --- другие патологии (без уточнения)
+
+
+Мы сравнили уровень секреции только при двух из них. 
+
+А что, если мы хотим сравнить все друг с другом?  
+
+Сколько всего нужно будет сделать сравнений?
+
+--
+
+$m$ — количество попарных сравнений $k$ групп между собой:
+
+$m = \frac{k^2 - k}{2}$, т.е. в нашем случае $m = \frac{4^2 - 4}{2} = 6$
+
+---
+
+## Тестируем множество гипотез
+
+Сравним уровень секреции тетрагидрокортизона при разных типах патологий при помощи двухвыборочного _t_-теста.
+
+.pull-left[
+
+```{r}
+ptt <- with(Cushings, pairwise.t.test(x = Tetrahydrocortisone, g = Type, p.adjust.method = "none"))
+
+pdfr <- ptt$p.value %>% 
+  as.data.frame() %>% 
+  rownames_to_column("Группа 1") %>% 
+  pivot_longer(cols = c("a", "b", "c"), 
+               names_to = "Группа 2", 
+               values_to = "p в t-тесте") %>% 
+  na.omit()
+
+kable(pdfr)
+```
+]
+.pull-right[
+
+Представим, что мы проводим каждый из тестов при $\alpha = 0.05$, желая зафиксировать вероятность ошибок I рода  на уровне 5%.
+
+В этом случае количество тестов, где различия оказались статистически значимыми: `r sum(pdfr$"p в t-тесте" <= 0.05)`
+
+]
+
+--
+
+<br/>
+
+Но вот вероятность ошибок I рода в итоге вовсе не 5%.
+
+
+---
+
+## При множественных тестах увеличивается вероятность ошибочно найти различия
+
+$\alpha$ --- это вероятность совершить хотя бы одну ошибку I рода (найти различия там, где их нет).
+
+Если сделать $n$ тестов, то вероятность совершить хотя бы одну ошибку I рода во всем семействе тестов (family-wise error rate, FWER) значительно возрастает.
+
+$$1 - (1 - \alpha)^m$$
+
+--
+
+Например, если мы проведем 6 тестов на уровне значимости 0.05, то c вероятностью 26.5 мы совершим хотя бы одну ошибку I рода, т.е. практически в 1/4 всех тестов.
+
+---
+
+## Поправка Бонферрони
+
+Простой, но очень жесткий способ коррекции. Зная общее число тестов, можно вычислить скорректированный уровень значимости и использовать его.
+
+$$\alpha^* = \frac{\alpha}{m}$$
+
+--
+
+<br/>
+
+Например, чтобы сохранить в группе из 6 тестов вероятность ошибки I рода 0.05, 
+нужно проводить каждый тест при $\alpha^* = 0.00833$.
+
+--
+
+А если бы нужно было сделать 10 тестов, то при $\alpha^* = 0.005$, и т.д.
+
+--
+
+При проведении множества тестов (не обязательно попарных)  
+резко возрастает вероятность ошибки II рода,   
+т.е. не найти различий там, где они есть.
+
+---
+
+## Применим поправку Бонферрони
+
+Bonferroni, 1936
+
+Каждый из 6 тестов проводим при $\alpha^* = 0.00833$.
+
+```{r}
+pdfr_bonf <- pdfr %>% mutate("C поправкой Бонферрони" = ifelse(`p в t-тесте` <= 0.05/nrow(pdfr), "Отвергаем $H_0$", "Сохраняем $H_0$")) 
+
+kable(pdfr_bonf)
+```
+
+После поправки Бонферрони мы сохранили для всего семейства сравнений вероятность ошибки I рода на уровне 5%. Но при этом не осталось значимых различий — такая это жесткая поправка.
+
+---
+
+## Метод Хольма-Бонферрони
+
+Holm, 1979
+
+Чтобы зафиксировать $FWER \le \alpha$:
+
+1.Сортируем в порядке возрастания $m$ значений $p$, полученные в тестах, и присваиваем им ранги $j$ от 1 до $m$   
+$p_{1} \le p_{2} \le \cdots \le p_{m - 1} \le p_{m}$
+
+2.Вводим поправку для значений $p$  
+${p^*_{j}} = min{\{(m - j + 1) \cdot p_{j},\;1\}}$
+
+3.Если на каком-то шаге получилось ${p^*_{j+1}}$ меньше, чем предыдущее ${p^*_{j}}$, то записываем большее из них.
+
+4.Сравниваем с $\alpha$
+
+--
+
+```{r}
+pthb <- with(Cushings, pairwise.t.test(x = Tetrahydrocortisone, g = Type, p.adjust.method = "holm"))
+
+# pdfr_holm <- pthb$p.value %>%
+#   as.data.frame() %>%
+#   rownames_to_column("Группа 1") %>%
+#   pivot_longer(cols = c("a", "b", "c"),
+#                names_to = "Группа 2",
+#                values_to = "p в t-тесте") %>%
+#   na.omit()
+# pdfr_holm
+
+ntests <- nrow(pdfr)
+pdfr %>% arrange(`p в t-тесте`) %>% 
+  mutate(`Ранг $j$` = 1:ntests, 
+         `$p^*$` = pmin(1, cummax((ntests + 1L - `Ранг $j$`) * `p в t-тесте`)),
+         "C поправкой Хольма-Бонферрони" = ifelse(`$p^*$` <= 0.05/nrow(pdfr), "Отвергаем $H_0$", "Сохраняем $H_0$")) %>% kable()
+```
+
+---
+
+class: middle, center, inverse
+
+# Интерпретация доверительных интервалов на графиках
+
+---
+
+## Опасности косвенных сравнений
+
+Участникам эксперимента (Christenfeld, Hill, 1995) показывали фото младенцев и предлагали выбрать наиболее похожее из 3 фото их матерей и 3 фото отцов.
+
+На кого больше похожи дети: на отцов или на матерей?
+
+.pull-left[
+
+![](img/WS2015p345f12.5-1.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.5-1]
+
+]
+
+--
+
+.pull-right[
+
+Процент правильных догадок о матерях не значимо отличался от случайного, а правильные фото отцов выбирали значимо чаще, чем при случайном выборе.
+
+]
+
+--
+
+Однако нельзя заключить, что отцов правильные фото отцов выбирали чаще, чем матерей, т.к. частота правильных угадываний не различается.
+
+Из того, что A не значимо отличается от С,  
+а B значимо отличается от C,  
+не следует, что А значимо отличается от B.
+
+---
+
+## Интерпретация перекрывания <br/>доверительных интервалов
+
+![](img/WS2015p347f12.6-1.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.6-1]
+
+---
+
+class: middle, center, inverse
+
+# Сравнение дисперсий
+
+---
+
+## Тесты для сравнения дисперсий
+
+.pull-left-45[
+
+__F-тест равенства дисперсий__
+
+(F-test of equal variances)
+
+<br/>
+
+Предложен Р.Фишером в 20е годы  
+(назван в честь Фишера Snedecor, Cochran, 1989)
+
+- Сравнение двух дисперсий друг с другом.
+
+
+]
+
+.pull-right-55[
+
+__Тест Левина на гомогенность дисперсий__
+
+(Levene's test for homogeneity of variances)
+
+<br/>
+
+Levene, Howard, 1960
+
+<br/><br/>
+
+- Сравнение сразу нескольких дисперсий друг с другом.
+
+]
+
+---
+
+## F-тест равенства дисперсий
+
+.pull-left[
+
+$H_0: \sigma_1^2 = \sigma_2^2$
+
+$H_A: \sigma_1^2 \ne \sigma_2^2$
+
+
+$$F = \cfrac{s_1^2}{s_2^2}$$
+
+При $H_0$ F-статистика подчиняется F-распределению с двумя параметрами: $df_1 = n_1 - 1$ и $df_2 = n_2 - 1$.
+
+]
+
+--
+
+.pull-right[
+
+F-распределение при $df_1 = `r df1`$ и $df_2 = `r df2`$
+
+```{r}
+data.frame(x = seq(0, 6, length.out = 100)) %>% 
+  ggplot(aes(x = x)) +
+    stat_function(fun = df, args = list(df1 = df1, df2 = df2), 
+                colour = 'darkcyan', size = 1) +
+  scale_x_continuous(breaks = 0:6) +
+  labs(y = "Плотность вероятности", x = "F")
+```
+
+]
+
+Условие применимости: нормальное распределение в обеих группах.
+
+--
+
+F-тест равенства дисперсий крайне чувствителен к отклонениям от нормального распределения. Если в одной из групп переменная не подчиняется нормальному распределению, резко возрастает вероятность ошибки I рода.
+
+---
+
+## Тест Левина на гомогенность дисперсий
+
+Levene, Howard, 1960
+
+$H_0: \sigma_1^2 = \sigma_2^2 = \ldots = \sigma_k^2$
+
+$H_A: \exists\; i, j: \sigma_i^2 \ne \sigma_j^2$ --- __хотя бы одна__ дисперсия отличается
+
+$$W=\frac{(N-k)}{(k-1)} \cdot \frac{\sum_{i=1}^k N_i\left(\bar Z_{i}-\bar Z\right)^2}{\sum_{i=1}^k \sum_{j=1}^{N_i}\left(Z_{i j}-\bar Z_{i}\right)^2}$$
+
+- $k$ — число групп
+- $N = n_1 + n_2$ — общий объем выборки
+- $Z_{i j} = | x_{ij} - \bar x_{i}|$ — модуль отклонения значения $x_{ij}$ от среднего в своей $i$-той группе $\bar x_{i}$
+- $\bar Z_{i}$ — среднее $Z_{i j}$ в $i$-той группе
+- $\bar Z$ — общее среднее $Z_{i j}$ (без учета группы)
+
+При $H_0$ $W$-статистика подчиняется $F$-распределению с двумя параметрами: $df_1 = k - 1$ и $df_2 = N - k$.
+
+--
+
+Условие применимости: распределение значений во всех группах приблизительно симметрично. 
+
+Тест Левина более устойчив к отклонениям от условий применимости.
+
+---
 
 class: middle, center, inverse
 

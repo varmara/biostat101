@@ -63,33 +63,33 @@ output:
 <!-- - Презентация [11-comparing-two-groups.html](11-comparing-two-groups.html) -->
 <!-- - Код [12-comparing-two-groups-in-r.R](12-comparing-two-groups-in-r.R) -->
 
-## 13-14. Ограничения статистических методов. Непараметрические методы
 
-<!-- - Презентация [13-assumptions-and-nonparametrics.html](13-assumptions-and-nonparametrics.html) -->
-<!-- - Код [14-assumptions-and-nonparametrics-in-r.R](14-assumptions-and-nonparametrics-in-r.R) -->
+## 13-14. Пропорции и частоты
 
-## 15-16. Пропорции и частоты
+<!-- - Презентация [13-proportions-and-frequencies.html](13-proportions-and-frequencies.html) -->
+<!-- - Код [14-proportions-and-frequencies-in-r.R](14-proportions-and-frequencies-in-r.R) -->
 
-<!-- - Презентация [15-proportions-and-frequencies.html](15-proportions-and-frequencies.html) -->
-<!-- - Код [16-proportions-and-frequencies-in-r.R](16-proportions-and-frequencies-in-r.R) -->
+## 15-16. Случайность в пространстве или времени
 
-## 17-18. Случайность в пространстве или времени
+<!-- - Презентация [15-randomness-in-space-and-time.html](15-randomness-in-space-and-time.html) -->
+<!-- - Код [16-randomness-in-space-and-time-in-r.R](16-randomness-in-space-and-time-in-r.R) -->
 
-<!-- - Презентация [17-randomness-in-space-and-time.html](17-randomness-in-space-and-time.html) -->
-<!-- - Код [18-randomness-in-space-and-time-in-r.R](18-randomness-in-space-and-time-in-r.R) -->
+## 17-18. Связь между категориальными переменными
 
-## 19-20. Связь между категориальными переменными
+<!-- - Презентация [17-assotiation-between-categorical-data.html](17-assotiation-between-categorical-data.html) -->
+<!-- - Код [18-assotiation-between-categorical-data-in-r.R](18-assotiation-between-categorical-data-in-r.R) -->
 
-<!-- - Презентация [19-assotiation-between-categorical-data.html](19-assotiation-between-categorical-data.html) -->
-<!-- - Код [20-assotiation-between-categorical-data-in-r.R](20-assotiation-between-categorical-data-in-r.R) -->
+## 19-20. Дисперсионный анализ
 
-## 21-22. Дисперсионный анализ
+<!-- - Презентация [19-anova.html](19-anova.html) -->
+<!-- - Код [20-anova-in-r.R](20-anova-in-r.R) -->
 
-<!-- - Презентация [21-anova.html](21-anova.html) -->
-<!-- - Код [22-anova-in-r.R](22-anova-in-r.R) -->
+## 21-22. Корреляция и регрессия
 
-## 23-24. Корреляция и регрессия
+<!-- - Презентация [21-correlation-and-regression.html](21-correlation-and-regression.html) -->
+<!-- - Код [22-correlation-and-regression-in-r.R](22-correlation-and-regression-in-r.R) -->
 
-<!-- - Презентация [23-correlation-and-regression.html](23-correlation-and-regression.html) -->
-<!-- - Код [24-correlation-and-regression-in-r.R](24-correlation-and-regression-in-r.R) -->
+## 23-24. Ограничения статистических методов. Непараметрические методы
 
+<!-- - Презентация [23-assumptions-and-nonparametrics.html](23-assumptions-and-nonparametrics.html) -->
+<!-- - Код [24-assumptions-and-nonparametrics-in-r.R](24-assumptions-and-nonparametrics-in-r.R) -->
