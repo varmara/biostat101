@@ -22,7 +22,7 @@ knitr::opts_template$set(
   fig.small = list(fig.width = 6, fig.height = 4)
 )
 # chunk default options
-opts_chunk$set(message = FALSE, tidy = FALSE, warning = FALSE, echo = FALSE, comment = "", opts.label='fig.medium', fig.showtext = TRUE)
+opts_chunk$set(message = FALSE, tidy = FALSE, warning = FALSE, echo = FALSE, comment = "", opts.label='fig.medium', fig.showtext = TRUE, fig.retina = 3)
 
 library("xaringanthemer")
 style_duo_accent(

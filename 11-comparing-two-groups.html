@@ -4,23 +4,23 @@
     <title>Cравнение двух групп</title>
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
-    <script src="libs/header-attrs-2.15/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -84,9 +84,13 @@ class: middle, center, inverse
 
 Различается ли изменение продолжительности сна (в часах) при применении этих двух снотворных?
 
+--
+
 Ответить на вопрос могут два варианта эксперимента.
 
-.pull-left[
+--
+
+.pull-left-45[
 
 __Независимые выборки__
 
@@ -94,7 +98,7 @@ __Независимые выборки__
 
 - Наблюдения сделаны на независимых объектах.
 
-- 20 человек случайным образом распределили по двум вариантам эксперимента (снотворное 1 или 2).
+- 20 человек случайным образом разделили на две группы (снотворное 1 или 2).
 
 - __Разница средних значений__ изменения продолжительности сна в двух группах — это разница влияния этих двух снотворных.
 
@@ -102,13 +106,14 @@ __Независимые выборки__
 
 --
 
-.pull-right[
+.pull-right-55[
 
 __Парные наблюдения__
 
-![](img/paired-samples.png)
+![:scale 90%](img/paired-samples.png)
 
-- Наблюдения взаимозависимые (парные). 
+- Наблюдения взаимозависимые  
+(парные). 
 
 - 10 человек, с каждым последовательно провели оба варианта эксперимента (снотворное 1 или 2).
 
@@ -203,7 +208,7 @@ class: middle, center, inverse
 
 .pull-right-60[
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-1-1.png" width="432" /&gt;
 
 ]
 
@@ -215,7 +220,6 @@ class: middle, center, inverse
 
 
 .pull-left[
-
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -277,6 +281,73 @@ class: middle, center, inverse
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; ID &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; d &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+## Средняя разница в парах значений
+
+Две возможных задачи:
+
+.pull-left[
+
+1. Можно _оценить среднюю разницу_  между изменением продолжительности сна после первого и второго снотворного (т.е. `\(\mu_d\)`).
+
+2. Можно проверить, _отличается ли эта средняя разница от нуля_ (т.е. `\(H_0: \mu_d = 0\)`).
 
 ]
 
@@ -332,17 +403,7 @@ class: middle, center, inverse
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
 ]
-
---
-
-Две возможных задачи:
-
-1. Можно _оценить среднюю разницу_  между изменением продолжительности сна после первого и второго снотворного (т.е. `\(\mu_d\)`).
-
-2. Можно проверить, _отличается ли эта средняя разница от нуля_ (т.е. `\(H_0: \mu_d = 0\)`).
-
 
 ---
 
@@ -353,9 +414,6 @@ class: middle, center, inverse
 ---
 
 ## Средняя разница значений
-
-
-
 
 .pull-left-40[
 
@@ -433,6 +491,7 @@ class: middle, center, inverse
 &lt;/table&gt;
 
 ]
+
 .pull-right-60[
 
 
@@ -457,7 +516,7 @@ class: middle, center, inverse
 
 .pull-left-55[
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-3-1.png" width="468" /&gt;
 
 `\(\bar d \pm |t_{\alpha, df}|\cdot SE_{\bar d}\)`
 
@@ -466,6 +525,9 @@ class: middle, center, inverse
 `\(SE_{\bar d} = \frac{s_d}{\sqrt{n}}\)`
 
 ]
+
+--
+
 .pull-right-45[
 В нашем примере
 
@@ -526,6 +588,8 @@ class: middle, center, inverse
 
 _t_-тест в общем виде: 
 
+--
+
 `$$t=\frac{\text{Наблюдаемая величина - Ожидаемое значение при }H_0}{\text{Стандартная ошибка}}$$`
 
 &lt;br/&gt;
@@ -549,7 +613,7 @@ _t_-тест в общем виде:
 
 
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-5-1.png" width="468" /&gt;
 
 `$$t = \frac{\bar d - \mu_d}{SE_{\bar d}}$$`
 
@@ -558,6 +622,9 @@ _t_-тест в общем виде:
 `\(SE_{\bar d} = \frac{s_d}{\sqrt{n}}\)`
 
 ]
+
+--
+
 .pull-right[
 
 В нашем примере
@@ -586,19 +653,23 @@ Oтвергаем `\(H_0\)`
 
 
 
-- Различия изменения продолжительности сна при применении двух препаратов были статистически значимы ( `\(t_{9} = -4.06\)`, `\(p = &lt;0.01\)`)
+Различия изменения продолжительности сна при применении двух препаратов были статистически значимы ( `\(t_{9} = -4.06\)`, `\(p = &lt;0.01\)`)
 
 ]
 
 .pull-right-60[
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-7-1.png" width="432" /&gt;
 
 ]
 
 --
 
-**Осторожно!** Если не учитывать зависимость между группами, можно прийти к неверному выводу.
+&lt;br/&gt;
+
+**Осторожно!** Если бы мы не учли зависимость между группами, то пришли бы к неверному выводу.
+
+--
 
 &lt;br/&gt;
 
@@ -643,13 +714,23 @@ Oтвергаем `\(H_0\)`
 
 ## Нормально ли распределена разница значений?
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+.pull-left[
+
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-8-1.png" width="432" /&gt;
+
+]
 
 --
 
+.pull-right[
+
 Могло бы быть и лучше. Одно наблюдение сильно отклоняется от ожиданий для нормального распределения.
 
-Для этих данных хорошо бы использовать другой, непараметрический тест, у которого нет таких жестких требований к данным.
+Для этих данных хорошо бы использовать другой, непараметрический тест, у которого нет таких жестких требований к данным. Позже мы с такими тестами познакомимся.
+
+]
+
 
 ---
 
@@ -710,7 +791,7 @@ class: middle, center, inverse
 
 Если `\(x_1 \sim N(\mu_1, \sigma_1)\)` и `\(x_2 \sim N(\mu_2, \sigma_2)\)` или размер выборки достаточно велик,
 
-то __согласно ЦПТ__
+то __согласно ЦПТ__ мы можем сказать, что их средние значения...
 
 --
 
@@ -720,7 +801,8 @@ class: middle, center, inverse
 
 &lt;br/&gt;
 
-Тогда разница выборочных средних нормально распределена
+Тогда разница выборочных средних (двух нормально распределенных величин)  
+будет нормально распределена
 
 `$$\bar x_1 - \bar x_2 \sim N(\mu_1 - \mu_2, SE_{\bar x_1 - \bar x_2})$$`
 
@@ -739,16 +821,16 @@ class: middle, center, inverse
 
 --
 
-__Если предположить, что дисперсии в группах равны__, то  
+__Если предположить, что дисперсии в группах равны__  
+(вернее, в генеральных совокупностях, откуда были сделаны выборки), то
+
 `$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{\sigma^2 \big( \frac{1}{n_{1}} + \frac{1}{n_{2}}\big)}$$`
 
 --
 
-Тогда `\(\sigma^2\)` можно оценить так:
+Тогда `\(\sigma^2\)` можно оценить как `\(s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}\)`
 
-`$$s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}$$`
-
-`\(s_p^2\)` — это __обобщенная дисперсия__, т.е. усредненная дисперсия в двух выборках, взвешенная по их числу степеней свободы.
+`\(s_p^2\)` — это __обобщенная дисперсия__ (pooled variance), т.е. усредненная дисперсия в двух выборках, взвешенная по их числу степеней свободы.
 
 --
 
@@ -779,7 +861,7 @@ __Если предположить, что дисперсии в группах
 
 .pull-left[
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-11-1.png" width="468" /&gt;
 
 `\(\bar x_1 - \bar x_2 \pm t(\alpha,df) \cdot SE_{\bar x_1 - \bar x_2 }\)`
 
@@ -789,6 +871,8 @@ __Если предположить, что дисперсии в группах
 
 `\(s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}\)`
 ]
+
+--
 
 .pull-right[
 В нашем примере
@@ -861,7 +945,7 @@ _t_-тест в общем виде:
 
 `\(SE_{\bar{x}_1 - \bar{x}_2}\)` --- стандартная ошибка разности двух средних, может рассчитываться по-разному
 
-- t-тест Стьюдента --- если считать, что дисперсии в группах равны (как мы это делали для расчета доверительного интервала)
+- t-тест Стьюдента --- если считать, что дисперсии в группах равны (как мы это только что делали для расчета доверительного интервала)
 - t-тест Уэлча --- если считать, что дисперсии могут быть разными
 
 ---
@@ -874,13 +958,15 @@ Student 1908
 
 `$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{\sigma^2}{n_{1}} + \frac{\sigma^2}{n_{2}}} \approx \sqrt{ \frac{s_p^2}{n_{1}} + \frac{s_p^2}{n_{2}}}$$`
 
-`\(s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}\)` --- это __обобщенная дисперсия__ по двум выборкам.
+где `\(s_p^2 = \cfrac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2}{(n_1 - 1) + (n_2 - 1)}\)` --- это __обобщенная дисперсия__ по двум выборкам.
 
 Результирующая `\(t\)`-статистика подчиняется `\(t\)`-распределению с  `\(df = n_1 + n_2 - 2\)`.
 
 --
 
-Равенство дисперсий в группах --- это часто нереалистичное предположение!
+&lt;br/&gt;
+
+__Осторожно!__ Равенство дисперсий в группах --- это часто нереалистичное предположение!
 
 ---
 
@@ -964,7 +1050,7 @@ t-тестом Уэлча можно пользоваться, даже если
 
 ## Нормально ли распределены концентрации тетрагидрокортизона в группах?
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-12-1.png" width="864" /&gt;
 
 --
 
@@ -981,24 +1067,25 @@ t-тестом Уэлча можно пользоваться, даже если
 
 
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-14-1.png" width="468" /&gt;
 
 `$$t= \; \frac{\bar{x}_1 - \bar{x}_2}{SE_{\bar{x}_1 - \bar{x}_2}}$$`
 
-`$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ {s^2_{1}}/{n_{1}} + {s^2_{2}}/{n_{2}}}$$`
+`\(SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{s^2_{1}}{n_{1}} + \frac{s^2_{2}}{n_{2}}}\)`
 
-`$$df_{ WS} \approx \cfrac {\big({s^2_{1}}/{n_{1}} + {s^2_{2}}/{n_{2}}\big)^2}
-{\frac{1}{n_{1} - 1}\big(\frac {s_{1}^2} {n_{1}}\big)^2 + \frac{1}{n_{2} - 1}\big(\frac {s_{2}^2} {n_{2}}\big)^2}$$`
+`\(df_{ WS} \approx \cfrac {\big(\frac{s^2_{1}}{n_{1}} + \frac{s^2_{2}}{n_{2}}\big)^2} {\frac{1}{n_{1} - 1}\big(\frac {s_{1}^2} {n_{1}}\big)^2 + \frac{1}{n_{2} - 1}\big(\frac {s_{2}^2} {n_{2}}\big)^2}\)`
 
 ]
+
+--
+
 .pull-right-55[
 
 В нашем примере
 
 `\(SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{ \frac{0.924^2}{6} + \frac{3.789^2}{10}} = 1.256\)`
 
-`$$df_{ WS} \approx \frac {\big({\frac{0.924^2}{6} + \frac{3.789^2}{10}}\big)^2}
-{\frac{1}{6 - 1}\big(\frac {0.924^2} {6}\big)^2 + \frac{1}{10 - 1}\big(\frac {3.789^2} {10}\big)^2} = \\ = 10.685$$`
+`\(df_{ WS} \approx \frac {\big({\frac{0.924^2}{6} + \frac{3.789^2}{10}}\big)^2} {\frac{1}{6 - 1}\big(\frac {0.924^2} {6}\big)^2 + \frac{1}{10 - 1}\big(\frac {3.789^2} {10}\big)^2} = \\ = 10.685\)`
 
 &lt;br/&gt;
 
@@ -1026,7 +1113,7 @@ Oтвергаем `\(H_0\)`
 ]
 .pull-right[
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-15-1.png" width="432" /&gt;
 
 ]
 
@@ -1248,15 +1335,23 @@ Bonferroni, 1936
 
 Holm, 1979
 
+--
+
 Чтобы зафиксировать `\(FWER \le \alpha\)`:
 
 1.Сортируем в порядке возрастания `\(m\)` значений `\(p\)`, полученные в тестах, и присваиваем им ранги `\(j\)` от 1 до `\(m\)`   
 `\(p_{1} \le p_{2} \le \cdots \le p_{m - 1} \le p_{m}\)`
 
+--
+
 2.Вводим поправку для значений `\(p\)`  
 `\({p^*_{j}} = min{\{(m - j + 1) \cdot p_{j},\;1\}}\)`
 
+--
+
 3.Если на каком-то шаге получилось `\({p^*_{j+1}}\)` меньше, чем предыдущее `\({p^*_{j}}\)`, то записываем большее из них.
+
+--
 
 4.Сравниваем с `\(\alpha\)`
 
@@ -1325,11 +1420,64 @@ Holm, 1979
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+
+---
+
+## Бонферрони, Хольм или что-то другое?
+
+Поправку Борферрони имеет смысл использовать, если тестов не больше 5. Иначе она становится слишком жесткой.
+
+Поправку Хольма-Бонферрони можно делать, если тестов несколько. М.б. пара десятков.
+
+--
+
+Если тестов еще больше — десятки или сотни, как это бывает для молекулярных данных, то придется использовать принципиально иной способ коррекции.   
+Не Family-Wise Error Rate (FWER), а False Discovery Rate (FDR).
+
+---
+
+## Поправки False Discovery Rate
+
+__False Discovery Rate__ corrections — поправки, которые фиксируют долю ложно-положительных срабатываний теста не из всех тестов, а только из всех срабатываний. 
+
+Эти поправки мягче, чем традиционные FWER.
+
+--
+
+&lt;br/&gt;
+
+Поправки FDR:
+
+- Метод Беньямини-Хохберга (Benjamini, Hochberg, 1995)
+- Метод Беньямини-Йекутили (Benjamini, Yekutieli, 2001)
+
 ---
 
 class: middle, center, inverse
 
 # Интерпретация доверительных интервалов на графиках
+
+---
+
+## Опасности косвенных сравнений
+
+Участникам эксперимента (Christenfeld, Hill, 1995) показывали фото младенцев и предлагали выбрать наиболее похожее из 3 фото их матерей и 3 фото отцов.
+
+На кого больше похожи дети: на отцов или на матерей?
+
+.pull-left[
+
+![](img/WS2015p345f12.5-1-clean.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.5-1]
+
+]
+
+.pull-right[
+
+Какой процент правильных догадок можно было бы ожидать при случайном выборе фото?
+
+]
 
 ---
 
@@ -1367,6 +1515,30 @@ class: middle, center, inverse
 
 ## Интерпретация перекрывания &lt;br/&gt;доверительных интервалов
 
+![](img/WS2015p347f12.6-1a-clean.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.6-1]
+
+---
+
+## Интерпретация перекрывания &lt;br/&gt;доверительных интервалов
+
+![](img/WS2015p347f12.6-1b-clean.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.6-1]
+
+---
+
+## Интерпретация перекрывания &lt;br/&gt;доверительных интервалов
+
+![](img/WS2015p347f12.6-1c-clean.png)
+
+.tiny[Whitlock, Schluter, 2015, fig.12.6-1]
+
+---
+
+## Интерпретация перекрывания &lt;br/&gt;доверительных интервалов
+
 ![](img/WS2015p347f12.6-1.png)
 
 .tiny[Whitlock, Schluter, 2015, fig.12.6-1]
@@ -1381,6 +1553,8 @@ class: middle, center, inverse
 
 ## Тесты для сравнения дисперсий
 
+--
+
 .pull-left-45[
 
 __F-тест равенства дисперсий__
@@ -1390,12 +1564,14 @@ __F-тест равенства дисперсий__
 &lt;br/&gt;
 
 Предложен Р.Фишером в 20е годы  
-(назван в честь Фишера Snedecor, Cochran, 1989)
+(назван в честь Фишера в работе Snedecor, Cochran, 1989)
 
 - Сравнение двух дисперсий друг с другом.
 
 
 ]
+
+--
 
 .pull-right-55[
 
@@ -1415,13 +1591,34 @@ Levene, Howard, 1960
 
 ---
 
+## Гипотезы в F-тесте равенства дисперсий
+
+На человеческом языке:
+
+`\(H_0:\)` — дисперсии в двух сравниваемых группах равны
+
+`\(H_A:\)` — дисперсии в двух сравниваемых группах не равны
+
+--
+
+&lt;br/&gt;
+
+На языке статистики:
+
+`\(H_0: \sigma_1^2 = \sigma_2^2\)` — дисперсии в двух сравниваемых группах равны
+
+
+`\(H_A: \sigma_1^2 \ne \sigma_2^2\)` — дисперсии в двух сравниваемых группах не равны
+
+---
+
 ## F-тест равенства дисперсий
 
 .pull-left[
 
-`\(H_0: \sigma_1^2 = \sigma_2^2\)`
+`\(H_0: \sigma_1^2 = \sigma_2^2\)` — дисперсии в двух сравниваемых группах равны
 
-`\(H_A: \sigma_1^2 \ne \sigma_2^2\)`
+`\(H_A: \sigma_1^2 \ne \sigma_2^2\)` — дисперсии в двух сравниваемых группах не равны
 
 
 `$$F = \cfrac{s_1^2}{s_2^2}$$`
@@ -1436,15 +1633,39 @@ Levene, Howard, 1960
 
 F-распределение при `\(df_1 = 5\)` и `\(df_2 = 9\)`
 
-![](11-comparing-two-groups_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+&lt;img src="11-comparing-two-groups_files/figure-html/unnamed-chunk-19-1.png" width="432" /&gt;
 
 ]
 
-Условие применимости: нормальное распределение в обеих группах.
+--
+
+__Условие применимости теста__: нормальное распределение в обеих группах.
 
 --
 
 F-тест равенства дисперсий крайне чувствителен к отклонениям от нормального распределения. Если в одной из групп переменная не подчиняется нормальному распределению, резко возрастает вероятность ошибки I рода.
+
+
+---
+
+## Гипотезы в тесте Левина на гомогенность дисперсий
+
+На человеческом языке:
+
+`\(H_0:\)` — дисперсии во всех сравниваемых группах равны
+
+`\(H_A:\)` --- __хотя бы одна дисперсия отличается__
+
+--
+
+&lt;br/&gt;
+
+На языке статистики:
+
+`\(H_0: \sigma_1^2 = \sigma_2^2 = \ldots = \sigma_k^2\)` — дисперсии во всех группах равны.
+
+`\(H_A: \exists\; i, j: \sigma_i^2 \ne \sigma_j^2\)` --- среди всех выбранных групп существуют такие две группы `\(i\)` и `\(j\)`, дисперсии в которых не равны.
+
 
 ---
 
@@ -1468,7 +1689,7 @@ Levene, Howard, 1960
 
 --
 
-Условие применимости: распределение значений во всех группах приблизительно симметрично. 
+__Условие применимости__: распределение значений во всех группах приблизительно симметрично. 
 
 Тест Левина более устойчив к отклонениям от условий применимости.
 
@@ -1480,7 +1701,68 @@ class: middle, center, inverse
 
 ---
 
+## Summary: 
+
+- При сравнении значений статистик в группах важно обращать внимание, зависимы ли наблюдения.
+
+- Для сравнения средних в двух зависимых группах используется парный t-тест. Он оценивает статистическую значимость средней разницы значений измерения у одного и того же объекта.
+
+- Для сравнения средних в двух независимых группах используется двухвыборочный t-тест. Он оценивает статистическую значимость разницы средних в каждой из двух групп.
+
+---
+
+## Summary: 
+
+- Двухвыборочный t-тест бывает двух разновидностей:
+
+  - классический t-тест Стьюдента подразумевает, что дисперсии в группах одинаковы, что часто нереалистично.
+  
+  - t-тест Велча позволяет разные дисперсии в группах. Приближенное число степеней свободы для получившейся t-статистики приходится расчитывать по сложной формуле. Но зато этот тест можно использовать даже, когда дисперсии в группах равны.
+
+---
+
+## Summary: 
+
+Если приходится делать множество тестов, то увеличивается вероятность допустить хотябы одну ошибку I рода. (Например, если 6 сравнений, то ошибка I рода будет в 26.5% случаев).
+
+Для снижения вероятности ошибки I рода в группе сравнений p-значения считают с поправкой.
+
+Поправки на множественное тестирование бывают двух типов:
+
+- family-wise error rate, FWER
+- false discovery rate, FDR
+
+---
+
+## Summary: 
+
+Доверительные интервалы на графиках нужно интерпретировать с осторожностью:
+
+- Избегайте косвенных сравнений
+
+- Перекрывание доверительных интервалов однозначно говорит о значимости различий средних только, если интервалы сравниваемых групп захватывают средние из другой группы.
+
+---
+
+## Summary: 
+
+Можно сравнивать не только средние значения в группах, но и дисперсии.
+
+F-тест равенства дисперсий сравнивает дисперсии в двух группах.
+
+Тест Левина на гомогенность дисперсий позволяет сравнить сразу несколько дисперсий и выяснить, что хотя бы одна из них отличается от других.
+
+
+Статистики в обоих этих тестах подчиняются F-распределению с двумя параметрами.
+
+
+---
+
 ## Что почитать
+
+- **Quinn, G.G.P., Keough, M.J., 2002. Experimental design and data analysis for biologists. Cambridge University Press.**
+- Sokal, R.R., Rohlf, F.J., 1995. Biometry (3rd edn). WH Freeman and company: New York.
+- Zar, J.H., 2010. Biostatistical Analysis. Prentice Hall: New York.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
