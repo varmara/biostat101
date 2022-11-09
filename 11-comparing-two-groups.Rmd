@@ -39,9 +39,7 @@ use_freezeframe()
 use_tachyons()
 
 # library(renderthis)
-# to_pdf(from = "07-probabilities.Rmd",
-#        to = "07-probabilities.pdf",
-#        complex_slides = TRUE, partial_slides = TRUE)
+# to_pdf(from = "11-comparing-two-groups.html", to = "11-comparing-two-groups.pdf", complex_slides = TRUE, partial_slides = TRUE)
 ```
 
 ```{r libs, include=FALSE, warning=FALSE}
