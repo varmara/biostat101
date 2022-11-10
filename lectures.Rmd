@@ -60,7 +60,7 @@ output:
 
 ## 11-12. Cравнение двух групп
 
-<!-- - Презентация [11-comparing-two-groups.html](11-comparing-two-groups.html) -->
+- Презентация [11-comparing-two-groups.html](11-comparing-two-groups.html)
 - Код [12-comparing-two-groups-in-r.R](12-comparing-two-groups-in-r.R)
 
 
