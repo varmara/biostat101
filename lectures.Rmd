@@ -67,7 +67,7 @@ output:
 ## 13-14. Пропорции и частоты
 
 <!-- - Презентация [13-proportions-and-frequencies.html](13-proportions-and-frequencies.html) -->
-<!-- - Код [14-proportions-and-frequencies-in-r.R](14-proportions-and-frequencies-in-r.R) -->
+- Код [14-proportions-and-frequencies-in-r.R](14-proportions-and-frequencies-in-r.R)
 
 ## 15-16. Случайность в пространстве или времени
 
