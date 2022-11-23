@@ -11,14 +11,14 @@ knitr::opts_template$set(
   fig.large = list(fig.width = 12, fig.height = 8),
   fig.wide.tall = list(fig.width = 12, fig.height = 8),
   fig.wide.taller = list(fig.width = 12, fig.height = 6),
-  fig.wide = list(fig.width = 12, fig.height = 4.5),
+  fig.wide = list(fig.width = 12, fig.height = 4.4),
   fig.wider.tall = list(fig.width = 8, fig.height = 8),
   fig.wider.taller = list(fig.width = 8, fig.height = 6),
-  fig.wider = list(fig.width = 8, fig.height = 4.5),
+  fig.wider = list(fig.width = 8, fig.height = 4.4),
   fig.column = list(fig.width = 6.5, fig.height = 5),
   fig.medium.tall = list(fig.width = 6, fig.height = 8),
   fig.medium.taller = list(fig.width = 6, fig.height = 6),
-  fig.medium = list(fig.width = 6, fig.height = 4.5),
+  fig.medium = list(fig.width = 6, fig.height = 4.4),
   fig.small = list(fig.width = 6, fig.height = 4)
 )
 # chunk default options

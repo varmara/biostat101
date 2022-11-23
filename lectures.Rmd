@@ -72,7 +72,11 @@ output:
 ## 15-16. Случайность в пространстве или времени
 
 <!-- - Презентация [15-randomness-in-space-and-time.html](15-randomness-in-space-and-time.html) -->
-<!-- - Код [16-randomness-in-space-and-time-in-r.R](16-randomness-in-space-and-time-in-r.R) -->
+- Код [16-randomness-in-space-and-time-in-r.R](16-randomness-in-space-and-time-in-r.R)
+- Данные:
+  - [Klem_etal.2004_BirdWindowCrash.csv](data/Klem_etal.2004_BirdWindowCrash.csv)
+  - [Cavalry.csv](data/Cavalry.csv)
+  - [Waters_etal.1997_Truffles.csv](data/Waters_etal.1997_Truffles.csv)
 
 ## 17-18. Связь между категориальными переменными
 
