@@ -74,6 +74,8 @@ output:
 <!-- - Презентация [15-randomness-in-space-and-time.html](15-randomness-in-space-and-time.html) -->
 - Код [16-randomness-in-space-and-time-in-r.R](16-randomness-in-space-and-time-in-r.R)
 - Данные:
+  - [DayOfBirth2016.csv](data/DayOfBirth2016.csv)
+  - [RaupSepkoski1982MassExtinctions.csv](data/RaupSepkoski1982MassExtinctions.csv)
   - [Klem_etal.2004_BirdWindowCrash.csv](data/Klem_etal.2004_BirdWindowCrash.csv)
   - [Cavalry.csv](data/Cavalry.csv)
   - [Waters_etal.1997_Truffles.csv](data/Waters_etal.1997_Truffles.csv)
