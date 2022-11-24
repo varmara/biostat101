@@ -279,7 +279,7 @@ dfr %>%
 $\chi^2$-статистика приблизительно следует $\chi^2$-распределению, если:
 
 - нет _ожидаемых_ частот $< 1$
-- $\le 20%$ _ожидаемых_ частот $< 5$
+- $\le 20$ % _ожидаемых_ частот $< 5$
 
 --
 
@@ -434,7 +434,7 @@ gg_pois_grid_distr
 
 ## Распределение Пуассона в пространстве / времени
 
-```{r gg-pois-line-1}
+```{r gg-pois-line-1, opts.label='fig.wider'}
 gg_pois_line
 ```
 
@@ -915,7 +915,7 @@ gg_pois_grid_task <- ggplot(dfr, aes(x = x, y = y)) +
 
 # Случайная выборка квадратов
 set.seed(938147)
-n_quad <- 6
+n_quad <- 8
 to_sample <- "D-1, C-2, A-4, E-3, B-1, D-4, E-5, C-3"
 
 trees <- c(0, 1, 0, 0, 1, 1, 2, 6)
@@ -931,7 +931,8 @@ p_val <- p_right * 2
 chi_val2 <- qchisq(p_right, df = df)
 p_left <- pchisq(chi_val2, df = df)
 
-dfr <- data.frame(x = seq(0, 25, length.out = 100)) %>% 
+
+dfr <- data.frame(x = seq(0, 28, length.out = 100)) %>% 
   mutate(p = dchisq(x, df = df))
 
 gg_chisq <-  dfr %>% 
@@ -940,14 +941,14 @@ gg_chisq <-  dfr %>%
 
   labs(x = paste0("Хи-квадрат, df = ", df), y = "Плотность вероятности") +
   annotate(geom = "segment", x = chi_val, y = 0, xend = chi_val, yend = mean(range(dfr$p)), linetype = "dashed") +
-  annotate(geom = "text", x = chi_val, y = mean(range(dfr$p)), label = paste0("хи-квадрат =", round(chi_val, 2)), size = 6, hjust = 0.5, vjust = 0) +
+  annotate(geom = "text", x = chi_val, y = mean(range(dfr$p)), label = paste0("хи-квадрат =", round(chi_val, 2)), size = 6, hjust = 0.7, vjust = 0) +
   stat_function(geom = "area", fun = dchisq, args = list(df = df), xlim = c(0, chi_val2), fill = "red", alpha = 0.5) +
-    stat_function(geom = "area", fun = dchisq, args = list(df = df), xlim = c(chi_val, 25), fill = "red", alpha = 0.5) +
+    stat_function(geom = "area", fun = dchisq, args = list(df = df), xlim = c(chi_val, 28), fill = "red", alpha = 0.5) +
   annotate(geom = "text", x = chi_val, y = mean(range(dfr$p))*1.5, label = paste("p =", round(p_val, 3)), size = 6, hjust = 1.2, vjust = 0) +
   # хвосты
-  annotate(geom = "text", x = chi_val2, y = mean(range(dfr$p))*0.5, label = paste("p/2 =", round(p_left, 3)), size = 6, hjust = 1.1, vjust = 0) +
-  annotate(geom = "text", x = chi_val, y = mean(range(dfr$p))*0.5, label = paste("p/2 =", round(p_right, 3)), size = 6, hjust = -0.01, vjust = 0) +
-  coord_cartesian(xlim = c(-5.5, 20))
+  annotate(geom = "text", x = chi_val2, y = mean(range(dfr$p))*0.5, label = paste("p/2 =", round(p_left, 3)), size = 6, hjust = 1.05, vjust = 0) +
+  annotate(geom = "text", x = chi_val, y = mean(range(dfr$p))*0.5, label = paste("p/2 =", round(p_right, 3)), size = 6, hjust = 1.1, vjust = 0) +
+  coord_cartesian(xlim = c(-5.25, 23))
 
 # gg_chisq
 ```
@@ -1023,7 +1024,7 @@ class: middle, center, inverse
 - Для применения требуется, чтобы
   - наблюдения независимы друг от друга
   - не было _ожидаемых_ частот $< 1$
-  - $\le 20%$ _ожидаемых_ частот $< 5$
+  - $\le 20$ % _ожидаемых_ частот $< 5$
 
 ---
 

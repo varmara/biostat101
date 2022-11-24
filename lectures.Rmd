@@ -71,7 +71,7 @@ output:
 
 ## 15-16. Случайность в пространстве или времени
 
-<!-- - Презентация [15-randomness-in-space-and-time.html](15-randomness-in-space-and-time.html) -->
+- Презентация [15-randomness-in-space-and-time.html](15-randomness-in-space-and-time.html)
 - Код [16-randomness-in-space-and-time-in-r.R](16-randomness-in-space-and-time-in-r.R)
 - Данные:
   - [DayOfBirth2016.csv](data/DayOfBirth2016.csv)
