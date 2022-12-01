@@ -83,7 +83,14 @@ output:
 ## 17-18. Связь между категориальными переменными
 
 <!-- - Презентация [17-assotiation-between-categorical-data.html](17-assotiation-between-categorical-data.html) -->
-<!-- - Код [18-assotiation-between-categorical-data-in-r.R](18-assotiation-between-categorical-data-in-r.R) -->
+- Код [18-assotiation-between-categorical-data-in-r.R](18-assotiation-between-categorical-data-in-r.R)
+- Данные:
+  - [aspirin_cancer_Cook_etal_2005.csv](data/aspirin_cancer_Cook_etal_2005.csv)
+  - [toxoplasma_driving_Yereli_etal_2006.csv](data/toxoplasma_driving_Yereli_etal_2006.csv)
+  - [trematodes_behaviour_Lafferty_Morris_1996.csv](data/trematodes_behaviour_Lafferty_Morris_1996.csv)
+  - [vampires_Turner_1975.csv](data/vampires_Turner_1975.csv)
+  - [Titanic_sex_and_survival.csv](data/Titanic_sex_and_survival.csv)
+
 
 ## 19-20. Дисперсионный анализ
 
