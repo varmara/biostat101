@@ -82,7 +82,7 @@ output:
 
 ## 17-18. Связь между категориальными переменными
 
-<!-- - Презентация [17-assotiation-between-categorical-data.html](17-assotiation-between-categorical-data.html) -->
+- Презентация [17-assotiation-between-categorical-data.html](17-assotiation-between-categorical-data.html)
 - Код [18-assotiation-between-categorical-data-in-r.R](18-assotiation-between-categorical-data-in-r.R)
 - Данные:
   - [aspirin_cancer_Cook_etal_2005.csv](data/aspirin_cancer_Cook_etal_2005.csv)
