@@ -94,7 +94,7 @@ output:
 
 ## 19-20. Дисперсионный анализ
 
-- Презентация [19-anova.html](19-anova.html)
+<!-- - Презентация [19-anova.html](19-anova.html) -->
 - Код [20-anova-in-R.R](20-anova-in-R.R)
 - Данные:
   - [melatonin_Wright_Czeisler_2002.csv](data/melatonin_Wright_Czeisler_2002.csv)
