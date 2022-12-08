@@ -23,15 +23,1021 @@ output:
 
 ```{r setup, include = FALSE, cache = FALSE, purl = FALSE, fig.showtext = TRUE}
 source("assets/setup.R")
+knitr::opts_chunk$set(dev.args = list(png  = list(type = "cairo")))
+library(xaringanExtra)
+use_tile_view()
+use_scribble()
+use_search(show_icon = FALSE)
+use_progress_bar(color = "#6d2b5e", location = "bottom", height = "10px")
+use_freezeframe()
+# use_webcam()
+# use_panelset()
+# use_extra_styles(hover_code_line = TRUE)
+
+options(htmltools.preserve.raw = FALSE)
+
+# http://tachyons.io/docs/
+# https://roperzh.github.io/tachyons-cheatsheet/
+use_tachyons()
+
+# library(renderthis)
+# to_pdf(from = "19-anova.html",
+#        to = "19-anova.pdf",
+#        complex_slides = TRUE, partial_slides = TRUE)
 ```
 
-- [ ] Однофакторный дисперсионный анализ
-- [ ] Многофакторный дисперсионный анализ
-- [ ] Взаимодействие факторов
-- [ ] ~~Пост хок тесты~~
-- [ ] Сила влияния факторов
-- [ ] ~~Фиксированные и случайные факторы~~
-- [ ] Условия применимости дисперсионного анализа
-- [ ] ~~Тест Краскала-Уоллиса~~
+```{r libs, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(cowplot)
+library(scales)
+```
+
+- Однофакторный дисперсионный анализ
+- Условия применимости дисперсионного анализа
+- Запланированные сравнения
+- Пост хок тесты
+- Фиксированные и случайные факторы
+- Ошибка измерения, воспроизводимость
 
 
+---
+
+## Пример: Мелатонин как регулятор циркадного ритма
+
+После джет-лага режим выравнивается, когда глаза привыкают к ритму освещения на новом месте.
+
+Мелатонин:
+
+- регулятор суточного ритма
+- вырабатывается ночью
+- свет снижает выработку
+
+---
+
+## Проверка сомнительного результата
+
+Одно исследование показало, что продукцию мелатонина можно регулировать, освещая внутреннюю сторону коленей (Campbell, Murphy, 1998). 
+
+Проверка (Wright, Czeisler, 2002):
+
+.pull-left[
+
+3 группы людей (22 чел.) будили ночью и 3 часа
+
+- освещали ярким светом глаза
+- освещали ярким светом колени
+- не освещали ничего (контроль)
+
+По уровню продукции мелатонина регистрировали сдвиг циркадного ритма (в часах).
+
+<br/>
+Влияет ли экспериментальная процедура (группа) на сдвиг циркадного ритма?
+
+]
+
+--
+
+.pull-right[
+
+```{r}
+library(ggplot2)
+mel <- read.csv("data/melatonin_Wright_Czeisler_2002.csv")
+# head(mel)
+mel$treatment <- factor(mel$treatment, levels = c("control", "knee", "eyes"), labels = c("контроль", "колени", "глаза"))
+
+gg_mel <- ggplot(data = mel, aes(x = treatment, y = shift)) +
+  geom_point(size = 4, alpha = 0.5, colour = "darkcyan") +
+  stat_summary(geom = "pointrange", fun.data = mean_cl_normal, position = position_nudge(x = 0.1)) +
+  labs(x = "Группа", y = "Сдвиг, ч")
+gg_mel
+```
+
+]
+
+???
+
+Путешествие в другой часовой пояс может вызывать джет-лаг. Но суточный ритм выравнивается по мере того, как глаза привыкают к ритму освещения на новом месте.
+
+Мелатонин — один из регуляторов суточного ритма. Он вырабатывается эпифизом ночью, а избыток света снижает его выработку.
+
+Когда-то одно исследование показало, что продукцию мелатонина можно регулировать, освещая внутреннюю сторону коленей (Campbell, Murphy, 1998). 
+
+Позже результаты перепроверили (Wright, Czeisler, 2002).
+
+22 человека разделили случайным образом на 3 группы. Их будили ночью, а потом 3 часа
+
+- освещали ярким светом глаза
+- освещали ярким светом обратную сторону коленей
+- не освещали ничего (контроль)
+
+Регистрировали сдвиг циркадного ритма (в часах) по уровню продукции мелатонина.
+
+---
+
+## Дисперсионный анализ
+
+```{r echo=FALSE, purl=FALSE}
+library(dplyr)
+dat_smr <- mel %>% group_by(treatment) %>% summarise(mean = mean(shift))
+dat <- merge(mel, dat_smr)
+# which(dat$treatment == "колени") # точка для примера
+d_lev <- levels(dat$treatment)
+
+set.seed(348927)
+dat$treatment <- as.numeric(dat$treatment) + runif(nrow(dat), -0.15, 0.15)
+dat_smr$treatment <- as.numeric(dat_smr$treatment)
+
+lims <- range(mel$shift) + 0.15 * c(-1, 1)
+yannot <- lims[1] + 0.5
+set.seed(83)
+gmean <- mean(mel$shift, na.rm = TRUE)
+
+# точка для примера
+# 8  9 10 11 12 13 14
+id <- 8
+Y <- dat$shift[id]
+Y_hat <-dat$mean[id]
+X <- dat$treatment[id]
+
+pl <- ggplot(data = dat, aes(x = treatment, y = shift)) + theme(legend.position = 'none') + ylim(lims[1], lims[2]) + scale_x_continuous(breaks = 1:length(d_lev), labels = d_lev) + labs(x = "Группа", y = "Сдвиг, ч")
+
+# # Общая изменчивость (отклонения от общего среднего)
+pl_tot <- pl + 
+  geom_segment(aes(xend = treatment, yend = gmean), colour = 'grey70', size = 1) +
+  geom_hline(yintercept = gmean) + 
+  geom_point(size = 2, alpha = 0.75) +
+  # annotate('text', label = 'SS[t] == sum((bar(y) - y[i]))^2', parse = TRUE, x = 6,  y = yannot, hjust = 1, size = 6) +
+  ggtitle('Общая изм-ть')
+pl_tot
+
+pl_all <- pl + 
+  geom_segment(aes(xend = treatment, yend = gmean), colour = 'grey70') +
+  geom_point(data = dat_smr, aes(y = mean), size = 19, shape = 95, colour = 'dodgerblue1') + 
+  geom_hline(yintercept = gmean) + 
+  # annotate('segment', x = X, y = Y, xend = X, yend = gmean, colour = 'grey70', size = 1.75) + 
+  annotate('segment', x = X, y = Y, xend = X, yend = Y_hat, colour = '#008000', size = 2) +
+  annotate('segment', x = X, y = Y_hat, xend = X, yend = gmean, colour = 'orchid', size = 2) +
+  geom_point(size = 2, alpha = 0.75) +
+  annotate('text', label = 'Общее\nсреднее', 
+           x = 0,  y = gmean, hjust = -0.1, size = 4)
+# pl_all
+
+pl_no <- pl + 
+  geom_hline(yintercept = gmean, linetype = 'dashed') + 
+  geom_point(data = dat_smr, y = gmean, size = 19, shape = 95, colour = 'dodgerblue1') +
+  annotate('segment', x = X, y = Y, xend = X, yend = gmean, colour = 'grey70', size = 2) + 
+  annotate('segment', x = X + 0.02, y = Y, xend = X + 0.02, yend = gmean, colour = '#008000', size = 2) +
+  geom_point(size = 2, alpha = 0.75) +
+  annotate('text', label = 'Общее\nсреднее', 
+           x = 0,  y = gmean, hjust = -0.1, size = 4)
+# pl_no
+
+# library(plyr)
+# Межгрупповая изменчивость (связанная с фактором)
+pl_x <- pl + 
+  geom_hline(aes(yintercept = gmean)) + 
+  geom_segment(data = dat_smr, aes(x = treatment, y = mean, xend = treatment, yend = gmean), colour = 'orchid', size = 2) +
+  geom_point(data = dat_smr, aes(y = mean), size = 19, shape = 95, colour = 'dodgerblue1') + 
+  geom_point(size = 2, alpha = 0.75) +
+  # annotate('text', label = 'SS[x] == sum((bar(y) - hat(y)[i]))^2', parse = TRUE, x = 6,  y = yannot, hjust = 1, size = 6) +
+  ggtitle('Факторная изм-ть')
+# pl_x
+
+# Внутригрупповая изменчивость (случайная)
+pl_res <- pl + 
+  geom_segment(data = dat, aes(xend = treatment, yend = mean), colour = '#008000', size = 1.75) +
+  # geom_hline(yintercept = gmean, linetype = 'dashed') + 
+  geom_point(data = dat_smr, aes(y = mean), size = 19, shape = 95, colour = 'dodgerblue1') + 
+  geom_point(size = 2, alpha = 0.75) +
+  # annotate('text', label = 'SS[e] == sum(sum((y [i] - hat(y)[i])))^2', parse = TRUE, x = 6,  y = yannot, hjust = 1, size = 6) +
+  ggtitle('Остаточная изм-ть')
+# pl_res
+```
+
+__Дисперсионный анализ__ (analysis of variance, ANOVA) — метод одновременной проверки гипотез о равенстве средних значений в нескольких группах.
+
+--
+
+Насколько наблюдения из одной группы более похожи друг на друга, чем из разных групп?
+
+--
+
+- однофакторный (как в примере)
+- многофакторный (деление на группы сразу по нескольким факторам).
+
+---
+
+## Общая изменчивость
+
+```{r gg-tot, echo=FALSE, purl=FALSE}
+pl_tot +  annotate('text', label = 'Общее\nсреднее', 
+           x = 0.30,  y = gmean, hjust = -0.1, size = 4)
+```
+
+Общая изменчивость $SS_t$ --- это сумма квадратов отклонений наблюдаемых значений $y_i$ от общего среднего $\bar y$
+
+---
+
+## Факторная (межгрупповая) изменчивость
+
+
+```{r gg-x, echo=FALSE, purl=FALSE}
+pl_x +  annotate('text', label = 'Общее\nсреднее', 
+           x = 0.30,  y = gmean, hjust = -0.1, size = 4)
+```
+
+Отклонения внутригрупповых средних от общего среднего в генеральной совокупности --- это эффект фактора $\color{purple}{\alpha_j = \mu_j - \mu}$, где $j = 1, 2, ..., p$ --- это одна из $p$ групп. 
+
+Мы оцениваем эффект фактора по реальным данным $\color{purple}{\bar{y}_j-\bar{y}}$
+
+---
+
+## Остаточная (внутригрупповая) изменчивость
+
+```{r gg-res, echo=FALSE, purl=FALSE}
+pl_res +  geom_hline(aes(yintercept = gmean)) + 
+  annotate('text', label = 'Общее\nсреднее', 
+           x = 0.30,  y = gmean, hjust = -0.1, size = 4)
+```
+
+Отклонения значений от средних внутри групп (__остатки__) — это изменчивость, которую не может объяснить группировка по фактору. Ещё её называют случайной изменчивостью.
+
+---
+
+## Структура общей изменчивости
+
+$$SS_t = \color{purple}{SS_x} + \color{green}{SS_e}$$
+
+
+```{r gg-ss, echo=FALSE, opts.label='fig.wide'}
+library(cowplot)
+plot_grid(
+pl_tot + annotate('text', label = 'Общее\nсреднее', 
+           x = 0.30,  y = gmean, hjust = -0.1, size = 4),
+pl_x  + theme(axis.title.y = element_blank()),
+pl_res + theme(axis.title.y = element_blank()),
+nrow = 1, rel_widths = c(1.1, 1, 1))
+```
+
+Общая изменчивость | .purple[Факторная изменчивость] | .green[Остаточная изменчивость]
+---- |----|----
+... | ... | ...
+$SS_{t}= \sum\sum{(\bar{y}-y_{ij})^2}$ | $SS_{x}=\sum{n_j(\bar{y}_j-\bar{y})^2}$ | $SS_{e}= \sum\sum{(\bar{y}_{j}-y_{ij})^2}$
+$df_{t} = n - 1$ | $df_{x} = p - 1$ |  $df_{e} = n - p$
+
+---
+
+## От изменчивостей к дисперсиям
+
+
+$$SS_t = \color{purple}{SS_x} + \color{green}{SS_e} \qquad MS_t \ne \color{purple}{MS_x} + \color{green}{MS_e}$$
+
+
+```{r gg-ss, echo=FALSE, opts.label='fig.wide'}
+```
+
+| Общая дисперсия | .purple[Факторная дисперсия] | .green[Остаточная дисперсия] |
+| ---- |----|----|
+| $MS_{t} = \frac {SS_{t}}{df_{t}}$ | $MS_{x} = \frac {SS_{x}}{df_{x}}$ | $MS_{e} = \frac{SS_{e}}{df_{e}}$ |
+| $SS_{t}= \sum\sum{(\bar{y}-y_{ij})^2}$ | $SS_{x}=\sum{n_j(\bar{y}_j-\bar{y})^2}$ | $SS_{e}= \sum\sum{(\bar{y}_{j}-y_{ij})^2}$ |
+| $df_{t} = n - 1$ | $df_{x} = p - 1$ |  $df_{e} = n - p$ |
+
+???
+
+Они не зависят от числа наблюдений в выборке, в отличие от $SSx$ и $SS_e$
+С их помощью можно проверить гипотезу о наличии связи между предиктором и откликом
+
+
+---
+
+## .purple[MSx] и .green[MSe] <br/> помогают тестировать значимость фактора
+
+Если зависимости нет, то $\mu_1 = \ldots = \mu_p$ --- средние равны во всех $p$ группах, и $\color{purple}{MS_x} \sim \color{green}{MS_e}$
+
+при условии, что
+- дисперсии остатков в группах равны
+- фактор имеет фиксированное число градаций
+
+<br/>
+
+--
+
+- $H_0: \mu_1 = \ldots = \mu_p$ --- средние во всех $p$ группах равны.
+- $H_A: \exists\; i, j: \mu_i \ne \mu_j$ --- __хотя бы одно__ среднее отличается от общего среднего.
+
+--
+
+$$F_{df_x, df_e} = \frac{\color{purple}{MS_{x}}}{\color{green}{MS_{e}}}$$
+
+---
+
+## Тестирование значимости фактора при помощи F-критерия
+
+- $H_0: \mu_1 = \ldots = \mu_p$ --- средние во всех $p$ группах равны.
+- $H_A: \exists\; i, j: \mu_i \ne \mu_j$ --- __хотя бы одно__ среднее отличается от общего среднего.
+
+$$F_{df_x, df_e} = \frac{\color{purple}{MS_{x}}}{\color{green}{MS_{e}}}$$
+
+В однофакторном дисперсионном анализе $df_{x} = p - 1$ и $df_{e} = n - p$.
+
+```{r f-distribution, echo=FALSE, purl=FALSE, opts.label='fig.wider'}
+mod_mel <- lm(shift ~ treatment, data = mel)
+library(car)
+df_1 <- nlevels(mel$treatment) - 1
+df_2 <- nrow(mel) - 1 - df_1
+anova_mel <- Anova(mod_mel)
+F_val <- anova_mel[1, 3]
+F_crit <- qf(p = 0.05, df1 = df_1, df2 = df_2, lower.tail = F)
+p_val <- pf(F_val, df1 = df_1, df2 = df_2, lower.tail = F)
+# ifelse(F_val > F_crit, "значимо", "не значимо")
+
+dfr <- data.frame(f = seq(-0.4, 11, length.out = 1000))
+gg_fdist <- ggplot(dfr, aes(x = f)) + 
+  stat_function(fun = df, args = list(df1 = df_1, df2 = 114), size = 1.3, xlim = c(-0.000001, max(dfr$f))) + 
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = F_crit, color = "red", linetype = "dashed") + 
+  annotate("text", label = paste("alpha == 0.05~~~F[crit] ==", round(F_crit, 2)), x = F_crit, y = 1, hjust = 0.5, vjust = 1, size = 7, parse = T) +
+  labs(title = paste0("F-распределение, df1 = ", df_1, ", df2 = ", df_2), x = "F", y = "Плотность вероятности") + ylim(0, 1.1)
+
+gg_fdist + 
+  stat_function(geom = "area", fun = df, args = list(df1 = df_1, df2 = 114), size = 1.3, xlim = c(F_crit, max(dfr$f)), fill = "red", alpha = 0.5)
+
+gg_fobserved <- gg_fdist +
+  geom_vline(xintercept = F_val, linetype = "dashed") +
+  annotate("text", label = paste("F =", round(F_val, 2), "\np =", round(p_val, 4)), x = F_val, y = 1, hjust = -0.1, vjust = 2.1, size = 7) 
+```
+
+---
+
+## Результаты дисперсионного анализа часто представляют в виде таблицы
+
+Источник изменчивости|SS|df|MS|F
+----- | ----- | ----- | ----- | ----- 
+Фактор | $SS_{x}=\sum{n_j(\bar{y}_j-\bar{y})^2}$ | $df _x = p - 1$ | $MS _x = \frac{SS _x}{df _x}$ | $F _{df _x df _e} = \frac{MS _x}{MS _e}$
+Случайная | $SS_{e}= \sum\sum{(\bar{y}_j-y_{ij})^2}$ | $df _e = n - p$ | $MS _e = \frac{SS _e}{df _e}$ |
+Общая | $SS_{t}= \sum\sum{(\bar{y}-y_{ij})^2}$ | $df _t = n - 1$ |  
+
+
+Минимальное описание результатов в тексте должно содержать $F _{df _x, df _e}$ и $p$.
+
+---
+
+## Дисперсионный анализ данных о мелатонине
+
+- $H_0: \mu_{контроль} = \mu_{колени} = \mu_{глаза}$ — средние во всех 3 группах равны.
+- $H_A:$ __хотя бы одно__ среднее отличается от общего среднего.
+
+.pull-left[
+
+.small[
+```{r}
+anova_tbl_mel <- anova_mel %>% 
+  rename("SS" = "Sum Sq", 
+         "df" = "Df", 
+         "F" = "F value", 
+         "P" = "Pr(>F)") %>% 
+  mutate(MS = SS/df) %>% 
+  select(SS, df, MS, `F`, P) %>% 
+  bind_rows(., tibble(
+            SS = sum(.$SS, na.rm = TRUE),
+            df = sum(.$df, na.rm = TRUE),
+            MS = NA,
+            `F` = NA,
+            P = NA)) %>% 
+  `rownames<-`(c("Группа", "Случайная", "Общая")) 
+
+anova_tbl_mel %>% kable()
+```
+]
+
+]
+.pull-right[
+
+]
+
+<br/>
+
+--
+
+```{r f-distribution-obs, echo=FALSE, purl=FALSE, opts.label='fig.wider'}
+gg_fobserved
+```
+
+
+---
+
+## Коэффициент детерминации — мера объясненной изменчивости
+
+$$SS_t = \color{purple}{SS_x} + \color{green}{SS_e}$$
+
+- $SS_t$ — общая изменчивость
+- $SS_x$ — объясненная фактором изменчивость
+- $SS_e$ — остаточная изменчивость
+
+Как оценить, какую долю от всей изменчивости зависимой переменной объясняет фактор?
+
+<br/>
+
+--
+
+__Коэффициент детерминации__:
+
+$$R^2 = \frac{\color{purple}{SS_{x}}}{SS_{t}}$$
+
+$0 < R^2 < 1$
+
+Можно записать в долях или процентах.
+
+<br/>
+
+---
+
+## Какую долю изменчивости объясняет фактор в примере про мелатонин?
+
+```{r}
+anova_tbl_mel %>% kable()
+smr_mel <- summary(mod_mel)
+Rsq_mel <- round(smr_mel$r.squared, 3)
+```
+
+--
+
+$R^2 =  \cfrac{`r anova_tbl_mel$SS[1]`}{`r anova_tbl_mel$SS[3]`} = `r Rsq_mel`$
+
+или $R^2 = `r Rsq_mel * 100`$ %
+
+---
+
+class: middle, center, inverse
+
+# Условия применимости <br/>однофакторного дисперсионного анализа
+
+---
+
+## Условия применимости <br/>однофакторного дисперсионного анализа
+
+
+F-тесту можно верить, если выполняются условия применимости:
+
+- Случайность и независимость наблюдений внутри групп
+- Нормальное распределение .green[остатков]
+- Равенство дисперсий .green[остатков] в группах по фактору
+
+
+---
+
+## Проверка нормальности распределения остатков
+
+Квантильный график остатков
+
+```{r plot_qq, opts.label='fig.wider'}
+qqPlot(mod_mel, id = FALSE)
+```
+
+Знакомый график
+
+--
+
+- Точки должны лежать на одной прямой, если квантили наблюдаемого распределения остатков соответствуют квантилям теоретического распределения.
+
+---
+
+## Проверка равенства дисперсий остатков в группах
+
+- остатки в группах по фактору
+- остатки в зависимости от предсказанных значений
+
+```{r plot-residuals, opts.label='fig.wide'}
+residualPlots(mod_mel)
+```
+
+--
+
+- Разброс остатков должен быть одинаков
+  - в группах
+  - вне зависимости от предсказанных значений
+
+---
+
+## Устойчивость дисперсионного анализа
+
+__Устойчивость__ (robustness) — свойство статистического метода, описывающее устойчивость его результатов при нарушении условий применимости.
+
+<br/>
+
+--
+
+Дисперсионный анализ устойчив к отклонениям от условий применимости, если
+
+- размеры групп примерно одинаковы
+- равные объемы групп
+- большие выборки
+
+--
+
+Более устойчив к отклонениям от нормальности распределения остатков
+
+Менее устойчив к неравенству дисперсий
+
+---
+
+## Если условия применимости нарушены
+
+- Трансформация данных
+- Обобщенная линейная модель (например, для счетных данных или долей)
+- Непараметрический тест Краскала-Уоллиса (Kruskal-Wallis test)
+- Тест, основанный на пермутациях
+
+
+---
+
+class: middle, center, inverse
+
+# Какие именно группы различаются?
+
+## Запланированные сравнения
+
+---
+
+## Как понять, какие именно группы различаются?
+
+Дисперсионный анализ говорит только, есть ли влияние фактора.
+
+---
+
+## Два способа понять, какие группы различаются
+
+--
+
+.pull-left[
+
+.center[__Запланированные сравнения__  
+(= planned comparisons,  
+= linear contrasts)]
+
+- Можно сравнить выбранные группы.
+- Набор гипотез (и сравнений) должен быть определен заранее.
+- Делать можно вне зависимости от результатов дисперсионного анализа.
+
+]
+
+--
+
+.pull-right[
+.center[__Post hoc__ тесты]
+
+<br/><br/>
+
+- Сравниваются все возможные группы.
+- Нет четких заранее сформулированных гипотез.
+- Делать можно, только если влияние соответствующего фактора оказалось значимым.
+
+]
+
+---
+
+## Запланированные сравнения средних
+
+$d = \bar Y_2 - \bar Y_1$ — разница средних значений в двух группах
+
+--
+
+Стандартная ошибка этой разницы:
+
+$$SE_{d} = \sqrt{MS_e\Big(\cfrac{1}{n_1} + \cfrac{1}{n_2} \Big)}$$
+
+--
+
+Доверительный интервал для этой разницы будет накрывать истинное значение $\mu_2 - \mu_1$ в заданном проценте повторных выборок:
+
+$d - |t_{\alpha, df}| \cdot SE_{d} \le \mu_2 - \mu_1 \le d + |t_{\alpha, df}| \cdot SE_{d}$
+
+$df = N - p$
+
+---
+
+## Сравним контроль и опыт
+
+Сравним время сдвига циркадного ритма в группе, где освещали колени, и в контроле.
+
+.pull-left[
+```{r}
+MSe <- anova_tbl_mel$MS[2]
+nn <- table(mel$treatment)
+means <- tapply(mel$shift, mel$treatment, mean, na.rm = TRUE)
+n1 <- nn[1]
+n2 <- nn[2]
+m1 <- means[1]
+m2 <- means[2]
+d <- m2 - m1
+N <- nrow(mel)
+p <- length(unique(mel$treatment))
+degf <- N - p
+t_val <- qt(p = 0.975, df = degf)
+SE <- sqrt(MSe * (1/n1 + 1/n2))
+merr <- t_val * SE
+cl <- d + c(-1, 1) * merr
+```
+
+$d = \bar Y_2 - \bar Y_1 = `r format(m2, digits = 3)` - (`r format(m1, digits = 3)`) = `r format(d, digits = 3)`$
+
+$MS_e = `r format(MSe, digits = 3)`$
+
+$SE_{d} = \sqrt{`r format(MSe, digits = 3)`\Big(\cfrac{1}{`r n1`} + \cfrac{1}{`r n2`} \Big)} = `r format(SE, digits = 3)`$
+
+$df = `r N` - `r p` = `r degf`$
+
+$|t_{0.05, `r degf`}| = `r t_val`$
+
+]
+.pull-right[
+```{r gg-mel0}
+gg_mel
+```
+]
+
+
+--
+
+Доверительный интервал :
+
+$`r format(d, digits = 3)` - `r t_val` \cdot `r format(SE, digits = 3)` \le \mu_2 - \mu_1 \le `r format(d, digits = 3)` + `r t_val` \cdot `r format(SE, digits = 3)`$
+
+$`r format(cl[1], digits = 3)` \le \mu_2 - \mu_1 \le `r format(cl[2], digits = 3)`$ или $`r d` \pm `r format(merr, digits = 3)`$
+
+--
+
+Он включает 0, значит нет статистически-значимой разницы времени сдвига циркадного ритма в контроле и в группе людей, которым освещали колени.
+
+---
+
+## Чем это отличается от обычного доверительного интервала?
+
+Запланированные сравнения дают доверительный интервал:
+
+$`r format(cl[1], digits = 3)` \le \mu_2 - \mu_1 \le `r format(cl[2], digits = 3)`$ или $`r d` \pm `r format(merr, digits = 3)`$
+
+--
+
+Обычный доверительный интервал к разнице средних был бы шире:
+
+```{r echo=FALSE, results='hide'}
+sdd <- tapply(mel$shift, mel$treatment, sd, na.rm=TRUE)
+sd1 <- sdd[1]
+sd2 <- sdd[2]
+df1 <- n1 - 1
+df2 <- n2 - 1
+df12 <- n1 + n2 - 2
+s2p <- (df1*sd1^2 + df2*sd2^2)/df12
+sedif <- sqrt(s2p * (1/n1 + 1/n2))
+tvaldif <- qt(p = 0.975, df = df12)
+merrdif <- tvaldif * sedif
+cldif <- d + c(-1, 1) * merrdif
+```
+
+$`r format(cldif[1], digits = 3)` \le \mu_2 - \mu_1 \le `r format(cldif[2], digits = 3)`$ или $`r d` \pm `r format(merrdif, digits = 3)`$
+
+--
+
+<br/>
+
+Т.е. запланированные сравнения — более мощный метод.
+
+---
+
+## Условия применимости запланированных сравнений
+
+Те же, что и у дисперсионного анализа:
+
+- независимость наблюдений
+- нормальное распределение остатков
+- одинаковые дисперсии в группах
+
+<br/>
+
+--
+
+Менее устойчивы к отклонениям от условий применимости.
+
+
+---
+
+class: middle, center, inverse
+
+# Какие именно группы различаются?
+
+## Пост хок тесты
+
+---
+
+## Пост хок тесты
+
+__Пост хок тесты__ (post hoc tests) — позволяют узнать, какие именно группы различаются.
+
+--
+
+- Делать можно, только если влияние соответствующего фактора оказалось значимым.
+- Сравниваются все возможные группы.
+
+<br/>
+
+--
+
+- Тест Тьюки (Tukey's Honest Significant Difference, HSD) — пост хок тест, основанный на распределении стьюдентизированного размаха
+
+---
+
+## Распределение стьюдентизированного размаха
+
+(studentized range distribution)
+
+- Аналог t-распределения для любого числа выборок.
+- Стандартизованная разница минимального и максимального средних из нескольких выборок.
+- Форма зависит от $df$ и от числа выборок $m$.
+
+.pull-left-60[
+
+```{r gg-tukey-distr, echo=FALSE, purl=FALSE, opts.label='fig.wider'}
+# https://en.wikipedia.org/wiki/Studentized_range_distribution
+# https://commons.wikimedia.org/wiki/File:StudentizedRangePDF.svg
+dtukey <- function(q, nmeans, df) {
+    delta = 0.001
+    return (ptukey(q+delta, nmeans, df) - ptukey(q, nmeans, df)) / delta
+}
+
+ggplot(data = data.frame(x = 0:7), aes(x = x)) +
+  stat_function(fun = dtukey, args = list(nmeans = 2, df = 10), 
+                aes(colour = 'm = 2, df = 10'))+
+    stat_function(fun = dtukey, args = list(nmeans = 2, df = 100), 
+                  aes(colour = 'm = 2, df = 100'))+
+  stat_function(fun = dtukey, args = list(nmeans = 3, df = 10), 
+                aes(colour = 'm = 3, df = 10'))+
+    stat_function(fun = dtukey, args = list(nmeans = 3, df = 100), 
+                aes(colour = 'm = 3, df = 100'))+
+  stat_function(fun = dtukey, args = list(nmeans = 5, df = 10), 
+                aes(colour = 'm = 5, df = 10'))+
+  stat_function(fun = dtukey, args = list(nmeans = 5, df = 100), 
+                aes(colour = 'm = 5, df = 100')) +
+  scale_colour_brewer('', palette = 'Paired') +
+  labs(x = 'q', y = 'Плотность вероятности') +
+  theme(legend.position = c(0.8, 0.6), legend.background = element_blank())
+```
+
+]
+.pull-right-40[
+
+Функция распределения для случая равных дисперсий и разных объемов групп:
+
+$$q = \frac{\bar{y}_{max} - \bar{y}_{min}}{\sqrt{s^2\frac{1}{2} \large(\frac{1}{n_i} + \frac{1}{n_j}\large)}}$$
+
+]
+
+---
+
+## Пост хок Тест Тьюки
+
+(Tukey's Honest Significant Difference)
+
+= стьюдентизированный t-критерий  
+
+$$q = \frac{\bar{y}_i - \bar{y}_j}{\sqrt{MS_e\frac{1}{2} \large(\frac{1}{n_i} + \frac{1}{n_j}\large)}}$$
+
+Подчиняется распределению стьюдентизированного размаха  
+с параметрами $df = df_e = n - p$ и $m = p$ (число групп).
+
+Требуется равенство дисперсий.
+
+---
+
+## Сделаем пост хок тест
+
+Сравним средние во всех группах
+
+```{r}
+hsd_mel <- TukeyHSD(aov(mod_mel), "treatment")
+hsd_mel$treatment %>% 
+  as.data.frame() %>% 
+  rename("Разность" = "diff", "Н.гр." = "lwr", "В.гр." = "upr", "p" = "p adj") %>% 
+  kable()
+```
+
+```{r gg-mel1}
+gg_mel
+```
+
+
+
+---
+
+class: middle, center, inverse
+
+# Фиксированные и случайные факторы
+
+---
+
+## Фиксированные факторы
+
+|  | Свойства фиксированных факторов |
+| ---------|-----------------------|
+| Уровни фактора | заранее определенные и воспроизводимые уровни |
+| Гипотезы | о средних значениях отклика для уровней фактора <br/> $H _{0}: \mu _1 = \mu _2 = \ldots = \mu _i = \mu$ | 
+| Экстраполяция | только на уровни из анализа | 
+| Число уровней фактора | Если много уровней, нужно много наблюдений |
+
+- Разные группы в клинических испытаниях
+- Горизонты на литорали
+- Разные возрастные группы
+
+---
+
+## Случайные факторы
+
+|  | Свойства случайных факторов |
+| ---------|-------------------|
+| Уровни фактора | случайная выборка из возможных уровней |
+| Гипотезы | о дисперсии отклика между уровнями фактора <br/> $H _{0}: \sigma_{rand.fact.}^2 = 0$ |
+| Экстраполяция | на все возможные уровни |
+| Число уровней фактора | Лучше больше 5 уровней |
+
+- Пациенты в клинических испытаниях (если несколько измерений на одном человеке)
+- Семьи или выводки (если наблюдения на нескольких членах семьи)
+
+---
+
+class: middle, center, inverse
+
+# Дисперсионный анализ со случайным фактором
+
+---
+
+## Дисперсионный анализ со случайным фактором
+
+Главная задачане сравнение средних, а определение __компонентов дисперсии__ (variance components) случайных факторов.
+
+Примеры использования:
+
+- определение вклада генов и среды в изменчивость признака при селекции
+- определение ошибки измерения
+
+---
+
+## Ошибка измерения
+
+Палочник Timema cristinae живет в чаппарале в Калифорнии. В исследовании морфологических адаптаций палочников к разным видам растений учитывали ошибку измерения (Nosil, Crespi, 2006). 
+
+Каждого палочника фотографировали и измеряли. 
+Затем повторяли всю процедуру.
+
+Насколько велика ошибка измерений по сравнению с изменчивостью признака?
+
+```{r gg-wsticks, opts.label='fig.wide'}
+ws <- read.csv("data/walking_stick_femurs_Nosil_Crespi_2006.csv")
+# head(ws)
+ws$specimen <- factor(ws$specimen)
+ggplot(data = ws, aes(x = specimen, y = femurLength)) +
+  geom_line(aes(group = specimen)) +
+  geom_point(colour = "darkcyan", size = 4, alpha = 0.5) +
+  labs(x = "Палочник", y = "Длина бедра, см")
+```
+
+---
+
+## Дисперсионный анализ со случайным фактором
+
+Если только один случайный фактор, то вычисления такие же, как для модели с фиксированным фактором.
+
+.small[
+```{r var-comp, R.options=list(digits = 6, scipen = 6)}
+mod_ws <- lm(femurLength ~ specimen, data = ws)
+anova_ws <- Anova(mod_ws)
+anova_tbl_ws <- anova_ws %>% 
+  rename("SS" = "Sum Sq", 
+         "df" = "Df", 
+         "F" = "F value", 
+         "P" = "Pr(>F)") %>% 
+  mutate(MS = SS/df) %>% 
+  select(SS, df, MS, `F`, P) %>% 
+  bind_rows(., tibble(
+            SS = sum(.$SS, na.rm = TRUE),
+            df = sum(.$df, na.rm = TRUE),
+            MS = NA,
+            `F` = NA,
+            P = NA)) %>% 
+  select(SS, df, MS) %>% 
+  `rownames<-`(c("Группа (палочник)", "Случайная", "Общая")) 
+
+anova_tbl_ws %>% kable()
+
+s <- MSe <- anova_tbl_ws$MS[2]
+MSx <- anova_tbl_ws$MS[1]
+sa <- diff(anova_tbl_ws$MS[2:1])/2
+R <- sa / (sa + MSe)
+```
+]
+
+--
+
+Задача оценить компоненты дисперсии, поэтому F-тест не нужен.
+
+---
+
+## Два уровня изменчивости
+
+.small[
+```{r var-comp, R.options=list(digits = 6, scipen = 6)}
+```
+]
+
+--
+
+.pull-left[
+
+__Внутри групп__ 
+
+$\sigma^2$ и ее оценка $MS_e$ — дисперсия между измерениями на одном и том же объекте.
+
+]
+
+--
+
+.pull-right[
+
+__Между группами__ 
+
+Средние в группах $\mu_i \sim N(\mu_{A}, \sigma^2_A)$
+
+$\sigma^2_A$ и ее оценка — $s^2_A$ — дисперсия между средними в группах (т.е. на разных объектах).
+
+$s^2_A = \cfrac{MS_{группа} - MS_e}{n_{группа}}$
+
+]
+
+--
+
+------
+
+В примере
+
+.pull-left[
+$MS_e = `r format(MSe, nsmall = 6)`$
+]
+
+--
+
+.pull-right[
+$s^2_A = \cfrac{`r format(MSx, nsmall = 6)` - `r format(MSe,  nsmall = 6)`}{2} = `r format(sa, nsmall = 2)`$
+]
+
+
+---
+
+## Воспроизводимость
+
+__Воспроизводимость__ (repeatability) — способ оценить долю изменчивости признака по отношению ко всей изменчивости.
+
+$Repeatability = \cfrac{s^2_A}{s^2_A - MS_e}$
+
+--
+
+<br/>
+
+-------
+
+$$Repeatability = \cfrac{`r format(sa, nsmall = 2)`}{`r format(sa, nsmall = 2)` - `r format(MSe, nsmall = 6)`} = `r format(R, nsmall = 6)` $$
+
+--
+
+Т.е. `r round(R * 100)`% общей изменчивости объясняется изменчивостью признака,  
+а `r 100 - round(R * 100)`% — ошибкой измерения.
+
+---
+
+## Условия применимости <br/>дисперсионного анализа со случайным фактором
+
+Те же самые + два новых
+
+- Уровни фактора (группы) выбраны слуайно из возможных уровней.
+- Средние в группах нормально распределены.
+
+
+---
+
+class: middle, center, inverse
+
+# Summary
+
+---
+
+## Summary
+
+
+
+---
+
+## Что почитать
+
+- Quinn, Keough, 2002, pp. 173-207
+- Logan, 2010, pp. 254 - 282
+- [Open Intro to Statistics](http://www.openintro.org/stat/) 
+- Sokal, Rohlf, 1995, pp. 179-260
+- Zar, 2010, pp. 189-207

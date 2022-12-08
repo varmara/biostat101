@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Дисперсионный анализ</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Дисперсионный анализ
+]
+.subtitle[
+## Основы биостатистики, осень 2022
+]
+.author[
+### Марина Варфоломеева
+]
+
+---
+
+
+
+
+
+
+- Однофакторный дисперсионный анализ
+- Условия применимости дисперсионного анализа
+- Запланированные сравнения
+- Пост хок тесты
+- Фиксированные и случайные факторы
+- Ошибка измерения, воспроизводимость
+
+
+---
+
+## Пример: Мелатонин как регулятор циркадного ритма
+
+После джет-лага режим выравнивается, когда глаза привыкают к ритму освещения на новом месте.
+
+Мелатонин:
+
+- регулятор суточного ритма
+- вырабатывается ночью
+- свет снижает выработку
+
+---
+
+## Проверка сомнительного результата
+
+Одно исследование показало, что продукцию мелатонина можно регулировать, освещая внутреннюю сторону коленей (Campbell, Murphy, 1998). 
+
+Проверка (Wright, Czeisler, 2002):
+
+.pull-left[
+
+3 группы людей (22 чел.) будили ночью и 3 часа
+
+- освещали ярким светом глаза
+- освещали ярким светом колени
+- не освещали ничего (контроль)
+
+По уровню продукции мелатонина регистрировали сдвиг циркадного ритма (в часах).
+
+&lt;br/&gt;
+Влияет ли экспериментальная процедура (группа) на сдвиг циркадного ритма?
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="19-anova_files/figure-html/unnamed-chunk-1-1.png" width="432" /&gt;
+
+]
+
+???
+
+Путешествие в другой часовой пояс может вызывать джет-лаг. Но суточный ритм выравнивается по мере того, как глаза привыкают к ритму освещения на новом месте.
+
+Мелатонин — один из регуляторов суточного ритма. Он вырабатывается эпифизом ночью, а избыток света снижает его выработку.
+
+Когда-то одно исследование показало, что продукцию мелатонина можно регулировать, освещая внутреннюю сторону коленей (Campbell, Murphy, 1998). 
+
+Позже результаты перепроверили (Wright, Czeisler, 2002).
+
+22 человека разделили случайным образом на 3 группы. Их будили ночью, а потом 3 часа
+
+- освещали ярким светом глаза
+- освещали ярким светом обратную сторону коленей
+- не освещали ничего (контроль)
+
+Регистрировали сдвиг циркадного ритма (в часах) по уровню продукции мелатонина.
+
+---
+
+## Дисперсионный анализ
+
+&lt;img src="19-anova_files/figure-html/unnamed-chunk-2-1.png" width="432" /&gt;
+
+__Дисперсионный анализ__ (analysis of variance, ANOVA) — метод одновременной проверки гипотез о равенстве средних значений в нескольких группах.
+
+--
+
+Насколько наблюдения из одной группы более похожи друг на друга, чем из разных групп?
+
+--
+
+- однофакторный (как в примере)
+- многофакторный (деление на группы сразу по нескольким факторам).
+
+---
+
+## Общая изменчивость
+
+&lt;img src="19-anova_files/figure-html/gg-tot-1.png" width="432" /&gt;
+
+Общая изменчивость `\(SS_t\)` --- это сумма квадратов отклонений наблюдаемых значений `\(y_i\)` от общего среднего `\(\bar y\)`
+
+---
+
+## Факторная (межгрупповая) изменчивость
+
+
+&lt;img src="19-anova_files/figure-html/gg-x-1.png" width="432" /&gt;
+
+Отклонения внутригрупповых средних от общего среднего в генеральной совокупности --- это эффект фактора `\(\color{purple}{\alpha_j = \mu_j - \mu}\)`, где `\(j = 1, 2, ..., p\)` --- это одна из `\(p\)` групп. 
+
+Мы оцениваем эффект фактора по реальным данным `\(\color{purple}{\bar{y}_j-\bar{y}}\)`
+
+---
+
+## Остаточная (внутригрупповая) изменчивость
+
+&lt;img src="19-anova_files/figure-html/gg-res-1.png" width="432" /&gt;
+
+Отклонения значений от средних внутри групп (__остатки__) — это изменчивость, которую не может объяснить группировка по фактору. Ещё её называют случайной изменчивостью.
+
+---
+
+## Структура общей изменчивости
+
+`$$SS_t = \color{purple}{SS_x} + \color{green}{SS_e}$$`
+
+
+&lt;img src="19-anova_files/figure-html/gg-ss-1.png" width="864" /&gt;
+
+Общая изменчивость | .purple[Факторная изменчивость] | .green[Остаточная изменчивость]
+---- |----|----
+... | ... | ...
+`\(SS_{t}= \sum\sum{(\bar{y}-y_{ij})^2}\)` | `\(SS_{x}=\sum{n_j(\bar{y}_j-\bar{y})^2}\)` | `\(SS_{e}= \sum\sum{(\bar{y}_{j}-y_{ij})^2}\)`
+`\(df_{t} = n - 1\)` | `\(df_{x} = p - 1\)` |  `\(df_{e} = n - p\)`
+
+---
+
+## От изменчивостей к дисперсиям
+
+
+`$$SS_t = \color{purple}{SS_x} + \color{green}{SS_e} \qquad MS_t \ne \color{purple}{MS_x} + \color{green}{MS_e}$$`
+
+
+&lt;img src="19-anova_files/figure-html/gg-ss-1.png" width="864" /&gt;
+
+| Общая дисперсия | .purple[Факторная дисперсия] | .green[Остаточная дисперсия] |
+| ---- |----|----|
+| `\(MS_{t} = \frac {SS_{t}}{df_{t}}\)` | `\(MS_{x} = \frac {SS_{x}}{df_{x}}\)` | `\(MS_{e} = \frac{SS_{e}}{df_{e}}\)` |
+| `\(SS_{t}= \sum\sum{(\bar{y}-y_{ij})^2}\)` | `\(SS_{x}=\sum{n_j(\bar{y}_j-\bar{y})^2}\)` | `\(SS_{e}= \sum\sum{(\bar{y}_{j}-y_{ij})^2}\)` |
+| `\(df_{t} = n - 1\)` | `\(df_{x} = p - 1\)` |  `\(df_{e} = n - p\)` |
+
+???
+
+Они не зависят от числа наблюдений в выборке, в отличие от `\(SSx\)` и `\(SS_e\)`
+С их помощью можно проверить гипотезу о наличии связи между предиктором и откликом
+
+
+---
+
+## .purple[MSx] и .green[MSe] &lt;br/&gt; помогают тестировать значимость фактора
+
+Если зависимости нет, то `\(\mu_1 = \ldots = \mu_p\)` --- средние равны во всех `\(p\)` группах, и `\(\color{purple}{MS_x} \sim \color{green}{MS_e}\)`
+
+при условии, что
+- дисперсии остатков в группах равны
+- фактор имеет фиксированное число градаций
+
+&lt;br/&gt;
+
+--
+
+- `\(H_0: \mu_1 = \ldots = \mu_p\)` --- средние во всех `\(p\)` группах равны.
+- `\(H_A: \exists\; i, j: \mu_i \ne \mu_j\)` --- __хотя бы одно__ среднее отличается от общего среднего.
+
+--
+
+`$$F_{df_x, df_e} = \frac{\color{purple}{MS_{x}}}{\color{green}{MS_{e}}}$$`
+
+---
+
+## Тестирование значимости фактора при помощи F-критерия
+
+- `\(H_0: \mu_1 = \ldots = \mu_p\)` --- средние во всех `\(p\)` группах равны.
+- `\(H_A: \exists\; i, j: \mu_i \ne \mu_j\)` --- __хотя бы одно__ среднее отличается от общего среднего.
+
+`$$F_{df_x, df_e} = \frac{\color{purple}{MS_{x}}}{\color{green}{MS_{e}}}$$`
+
+В однофакторном дисперсионном анализе `\(df_{x} = p - 1\)` и `\(df_{e} = n - p\)`.
+
+&lt;img src="19-anova_files/figure-html/f-distribution-1.png" width="576" /&gt;
+
+---
+
+## Результаты дисперсионного анализа часто представляют в виде таблицы
+
+Источник изменчивости|SS|df|MS|F
+----- | ----- | ----- | ----- | ----- 
+Фактор | `\(SS_{x}=\sum{n_j(\bar{y}_j-\bar{y})^2}\)` | `\(df _x = p - 1\)` | `\(MS _x = \frac{SS _x}{df _x}\)` | `\(F _{df _x df _e} = \frac{MS _x}{MS _e}\)`
+Случайная | `\(SS_{e}= \sum\sum{(\bar{y}_j-y_{ij})^2}\)` | `\(df _e = n - p\)` | `\(MS _e = \frac{SS _e}{df _e}\)` |
+Общая | `\(SS_{t}= \sum\sum{(\bar{y}-y_{ij})^2}\)` | `\(df _t = n - 1\)` |  
+
+
+Минимальное описание результатов в тексте должно содержать `\(F _{df _x, df _e}\)` и `\(p\)`.
+
+---
+
+## Дисперсионный анализ данных о мелатонине
+
+- `\(H_0: \mu_{контроль} = \mu_{колени} = \mu_{глаза}\)` — средние во всех 3 группах равны.
+- `\(H_A:\)` __хотя бы одно__ среднее отличается от общего среднего.
+
+.pull-left[
+
+.small[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; df &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; MS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; F &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; P &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Группа &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.612 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.004 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Случайная &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.496 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Общая &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+]
+.pull-right[
+
+]
+
+&lt;br/&gt;
+
+--
+
+&lt;img src="19-anova_files/figure-html/f-distribution-obs-1.png" width="576" /&gt;
+
+
+---
+
+## Коэффициент детерминации — мера объясненной изменчивости
+
+`$$SS_t = \color{purple}{SS_x} + \color{green}{SS_e}$$`
+
+- `\(SS_t\)` — общая изменчивость
+- `\(SS_x\)` — объясненная фактором изменчивость
+- `\(SS_e\)` — остаточная изменчивость
+
+Как оценить, какую долю от всей изменчивости зависимой переменной объясняет фактор?
+
+&lt;br/&gt;
+
+--
+
+__Коэффициент детерминации__:
+
+`$$R^2 = \frac{\color{purple}{SS_{x}}}{SS_{t}}$$`
+
+`\(0 &lt; R^2 &lt; 1\)`
+
+Можно записать в долях или процентах.
+
+&lt;br/&gt;
+
+---
+
+## Какую долю изменчивости объясняет фактор в примере про мелатонин?
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; df &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; MS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; F &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; P &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Группа &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.612 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.004 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Случайная &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.496 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Общая &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+`\(R^2 =  \cfrac{7.224}{16.64} = 0.434\)`
+
+или `\(R^2 = 43.4\)` %
+
+---
+
+class: middle, center, inverse
+
+# Условия применимости &lt;br/&gt;однофакторного дисперсионного анализа
+
+---
+
+## Условия применимости &lt;br/&gt;однофакторного дисперсионного анализа
+
+
+F-тесту можно верить, если выполняются условия применимости:
+
+- Случайность и независимость наблюдений внутри групп
+- Нормальное распределение .green[остатков]
+- Равенство дисперсий .green[остатков] в группах по фактору
+
+
+---
+
+## Проверка нормальности распределения остатков
+
+Квантильный график остатков
+
+&lt;img src="19-anova_files/figure-html/plot_qq-1.png" width="576" /&gt;
+
+Знакомый график
+
+--
+
+- Точки должны лежать на одной прямой, если квантили наблюдаемого распределения остатков соответствуют квантилям теоретического распределения.
+
+---
+
+## Проверка равенства дисперсий остатков в группах
+
+- остатки в группах по фактору
+- остатки в зависимости от предсказанных значений
+
+&lt;img src="19-anova_files/figure-html/plot-residuals-1.png" width="864" /&gt;
+
+--
+
+- Разброс остатков должен быть одинаков
+  - в группах
+  - вне зависимости от предсказанных значений
+
+---
+
+## Устойчивость дисперсионного анализа
+
+__Устойчивость__ (robustness) — свойство статистического метода, описывающее устойчивость его результатов при нарушении условий применимости.
+
+&lt;br/&gt;
+
+--
+
+Дисперсионный анализ устойчив к отклонениям от условий применимости, если
+
+- размеры групп примерно одинаковы
+- равные объемы групп
+- большие выборки
+
+--
+
+Более устойчив к отклонениям от нормальности распределения остатков
+
+Менее устойчив к неравенству дисперсий
+
+---
+
+## Если условия применимости нарушены
+
+- Трансформация данных
+- Обобщенная линейная модель (например, для счетных данных или долей)
+- Непараметрический тест Краскала-Уоллиса (Kruskal-Wallis test)
+- Тест, основанный на пермутациях
+
+
+---
+
+class: middle, center, inverse
+
+# Какие именно группы различаются?
+
+## Запланированные сравнения
+
+---
+
+## Как понять, какие именно группы различаются?
+
+Дисперсионный анализ говорит только, есть ли влияние фактора.
+
+---
+
+## Два способа понять, какие группы различаются
+
+--
+
+.pull-left[
+
+.center[__Запланированные сравнения__  
+(= planned comparisons,  
+= linear contrasts)]
+
+- Можно сравнить выбранные группы.
+- Набор гипотез (и сравнений) должен быть определен заранее.
+- Делать можно вне зависимости от результатов дисперсионного анализа.
+
+]
+
+--
+
+.pull-right[
+.center[__Post hoc__ тесты]
+
+&lt;br/&gt;&lt;br/&gt;
+
+- Сравниваются все возможные группы.
+- Нет четких заранее сформулированных гипотез.
+- Делать можно, только если влияние соответствующего фактора оказалось значимым.
+
+]
+
+---
+
+## Запланированные сравнения средних
+
+`\(d = \bar Y_2 - \bar Y_1\)` — разница средних значений в двух группах
+
+--
+
+Стандартная ошибка этой разницы:
+
+`$$SE_{d} = \sqrt{MS_e\Big(\cfrac{1}{n_1} + \cfrac{1}{n_2} \Big)}$$`
+
+--
+
+Доверительный интервал для этой разницы будет накрывать истинное значение `\(\mu_2 - \mu_1\)` в заданном проценте повторных выборок:
+
+`\(d - |t_{\alpha, df}| \cdot SE_{d} \le \mu_2 - \mu_1 \le d + |t_{\alpha, df}| \cdot SE_{d}\)`
+
+`\(df = N - p\)`
+
+---
+
+## Сравним контроль и опыт
+
+Сравним время сдвига циркадного ритма в группе, где освещали колени, и в контроле.
+
+.pull-left[
+
+
+`\(d = \bar Y_2 - \bar Y_1 = -0.336 - (-0.309) = -0.027\)`
+
+`\(MS_e = 0.496\)`
+
+`\(SE_{d} = \sqrt{0.496\Big(\cfrac{1}{8} + \cfrac{1}{7} \Big)} = 0.364\)`
+
+`\(df = 22 - 3 = 19\)`
+
+`\(|t_{0.05, 19}| = 2.093\)`
+
+]
+.pull-right[
+&lt;img src="19-anova_files/figure-html/gg-mel0-1.png" width="432" /&gt;
+]
+
+
+--
+
+Доверительный интервал :
+
+`\(-0.027 - 2.093 \cdot 0.364 \le \mu_2 - \mu_1 \le -0.027 + 2.093 \cdot 0.364\)`
+
+`\(-0.79 \le \mu_2 - \mu_1 \le 0.736\)` или `\(-0.027 \pm 0.763\)`
+
+--
+
+Он включает 0, значит нет статистически-значимой разницы времени сдвига циркадного ритма в контроле и в группе людей, которым освещали колени.
+
+---
+
+## Чем это отличается от обычного доверительного интервала?
+
+Запланированные сравнения дают доверительный интервал:
+
+`\(-0.79 \le \mu_2 - \mu_1 \le 0.736\)` или `\(-0.027 \pm 0.763\)`
+
+--
+
+Обычный доверительный интервал к разнице средних был бы шире:
+
+
+
+`\(-0.813 \le \mu_2 - \mu_1 \le 0.759\)` или `\(-0.027 \pm 0.786\)`
+
+--
+
+&lt;br/&gt;
+
+Т.е. запланированные сравнения — более мощный метод.
+
+---
+
+## Условия применимости запланированных сравнений
+
+Те же, что и у дисперсионного анализа:
+
+- независимость наблюдений
+- нормальное распределение остатков
+- одинаковые дисперсии в группах
+
+&lt;br/&gt;
+
+--
+
+Менее устойчивы к отклонениям от условий применимости.
+
+
+---
+
+class: middle, center, inverse
+
+# Какие именно группы различаются?
+
+## Пост хок тесты
+
+---
+
+## Пост хок тесты
+
+__Пост хок тесты__ (post hoc tests) — позволяют узнать, какие именно группы различаются.
+
+--
+
+- Делать можно, только если влияние соответствующего фактора оказалось значимым.
+- Сравниваются все возможные группы.
+
+&lt;br/&gt;
+
+--
+
+- Тест Тьюки (Tukey's Honest Significant Difference, HSD) — пост хок тест, основанный на распределении стьюдентизированного размаха
+
+---
+
+## Распределение стьюдентизированного размаха
+
+(studentized range distribution)
+
+- Аналог t-распределения для любого числа выборок.
+- Стандартизованная разница минимального и максимального средних из нескольких выборок.
+- Форма зависит от `\(df\)` и от числа выборок `\(m\)`.
+
+.pull-left-60[
+
+&lt;img src="19-anova_files/figure-html/gg-tukey-distr-1.png" width="576" /&gt;
+
+]
+.pull-right-40[
+
+Функция распределения для случая равных дисперсий и разных объемов групп:
+
+`$$q = \frac{\bar{y}_{max} - \bar{y}_{min}}{\sqrt{s^2\frac{1}{2} \large(\frac{1}{n_i} + \frac{1}{n_j}\large)}}$$`
+
+]
+
+---
+
+## Пост хок Тест Тьюки
+
+(Tukey's Honest Significant Difference)
+
+= стьюдентизированный t-критерий  
+
+`$$q = \frac{\bar{y}_i - \bar{y}_j}{\sqrt{MS_e\frac{1}{2} \large(\frac{1}{n_i} + \frac{1}{n_j}\large)}}$$`
+
+Подчиняется распределению стьюдентизированного размаха  
+с параметрами `\(df = df_e = n - p\)` и `\(m = p\)` (число групп).
+
+Требуется равенство дисперсий.
+
+---
+
+## Сделаем пост хок тест
+
+Сравним средние во всех группах
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Разность &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Н.гр. &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; В.гр. &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; колени-контроль &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.027 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.953 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.899 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.997 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; глаза-контроль &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.243 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.168 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.317 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.008 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; глаза-колени &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.216 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.172 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.260 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.012 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;img src="19-anova_files/figure-html/gg-mel1-1.png" width="432" /&gt;
+
+
+
+---
+
+class: middle, center, inverse
+
+# Фиксированные и случайные факторы
+
+---
+
+## Фиксированные факторы
+
+|  | Свойства фиксированных факторов |
+| ---------|-----------------------|
+| Уровни фактора | заранее определенные и воспроизводимые уровни |
+| Гипотезы | о средних значениях отклика для уровней фактора &lt;br/&gt; `\(H _{0}: \mu _1 = \mu _2 = \ldots = \mu _i = \mu\)` | 
+| Экстраполяция | только на уровни из анализа | 
+| Число уровней фактора | Если много уровней, нужно много наблюдений |
+
+- Разные группы в клинических испытаниях
+- Горизонты на литорали
+- Разные возрастные группы
+
+---
+
+## Случайные факторы
+
+|  | Свойства случайных факторов |
+| ---------|-------------------|
+| Уровни фактора | случайная выборка из возможных уровней |
+| Гипотезы | о дисперсии отклика между уровнями фактора &lt;br/&gt; `\(H _{0}: \sigma_{rand.fact.}^2 = 0\)` |
+| Экстраполяция | на все возможные уровни |
+| Число уровней фактора | Лучше больше 5 уровней |
+
+- Пациенты в клинических испытаниях (если несколько измерений на одном человеке)
+- Семьи или выводки (если наблюдения на нескольких членах семьи)
+
+---
+
+class: middle, center, inverse
+
+# Дисперсионный анализ со случайным фактором
+
+---
+
+## Дисперсионный анализ со случайным фактором
+
+Главная задачане сравнение средних, а определение __компонентов дисперсии__ (variance components) случайных факторов.
+
+Примеры использования:
+
+- определение вклада генов и среды в изменчивость признака при селекции
+- определение ошибки измерения
+
+---
+
+## Ошибка измерения
+
+Палочник Timema cristinae живет в чаппарале в Калифорнии. В исследовании морфологических адаптаций палочников к разным видам растений учитывали ошибку измерения (Nosil, Crespi, 2006). 
+
+Каждого палочника фотографировали и измеряли. 
+Затем повторяли всю процедуру.
+
+Насколько велика ошибка измерений по сравнению с изменчивостью признака?
+
+&lt;img src="19-anova_files/figure-html/gg-wsticks-1.png" width="864" /&gt;
+
+---
+
+## Дисперсионный анализ со случайным фактором
+
+Если только один случайный фактор, то вычисления такие же, как для модели с фиксированным фактором.
+
+.small[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; df &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; MS &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Группа (палочник) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.059132 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.002464 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Случайная &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.008900 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000356 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Общая &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.068032 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+--
+
+Задача оценить компоненты дисперсии, поэтому F-тест не нужен.
+
+---
+
+## Два уровня изменчивости
+
+.small[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; SS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; df &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; MS &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Группа (палочник) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.059132 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.002464 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Случайная &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.008900 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000356 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Общая &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.068032 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+--
+
+.pull-left[
+
+__Внутри групп__ 
+
+`\(\sigma^2\)` и ее оценка `\(MS_e\)` — дисперсия между измерениями на одном и том же объекте.
+
+]
+
+--
+
+.pull-right[
+
+__Между группами__ 
+
+Средние в группах `\(\mu_i \sim N(\mu_{A}, \sigma^2_A)\)`
+
+`\(\sigma^2_A\)` и ее оценка — `\(s^2_A\)` — дисперсия между средними в группах (т.е. на разных объектах).
+
+`\(s^2_A = \cfrac{MS_{группа} - MS_e}{n_{группа}}\)`
+
+]
+
+--
+
+------
+
+В примере
+
+.pull-left[
+`\(MS_e = 0.000356\)`
+]
+
+--
+
+.pull-right[
+`\(s^2_A = \cfrac{0.002464 - 0.000356}{2} = 0.00105\)`
+]
+
+
+---
+
+## Воспроизводимость
+
+__Воспроизводимость__ (repeatability) — способ оценить долю изменчивости признака по отношению ко всей изменчивости.
+
+`\(Repeatability = \cfrac{s^2_A}{s^2_A - MS_e}\)`
+
+--
+
+&lt;br/&gt;
+
+-------
+
+$$Repeatability = \cfrac{0.00105}{0.00105 - 0.000356} = 0.747503 $$
+
+--
+
+Т.е. 75% общей изменчивости объясняется изменчивостью признака,  
+а 25% — ошибкой измерения.
+
+---
+
+## Условия применимости &lt;br/&gt;дисперсионного анализа со случайным фактором
+
+Те же самые + два новых
+
+- Уровни фактора (группы) выбраны слуайно из возможных уровней.
+- Средние в группах нормально распределены.
+
+
+---
+
+class: middle, center, inverse
+
+# Summary
+
+---
+
+## Summary
+
+
+
+---
+
+## Что почитать
+
+- Quinn, Keough, 2002, pp. 173-207
+- Logan, 2010, pp. 254 - 282
+- [Open Intro to Statistics](http://www.openintro.org/stat/) 
+- Sokal, Rohlf, 1995, pp. 179-260
+- Zar, 2010, pp. 189-207
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
