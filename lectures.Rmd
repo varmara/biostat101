@@ -104,7 +104,7 @@ output:
 
 ## 21-22. Корреляция и регрессия
 
-<!-- - Презентация [21-correlation-and-regression.html](21-correlation-and-regression.html) -->
+- Презентация [21-correlation-and-regression.html](21-correlation-and-regression.html)
 - Код [22-correlation-and-regression-in-r.R](22-correlation-and-regression-in-r.R)
 - Данные:
   - [lions_Whitman_etal_2004.csv](data/lions_Whitman_etal_2004.csv)

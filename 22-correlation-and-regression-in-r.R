@@ -42,7 +42,7 @@ cor(x = lion$proportionBlack, y = lion$ageInYears)
 cor.test(x = lion$proportionBlack, y = lion$ageInYears)
 
 # Корреляция Спирмена - здесь нет необходимости. Только для примера.
-cor.test(x = lion$proportionBlack, y = lion$ageInYears)
+cor.test(x = lion$proportionBlack, y = lion$ageInYears, method = "spearman")
 
 
 ## Линейная регрессия ##############################################
@@ -97,8 +97,8 @@ smr_lion$r.squared
 # 3. Нормальное распределение остатков
 # 4. Равенство дисперсий остатков
 
-residualPlots(mod_mel)
-qqPlot(mod_mel, id = FALSE)
+residualPlots(lion_lm)
+qqPlot(lion_lm, id = FALSE)
 
 
 
