@@ -16,6 +16,7 @@ knitr::opts_template$set(
   fig.wider.taller = list(fig.width = 8, fig.height = 6),
   fig.wider = list(fig.width = 8, fig.height = 4.4),
   fig.column = list(fig.width = 6.5, fig.height = 5),
+  fig.column3 = list(fig.width = 4.5, fig.height = 5),
   fig.medium.tall = list(fig.width = 6, fig.height = 8),
   fig.medium.taller = list(fig.width = 6, fig.height = 6),
   fig.medium = list(fig.width = 6, fig.height = 4.4),
@@ -65,4 +66,5 @@ library("showtext")
 library("ggplot2")
 # th <- theme_xaringan(background_color = "#FFFFFF", title_font_size = 22, text_font_size = 22)
 # Для теоретических презентаций
-theme_set(theme_bw(base_size = 22))
+theme_set(theme_bw(base_size = 22) + theme(plot.title = element_text(size = 18)))
+update_geom_defaults("point", list(size = 3))

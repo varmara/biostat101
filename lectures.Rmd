@@ -105,7 +105,12 @@ output:
 ## 21-22. Корреляция и регрессия
 
 <!-- - Презентация [21-correlation-and-regression.html](21-correlation-and-regression.html) -->
-<!-- - Код [22-correlation-and-regression-in-r.R](22-correlation-and-regression-in-r.R) -->
+- Код [22-correlation-and-regression-in-r.R](22-correlation-and-regression-in-r.R)
+- Данные:
+  - [lions_Whitman_etal_2004.csv](data/lions_Whitman_etal_2004.csv)
+  - [wolves_inbreeding_Liberg_etal_2005.csv](data/wolves_inbreeding_Liberg_etal_2005.csv)
+  - [iris_pollen_Pauw_etal_2009.csv](data/iris_pollen_Pauw_etal_2009.csv)
+  - [beetle_horns_Emlen_2001.csv](data/beetle_horns_Emlen_2001.csv)
 
 ## 23-24. Ограничения статистических методов. Непараметрические методы
 
