@@ -1,33 +1,171 @@
----
-title: Борьба с ограничениями статистических методов  и непараметрические методы в R
-subtitle: "Основы биостатистики, осень 2022"
-author: 
-  - Марина Варфоломеева
-company: 'Каф. Зоологии беспозвоночных, СПбГУ'
-output:
-  xaringan::moon_reader:
-    self-contained: true
-    lib_dir: libs
-    css: [ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css"]
-    df_print: default
-    nature:
-      highlightStyle: googlecode
-      highlightLines: true
-      countIncrementalSlides: false
-      titleSlideClass: [middle, left, inverse]
-      beforeInit: "assets/macros.js"
-    includes:
-      in_header: "assets/xaringan_in_header.html"
-      after_body: "assets/xaringan_after_body.html"
----
+# ---
+# title: "Ограничения статистических методов. Непараметрические методы."
+# subtitle: "Основы биостатистики, осень 2022"
 
-```{r setup, include = FALSE, cache = FALSE, purl = FALSE, fig.showtext = TRUE}
-source("assets/setup.R")
-```
+library(ggplot2)
+library(car)
 
-## 14. (П) Борьба с отклонениями от условий применимости
+## Трансформация данных ##########################
 
-- [ ] Трансформация данных в R
-- [ ] Проверка на нормальность в R
-- [ ] Непараметрические методы в R
-- [ ] Бутстреп в R
+## Пример: морские заповедники ===================
+# Эффективны ли морские заповедники для сохранения 
+# природы (Halpern, 2003)?
+# 32 пары заповедник—контрольная точка 
+# (до заповедника или рядом с ним)
+# Показатель успеха защиты - отношение биомассы 
+# в заповеднике и на неохраняемой акватории.
+
+MR <- read.csv("data/marine_reserve_Halpern_2003.csv", stringsAsFactors = FALSE)
+head(MR)
+str(MR)
+sum(is.na(MR))
+
+# Проверяем условия для одновыборочного t-теста
+hist(MR$biomassRatio)
+qqPlot(MR$biomassRatio, id = F)
+
+# Попробуем логарифмировать
+MR$biomassRatio_log <- log(MR$biomassRatio)
+hist(MR$biomassRatio_log)
+qqPlot(MR$biomassRatio_log, id = F)
+
+# Задание 1 -------------------------------------
+# (1) Используйте одновыборочный t-тест, чтобы проверить, 
+# отличается ли средний логарифм отношения биомасс от нуля
+# (2) Рассчитайте доверительный интервал для среднего логарифма 
+# и трансформируйте его в масштаб исходных данных. 
+# Как меняется интерпретация доверительного интервала 
+# после логарифмирования?
+
+## Непараметрические методы ######################
+
+# Тест знаков ####################################
+
+## Пример: половой конфликт и происхождение видов
+
+# Половой конфликт более выражен у видов, 
+# чьи самки спариваются больше одного раза. 
+# Значит ли это, что у них быстрее видообразование 
+# (Arnqvist et al., 2000)?
+# 25 пар групп насекомых со множественным и однократным спариванием.
+# Где больше видов?
+  
+SC <- read.csv("data/sexual_conflict_Arnqvist_etal_2000.csv", stringsAsFactors = FALSE)
+head(SC)
+str(SC)
+sum(is.na(SC))
+
+# Задание 2 --------------------------------------
+# (1) Проверьте условия применимости одновыборочного t-теста
+# (2) Посчитайте количество пар таксонов, в которых виды 
+# со множественным спариванием самок преобладают.
+# (3) Проведите тест знаков. То есть при помощи 
+# биномиального теста проверьте гипотезу о том, 
+# что доля таксонов, в которых преобладают виды 
+# со множественным спариванием не отличается 
+# от доли таксонов, где преобладают виды 
+# с однократным спариванием самок.
+
+
+
+## Тест U Манна-Уитни #############################
+
+## Пример: канибализм у сверчков ================
+# У сверчков Cyphoderris strepitans  
+# во время спаривания самец предлагает самке 
+# съесть свои мясистые крылья.
+# Зависит ли вероятность спаривания от того, 
+# голодные ли самки (Johnson, 1999)?
+# Свежих самцов предлагали голодным и сытым самкам.
+# Регистрировали время до начала спаривания.
+
+MT <- read.csv("data/mating_time_Chadwick_etal_1999.csv", stringsAsFactors = FALSE)
+head(MT)
+str(MT)
+sum(is.na(MT))
+
+# Задание 3--------------------------------------
+# (1) Проверьте условия применимости двухвыборочного t-теста
+# (2) Постройте боксплот времени до начала спаривания 
+# для голодных и сытых самок
+# (3) Вычислите медианное время до начала спаривания 
+# в этих группах
+
+
+# Тест Манна-Уитни = Тест суммы рангов Вилкоксона
+wilcox.test(timeToMating ~ feedingStatus, data = MT)
+
+
+## Пермутационный тест разницы средних ############
+
+# График со средними и 95% доверительными интервалами
+ggplot(data = MT, aes(x = feedingStatus, y = timeToMating)) +
+  stat_summary(fun.data = mean_cl_boot, aes(colour = feedingStatus))+
+  scale_colour_brewer(palette = "Set1", labels = c("Сытые", "Голодные"), direction = -1) +
+  scale_x_discrete(labels = c("Сытые", "Голодные")) +
+  labs(x = "Аппетит", y = "Время до спаривания, ч.", colour = "Аппетит")
+
+
+# Среднее время до спаривания у голодных и сытых
+means <- tapply(X = MT$timeToMating, 
+                INDEX = MT$feedingStatus, 
+                FUN = mean, na.rm = TRUE)
+means
+# Разница средних
+initial_d <- diff(means)
+initial_d
+
+# Функция, которая считает нужную статистику 
+# (разницу средних) по пермутированным данным
+permute_diff <- function(value, group){
+  # Простейшие проверки
+  if(any(is.na(value)) | any(is.na(group))) stop("No NAs are allowed in value and group")
+  if(length(value) != length(group)) stop("Lengths of value and group should be equal")
+  if(length(unique(group)) != 2) stop("group must have two levels")
+  # Пермутируем индексы наблюдений в случайном порядке
+  i <- sample(length(value))
+  # Считаем разницу средних по пермутированным данным
+  d <- diff(tapply(X = value, INDEX = group[i], FUN = mean))
+  return(d)
+}
+
+# Проверяем, работает ли функция
+permute_diff(MT$timeToMating, MT$feedingStatus)
+
+# Можно сделать сразу несколько пермутаций
+replicate(n = 5, permute_diff(MT$timeToMating, MT$feedingStatus))
+
+# Подготовка закончена
+# Теперь собственно пермутационный тест
+# Повторяем заданное число раз
+n_perm <- 10000 # число пермутаций
+set.seed(930846)
+perm_d <- replicate(n = n_perm, 
+                    expr = permute_diff(value = MT$timeToMating, 
+                                        group = MT$feedingStatus))
+# Добавляем в вектор результатов исходное значение
+perm_result <- c(perm_d, initial_d)
+
+# Гистограмма распределения тестовой статистики
+hist(perm_result, right = FALSE)
+points(initial_d, 0, col = "red", pch = 17, cex = 2)
+
+# Доля от общего числа пермутаций
+fraction_perm <- sum(as.numeric(perm_result <= initial_d)) / n_perm
+
+# P-value
+2 * fraction_perm
+
+# Задание 4, пермутируем львиные носы -------------
+# Определение возраста львов на расстоянии важно, 
+# чтобы решить, на кого можно охотиться. 
+# Есть ли связь между степенью пигментации 
+# львиного носа и возрастом льва? 
+# (данные Whitman et al., 2004)
+lion <- read.csv("data/lions_Whitman_etal_2004.csv", stringsAsFactors = FALSE)
+head(lion)
+# (1) Протестируйте значимость корреляции Пирсона 
+# между пропорцией черного на носу и возрастом льва 
+# при помощи пермутационного теста.
+
+

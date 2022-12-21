@@ -56,17 +56,6 @@ library(scales)
 - Простая линейная регрессия
 - Условия применимости линейной регрессии
 
-```{r}
-# Correlation (pos), 
-# "lions_Whitman_etal_2004.csv"
-# Correlation (neg)
-# "wolves_inbreeding_Liberg_etal_2005.csv"
-# Regression (good)
-# "lions_Whitman_etal_2004.csv"
-# Regression (violation of assumptions)
-# "iris_pollen_Pauw_etal_2009.csv"
-```
-
 ---
 
 class: middle, center, inverse

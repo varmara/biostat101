@@ -115,4 +115,10 @@ output:
 ## 23-24. Ограничения статистических методов. Непараметрические методы
 
 <!-- - Презентация [23-assumptions-and-nonparametrics.html](23-assumptions-and-nonparametrics.html) -->
-<!-- - Код [24-assumptions-and-nonparametrics-in-r.R](24-assumptions-and-nonparametrics-in-r.R) -->
+- Код [24-assumptions-and-nonparametrics-in-r.R](24-assumptions-and-nonparametrics-in-r.R)
+- Данные:
+  - [marine_reserve_Halpern_2003.csv](data/marine_reserve_Halpern_2003.csv)
+  - [sexual_conflict_Arnqvist_etal_2000.csv](data/sexual_conflict_Arnqvist_etal_2000.csv)
+  - [mating_time_Chadwick_etal_1999.csv](data/mating_time_Chadwick_etal_1999.csv)
+  - с прошлого занятия [lions_Whitman_etal_2004.csv](data/lions_Whitman_etal_2004.csv)
+
