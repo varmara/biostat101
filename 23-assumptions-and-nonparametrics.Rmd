@@ -1126,7 +1126,7 @@ MTsort %>% kbl(col.names = c("Аппетит", "Время до спариван
 
 <br/>
 
-Разница $y_{голодные}  - y_{сытые}  = `r format(initial_d, digits = 2, nsmall = 2)`$
+Разница $\bar y_{голодные}  - \bar y_{сытые}  = `r format(initial_d, digits = 2, nsmall = 2)`$
 ]
 
 ---
@@ -1154,7 +1154,7 @@ MTsort_p %>% kbl(col.names = c("Аппетит", "Время до спарива
 
 <br/>
 
-Разница $y_{голодные_1}  - y_{сытые_1}  = `r format(d_perm, digits = 2, nsmall = 2)`$
+Разница $\bar y_{голодные_1}  - \bar y_{сытые_1}  = `r format(d_perm, digits = 2, nsmall = 2)`$
 ]
 
 ---
