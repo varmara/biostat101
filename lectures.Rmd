@@ -14,6 +14,11 @@ output:
     self_contained: no
 ---
 
+<span style="color: red; font-size:20pt">
+Это архивная версия курса. Последний раз этот курс был прочитан осенью 2022г.</span>
+
+---
+
 ## 1. Биостатистика, обзор
 
 - Презентация [01-overview.html](01-overview.html)

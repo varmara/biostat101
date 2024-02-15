@@ -14,6 +14,11 @@ output:
     self_contained: no
 ---
 
+<span style="color: red; font-size:20pt">
+Это архивная версия курса. Последний раз этот курс был прочитан осенью 2022г.</span>
+
+---
+
 ## Программы для работы
 
 1. С сайта Comprehensive R Archive Network [cran.r-project.org](https://cran.r-project.org/) нужно скачать
